@@ -56,12 +56,8 @@ function HomePage() {
                 img={img}
               />)}
         </Carousel>
-        <LeftOutlined
-          onClick={() => ref.current.prev()}
-          className={styles.preSlide} />
-        <RightOutlined
-          onClick={() => ref.current.next()}
-          className={styles.nextSlide} />
+        <LeftOutlined className={styles.preSlide} />
+        <RightOutlined className={styles.nextSlide} />
       </div>
       <Footer />
     </div>

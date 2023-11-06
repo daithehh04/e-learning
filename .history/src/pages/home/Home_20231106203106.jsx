@@ -35,7 +35,7 @@ function HomePage() {
   return (
     <div className='home'>
       <Header />
-      <div className={styles.slides}>
+      <div className='silde'>
         <Carousel
           className={clsx(styles.carouselSlice)}
           autoplay
@@ -43,7 +43,6 @@ function HomePage() {
           pauseOnDotsHover
           pauseOnHover
           draggable
-          ref={ref}
           autoplaySpeed={3500}
           style={{ backgroundColor: "#bed4c9", borderRadius: 12, marginLeft: 12, marginRight: 12 }}
         >
@@ -56,12 +55,8 @@ function HomePage() {
                 img={img}
               />)}
         </Carousel>
-        <LeftOutlined
-          onClick={() => ref.current.prev()}
-          className={styles.preSlide} />
-        <RightOutlined
-          onClick={() => ref.current.next()}
-          className={styles.nextSlide} />
+        <LeftOutlined />
+        <RightOutlined />
       </div>
       <Footer />
     </div>

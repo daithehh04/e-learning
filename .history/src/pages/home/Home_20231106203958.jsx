@@ -43,7 +43,6 @@ function HomePage() {
           pauseOnDotsHover
           pauseOnHover
           draggable
-          ref={ref}
           autoplaySpeed={3500}
           style={{ backgroundColor: "#bed4c9", borderRadius: 12, marginLeft: 12, marginRight: 12 }}
         >
@@ -56,12 +55,8 @@ function HomePage() {
                 img={img}
               />)}
         </Carousel>
-        <LeftOutlined
-          onClick={() => ref.current.prev()}
-          className={styles.preSlide} />
-        <RightOutlined
-          onClick={() => ref.current.next()}
-          className={styles.nextSlide} />
+        <LeftOutlined className={styles.preSlide} />
+        <RightOutlined className={styles.nextSlide} />
       </div>
       <Footer />
     </div>

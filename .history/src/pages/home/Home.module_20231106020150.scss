@@ -1,0 +1,14 @@
+.carouselSlice {
+     .slick-dots li {
+          width: 24px;
+          height: 6px;
+          border-radius: 100%;
+     }
+
+     .slick-dots li.slick-active {
+          width: 30px;
+          height: 7px;
+          border-radius: 100%;
+          background: red;
+     }
+}

@@ -35,34 +35,25 @@ function HomePage() {
   return (
     <div className='home'>
       <Header />
-      <div className={styles.slides}>
-        <Carousel
-          className={clsx(styles.carouselSlice)}
-          autoplay
-          dots
-          pauseOnDotsHover
-          pauseOnHover
-          draggable
-          ref={ref}
-          autoplaySpeed={3500}
-          style={{ backgroundColor: "#bed4c9", borderRadius: 12, marginLeft: 12, marginRight: 12 }}
-        >
-          {slides.length > 0 &&
-            slides?.map(({ title, desc, img }, index) =>
-              <Slide
-                key={index}
-                title={title}
-                desc={desc}
-                img={img}
-              />)}
-        </Carousel>
-        <LeftOutlined
-          onClick={() => ref.current.prev()}
-          className={styles.preSlide} />
-        <RightOutlined
-          onClick={() => ref.current.next()}
-          className={styles.nextSlide} />
-      </div>
+      <Carousel
+        className={clsx(styles.carouselSlice)}
+        autoplay
+        dots
+        pauseOnDotsHover
+        pauseOnHover
+        draggable
+        autoplaySpeed={3500}
+        style={{ backgroundColor: "#bed4c9", borderRadius: 12, marginLeft: 12, marginRight: 12 }}
+      >
+        {slides.length > 0 &&
+          slides?.map(({ title, desc, img }, index) =>
+            <Slide
+              key={index}
+              title={title}
+              desc={desc}
+              img={img}
+            />)}
+      </Carousel>
       <Footer />
     </div>
   )

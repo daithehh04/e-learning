@@ -1,0 +1,86 @@
+@mixin responsive($breakpoint) {
+     @if $breakpoint==xs {
+          @media (max-width: 575.98px) {
+               @content;
+          }
+     }
+
+     @if $breakpoint==sm {
+          @media (min-width: 576px) and (max-width: 767.98px) {
+               @content;
+          }
+     }
+
+     @if $breakpoint==md {
+          @media (min-width: 768px) and (max-width: 991.98px) {
+               @content;
+          }
+     }
+
+     @if $breakpoint==lg {
+          @media (min-width: 992px) and (max-width: 1199.98px) {
+               @content;
+          }
+     }
+
+     @if $breakpoint==xl {
+          @media (min-width: 1200px) {
+               @content;
+          }
+     }
+}
+
+.courseItems {
+     flex: 1 0 calc(100% / 3 - 30px);
+     padding: 24px;
+     background-color: #fff;
+     border-radius: 12px;
+
+     &:hover {
+          .imgWrap {
+               scale: 1.2;
+          }
+     }
+
+     .imgWrap {
+          position: relative;
+          overflow: hidden;
+
+          img {
+               max-width: 100%;
+          }
+
+          .overlay {
+               position: absolute;
+               inset: 0;
+               background-color: #3333337c;
+               display: flex;
+               align-items: center;
+               justify-content: center;
+
+               .btnAdd {
+                    min-width: 150px;
+                    border-radius: 999px;
+                    padding: 10px;
+                    background-color: #ff661b;
+               }
+          }
+     }
+
+
+     @include responsive(xs) {
+          flex: 1 0 calc(100% / 3 - 30px);
+     }
+
+     @include responsive(sm) {
+          flex: 1 0 calc(100% / 2 - 30px);
+     }
+
+     @include responsive(md) {
+          flex: 1 0 calc(100% / 3 - 30px);
+     }
+
+     @include responsive(lg) {
+          flex: 1 0 calc(100% / 3 - 30px);
+     }
+}

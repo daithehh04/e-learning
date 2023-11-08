@@ -1,0 +1,39 @@
+.learnCources {
+     padding: 100px 135px;
+
+     .headingLv2 {
+          text-align: center;
+          font-size: 3.0rem;
+          font-weight: 600;
+
+     }
+
+     .desc {
+          text-align: center;
+          margin-top: 18px;
+          font-size: 18px;
+     }
+
+     .listCourses {
+          max-width: 1170px;
+          margin: 70px auto 40px auto;
+          display: flex;
+          flex-wrap: wrap;
+          gap: 30px;
+     }
+
+     .btnAllCources {
+          display: block;
+          min-width: 150px;
+          padding: 15px 35px;
+          border-radius: 8px;
+          background: #B5ED3D;
+          margin: 55px auto;
+          cursor: pointer;
+     }
+
+     .btnAllCources.hidden {
+          background-color: rgb(170, 33, 33);
+          color: #fff;
+     }
+}

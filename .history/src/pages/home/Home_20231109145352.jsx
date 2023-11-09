@@ -11,7 +11,6 @@ import Footer from "../../layout/Footer/Footer"
 import Slide from '../../components/Slide/Slide'
 import Marquee from "../../components/Marquee/Marquee"
 import Courses from '../../components/Courses/Courses';
-import Feature from '../../components/Feature/Feature';
 
 
 const slides = [
@@ -67,7 +66,7 @@ function HomePage() {
             className={clsx(styles.nextSlide)} />
         </section>
         <Courses />
-        <Feature />
+
       </main>
       <Footer />
     </div>

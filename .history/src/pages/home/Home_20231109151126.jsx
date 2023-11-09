@@ -68,6 +68,8 @@ function HomePage() {
         </section>
         <Courses />
         <Feature />
+
+
       </main>
       <Footer />
     </div>

@@ -31,6 +31,7 @@
 }
 
 .learnCources {
+     background: #E0EAE5;
      padding: 100px 135px;
 
      @include responsive(xs) {
@@ -46,35 +47,12 @@
           font-size: 3.0rem;
           font-weight: 600;
 
-          @include responsive(xs) {
-               font-size: 2.0rem;
-          }
-
-          @include responsive(sm) {
-               font-size: 2.5rem;
-          }
-
-          @include responsive(md) {
-               font-size: 2.8rem;
-          }
-
-
-
-
      }
 
      .desc {
           text-align: center;
           margin-top: 18px;
-          font-size: 1.8rem;
-
-          @include responsive(xs) {
-               font-size: 1.4rem;
-          }
-
-          @include responsive(sm) {
-               font-size: 1.6rem;
-          }
+          font-size: 18px;
      }
 
      .listCourses {

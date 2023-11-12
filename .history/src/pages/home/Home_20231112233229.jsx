@@ -12,7 +12,6 @@ import Slide from '../../components/Slide/Slide'
 import Marquee from "../../components/Marquee/Marquee"
 import Courses from '../../components/Courses/Courses';
 import Feature from '../../components/Feature/Feature';
-import Feedback from '../../components/Feedback/Feedback';
 
 
 const slides = [
@@ -69,7 +68,6 @@ function HomePage() {
         </section>
         <Courses />
         <Feature />
-        <Feedback />
       </main>
       <Footer />
     </div>

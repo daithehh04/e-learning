@@ -17,10 +17,10 @@ export default function Header() {
           { id: 6, name: 'lớp 6', slug: "lop-6" },
           { id: 7, name: 'lớp 7', slug: "lop-7" },
           { id: 8, name: 'lớp 8', slug: "lop-8" },
-          { id: 9, name: 'lớp 9', slug: "lop-9" },
-          { id: 10, name: 'lớp 10', slug: "lop-10" },
-          { id: 11, name: 'lớp 11', slug: "lop-11" },
-          { id: 12, name: 'Lớp 12', slug: 'log-12' }
+          id: 9, name: 'lớp 9', slug: "lop-9",
+          id: 10, name: 'lớp 10', slug: "lop-10",
+          id: 11, name: 'lớp 11', slug: "lop-11",
+          id: 12, name: 'Lớp 12', slug: 'log-12'
 
 
      ])
@@ -43,10 +43,9 @@ export default function Header() {
                          (<ul>
                               {rooms.map(({ id, name, slug }) =>
                               (<li key={id}>
-                                   <div className={clsx(styles.navLinkRoom)}
-                                        onClick={async () => {
-                                             navigate(`/${slug}`)
-                                        }}>
+                                   <div onClick={async () => {
+                                        navigate(`/${slug}`)
+                                   }}>
                                         {name}
                                    </div>
                               </li>))}

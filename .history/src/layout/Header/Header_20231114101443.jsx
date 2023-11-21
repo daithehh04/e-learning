@@ -43,10 +43,9 @@ export default function Header() {
                          (<ul>
                               {rooms.map(({ id, name, slug }) =>
                               (<li key={id}>
-                                   <div className={clsx(styles.navLinkRoom)}
-                                        onClick={async () => {
-                                             navigate(`/${slug}`)
-                                        }}>
+                                   <div onClick={async () => {
+                                        navigate(`/${slug}`)
+                                   }}>
                                         {name}
                                    </div>
                               </li>))}

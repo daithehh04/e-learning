@@ -4,9 +4,11 @@ import { NavLink } from 'react-router-dom';
 import styles from './Header.module.scss';
 import logo from '../../assets/imgs/logo/logo.svg';
 import { useNavigate } from 'react-router-dom';
+import { useAuth0 } from "@auth0/auth0-react";
 
 export default function Header() {
      const navigate = useNavigate();
+     const {isLoading, loginWithPopup, isAuthenticated } = useAuth0();
      const [rooms, setRoom] = useState([
 
           { id: 1, name: 'lớp 1', slug: "lop-1" },
@@ -33,8 +35,8 @@ export default function Header() {
                          <span>KMA</span>
                     </div>
                     <div className={clsx(styles.groupBtn)}>
-                         <NavLink to={'/dang-nhap'}> <button className={clsx(styles.btnLogin)}>Đăng Nhập</button></NavLink>
-                         <NavLink to={'/dang-ky'}> <button className={clsx(styles.btnResigter)}>Đăng kí</button></NavLink>
+                         <button onClick={() => loginWithPopup()} > <button className={clsx(styles.btnLogin)}>Đăng Nhập</button></button>
+                         {/* <button> <button className={clsx(styles.btnResigter)}>Đăng kí</button></button> */}
                     </div>
                </div>
                <div className={clsx(styles.headerBottom)}>

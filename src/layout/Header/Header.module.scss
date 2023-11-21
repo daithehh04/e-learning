@@ -82,11 +82,13 @@
 
           .btnResigter,
           .btnLogin {
+               cursor: pointer;
                min-width: 150px;
                padding: 16px 14px;
                border-radius: 12px;
                background-color: #ff8223;
                color: #fff;
+               font-weight: 500;
           }
      }
 

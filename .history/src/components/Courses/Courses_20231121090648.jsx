@@ -44,7 +44,7 @@ export default function Courses() {
                <div className={clsx(styles.listCourses)}>
                     {
                          cources.length > 0 && (
-                              cources.map(({ id, img, desc, room, slug }, index) =>
+                              cources.map(({ id, img, desc, room }, index) =>
                                    <CourseItems
                                         key={id}
                                         img={img}

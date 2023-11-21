@@ -19,7 +19,7 @@ export default function CourseItems({ img, desc, room, index, slug, isShowAllCou
                     </div>
                </div>
                <div className={clsx(styles.content)}>
-                    <h3 className={clsx(styles.headingLv3)}>Lớp  {room}</h3>
+                    <h3 className={clsx(styles.headingLv3)}>Lớp: {room}</h3>
                     <p className={clsx(styles.desc)}>{desc}</p>
                </div>
           </div>

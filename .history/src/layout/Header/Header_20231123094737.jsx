@@ -8,7 +8,7 @@ import { useAuth0 } from "@auth0/auth0-react";
 
 export default function Header() {
      const navLinkClass = ({ isActive }) => {
-          return isActive ? 'activated' : ` `;
+          return isActive ? 'nav-link activated' : `nav-link`;
      }
      const navigate = useNavigate();
      const { isLoading, loginWithPopup, isAuthenticated } = useAuth0();
@@ -42,8 +42,7 @@ export default function Header() {
                     <div className={clsx(styles.groupBtn)}>
                          <button
                               className={clsx(styles.btnLogin)}
-                              onClick={() => loginWithPopup()} >Đăng Nhập
-                         </button>
+                              onClick={() => loginWithPopup()} >Đăng Nhập</button>
                          {/* <button> <button className={clsx(styles.btnResigter)}>Đăng kí</button></button> */}
                     </div>
                </div>
@@ -55,7 +54,8 @@ export default function Header() {
                               (<li key={id}>
                                    <NavLink
                                         to={`/${slug}`}
-                                        className={clsx(styles.navLinkRoom, styles.navLinkClass)}
+                                        className={clsx(styles.navLinkRoom, navLinkClass)}
+
                                    >
                                         {name}
                                    </NavLink>
@@ -63,6 +63,9 @@ export default function Header() {
                          </ul>)
                     }
                </div>
+
+
+
           </header>
      )
 }

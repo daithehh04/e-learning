@@ -1,6 +1,5 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
-import './assets/css/style.css'
 import App from './App.jsx'
 import { Auth0Provider } from '@auth0/auth0-react';
 import GlobalStyles from './styles/GlobalStyles.js'
@@ -12,8 +11,8 @@ ReactDOM.createRoot(document.getElementById('root')).render(
       domain={domain}
       clientId={clientId}
       authorizationParams={{
-        redirect_uri: window.location.origin
-      }}
+      redirect_uri: window.location.origin
+    }}
     >
       <GlobalStyles>
         <App />

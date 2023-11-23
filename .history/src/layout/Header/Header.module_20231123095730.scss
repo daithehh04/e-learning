@@ -104,9 +104,11 @@
                display: flex;
                list-style: none;
 
+               .active {
+                    background-color: #ff8223;
+               }
+
                .navLinkRoom {
-                    white-space: nowrap;
-                    display: block;
                     flex: 1 0 auto;
                     color: #fff;
 

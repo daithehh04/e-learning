@@ -55,7 +55,7 @@ export default function Header() {
                               (<li key={id}>
                                    <NavLink
                                         to={`/${slug}`}
-                                        className={clsx(styles.navLinkRoom, styles.navLinkClass)}
+                                        className={clsx(styles.navLinkRoom, navLinkClass)}
                                    >
                                         {name}
                                    </NavLink>
@@ -63,6 +63,9 @@ export default function Header() {
                          </ul>)
                     }
                </div>
+
+
+
           </header>
      )
 }

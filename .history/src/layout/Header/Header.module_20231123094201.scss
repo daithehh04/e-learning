@@ -105,10 +105,13 @@
                list-style: none;
 
                .navLinkRoom {
-                    white-space: nowrap;
                     display: block;
                     flex: 1 0 auto;
                     color: #fff;
+
+                    .nav-link {
+                         background-color: #ff8223;
+                    }
 
                     &:hover {
                          background-color: #ff8223;

@@ -27,8 +27,8 @@ function CategoryDetail() {
     <div className={styles.CategoryDetail}>
       <Header />
       <main className={styles.mainCategoryDetail}>
-        <h2 className={clsx(styles.headingLv2)}>Luyện tập trắc nghiệm online {params.slug}</h2>
-        <p className={clsx(styles.desc)}>Tổng hợp kiến thức trọng tâm, các phương pháp và cách làm bài các môn Toán, Lý, Hóa, Sinh...</p>
+        <h2>Luyện tập trắc nghiệm online {params.slug}</h2>
+        <p>Tổng hợp kiến thức trọng tâm, các phương pháp và cách làm bài các môn Toán, Lý, Hóa, Sinh...</p>
         <div className={clsx(styles.listCategory)}>
           {
             categorys.length > 0 && (

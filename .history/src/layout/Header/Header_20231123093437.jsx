@@ -7,9 +7,6 @@ import { useNavigate } from 'react-router-dom';
 import { useAuth0 } from "@auth0/auth0-react";
 
 export default function Header() {
-     const navLinkClass = ({ isActive }) => {
-          return isActive ? 'activated' : ` `;
-     }
      const navigate = useNavigate();
      const { isLoading, loginWithPopup, isAuthenticated } = useAuth0();
      const [rooms, setRoom] = useState([
@@ -40,10 +37,7 @@ export default function Header() {
                          </div>
                     </NavLink>
                     <div className={clsx(styles.groupBtn)}>
-                         <button
-                              className={clsx(styles.btnLogin)}
-                              onClick={() => loginWithPopup()} >Đăng Nhập
-                         </button>
+                         <button onClick={() => loginWithPopup()} > <button className={clsx(styles.btnLogin)}>Đăng Nhập</button></button>
                          {/* <button> <button className={clsx(styles.btnResigter)}>Đăng kí</button></button> */}
                     </div>
                </div>
@@ -53,16 +47,19 @@ export default function Header() {
                          (<ul>
                               {rooms.map(({ id, name, slug }) =>
                               (<li key={id}>
-                                   <NavLink
-                                        to={`/${slug}`}
-                                        className={clsx(styles.navLinkRoom, styles.navLinkClass)}
-                                   >
+                                   <div className={clsx(styles.navLinkRoom)}
+                                        onClick={async () => {
+                                             navigate(`/${slug}`)
+                                        }}>
                                         {name}
-                                   </NavLink>
+                                   </div>
                               </li>))}
                          </ul>)
                     }
                </div>
+
+
+
           </header>
      )
 }

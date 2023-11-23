@@ -104,6 +104,10 @@
                display: flex;
                list-style: none;
 
+               a.active {
+                    background-color: #ff8223;
+               }
+
                .navLinkRoom {
                     white-space: nowrap;
                     display: block;

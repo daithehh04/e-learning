@@ -4,7 +4,7 @@ import styles from './CategoryDetail.module.scss'
 import Header from '../../layout/Header/Header';
 import Footer from '../../layout/Footer/Footer';
 import { useParams } from "react-router";
-import CategoryItems from '../../components/CategoryItems/CategoryItems'
+import CourseItems from '../../components/CourseItems/CourseItems';
 
 import imgCources1 from "../../assets/imgs/courses/imgCourses1.svg"
 import imgCources2 from "../../assets/imgs/courses/imgCourses2.svg"
@@ -27,13 +27,13 @@ function CategoryDetail() {
     <div className={styles.CategoryDetail}>
       <Header />
       <main className={styles.mainCategoryDetail}>
-        <h2 className={clsx(styles.headingLv2)}>Luyện tập trắc nghiệm online {params.slug}</h2>
-        <p className={clsx(styles.desc)}>Tổng hợp kiến thức trọng tâm, các phương pháp và cách làm bài các môn Toán, Lý, Hóa, Sinh...</p>
-        <div className={clsx(styles.listCategory)}>
+        <h2>Luyện tập trắc nghiệm online {params.slug}</h2>
+        <p>Tổng hợp kiến thức trọng tâm, các phương pháp và cách làm bài các môn Toán, Lý, Hóa, Sinh...</p>
+        <div className={clsx(styles.listCourses)}>
           {
             categorys.length > 0 && (
-              categorys.map(({ id, img, desc, nameSubject }, index) =>
-                <CategoryItems
+              categorys.map(({ id, img, desc, room, slug }, index) =>
+                <CourseItems
                   key={id}
                   img={img}
                   desc={desc}

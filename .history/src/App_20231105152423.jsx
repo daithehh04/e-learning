@@ -1,7 +1,6 @@
 import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 import { privateRoutes, publicRoutes } from "./routes/routes";
 import Loading from "./components/loading/Loading";
-import ScrollToTop from "./components/ScrollToTop/ScrollToTop";
 
 function App() {
   const isLoading = false
@@ -11,7 +10,6 @@ function App() {
   return (
     <BrowserRouter>
       <div className="App">
-        <ScrollToTop />
         <Routes>
           {publicRoutes.map((route, index) => {
             const Page = route.component;

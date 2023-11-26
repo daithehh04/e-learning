@@ -4,13 +4,16 @@ import styles from './CategoryDetail.module.scss'
 import Header from '../../layout/Header/Header';
 import Footer from '../../layout/Footer/Footer';
 import { useParams } from "react-router";
+import { Breadcrumb } from "antd";
 import CategoryItems from '../../components/CategoryItems/CategoryItems'
+import { NavLink } from 'react-router-dom';
 
 import imgCources1 from "../../assets/imgs/courses/imgCourses1.svg"
 import imgCources2 from "../../assets/imgs/courses/imgCourses2.svg"
 import imgCources3 from "../../assets/imgs/courses/imgCourses3.svg"
 import imgCources4 from "../../assets/imgs/courses/imgCourses4.svg"
 import imgCources5 from "../../assets/imgs/courses/imgCourses5.svg"
+
 
 
 function CategoryDetail() {
@@ -27,6 +30,29 @@ function CategoryDetail() {
     <div className={styles.CategoryDetail}>
       <Header />
       <main className={styles.mainCategoryDetail}>
+
+        <div className={clsx(styles.categoryBreadcumb)}>
+          <Breadcrumb
+            separator="›"
+          >
+            <Breadcrumb.Item>
+              <NavLink
+                to={"/"}
+                className={clsx(styles.categoryBreadcumbLink)}
+              >
+                Trang chủ
+              </NavLink>
+            </Breadcrumb.Item>
+            <Breadcrumb.Item>
+              <NavLink
+                to={`/${params.slug}`}
+                className={clsx(styles.categoryBreadcumbLink)}
+              >
+                {params.slug}
+              </NavLink>
+            </Breadcrumb.Item>
+          </Breadcrumb>
+        </div>
         <h2 className={clsx(styles.headingLv2)}>Luyện tập trắc nghiệm online {params.slug}</h2>
         <p className={clsx(styles.desc)}>Tổng hợp kiến thức trọng tâm, các phương pháp và cách làm bài các môn Toán, Lý, Hóa, Sinh...</p>
         <div className={clsx(styles.listCategory)}>

@@ -1,0 +1,39 @@
+.exam {
+     .examBreadcrumb {
+          margin-top: 4px;
+
+          .examBreadcumbLink {
+               font-size: 1.8rem;
+          }
+
+
+     }
+
+     .headingLv2 {
+          margin-top: 18px;
+          text-align: center;
+          font-size: 2.2rem;
+     }
+
+     .examView {
+          padding: 10px;
+     }
+
+     .examPanel {
+          width: 100%;
+     }
+
+     .examPanelTitle {
+          display: flex;
+          align-items: center;
+          gap: 10px;
+     }
+
+     .examPanelItem {
+          background-color: #fff;
+          border-radius: 1.5rem;
+          padding: 1.2rem 1.5rem;
+          margin-top: 2rem;
+     }
+
+}

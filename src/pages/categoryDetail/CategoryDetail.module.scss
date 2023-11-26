@@ -1,5 +1,17 @@
 .mainCategoryDetail {
-     padding: 60px 0;
+     padding: 20px 60px 0;
+
+     .categoryBreadcumbLink {
+          color: rgb(92, 88, 88);
+          font-size: 1.7rem;
+          font-weight: 500;
+     }
+
+     .categoryBreadcumb {
+          max-width: 1135px;
+          margin: 0 auto;
+     }
+
 
      .listCategory {
           max-width: 1170px;
@@ -10,6 +22,7 @@
      }
 
      .headingLv2 {
+          margin-top: 24px;
           font-size: 2.5rem;
           text-align: center;
      }

@@ -1,5 +1,5 @@
 // style chung
-@import "normalize.css";
+@import 'normalize.css';
 
 // responsive
 @mixin responsive($breakpoint) {
@@ -43,7 +43,7 @@
   --textColor: #333333;
 
   //font
-  --font-family: "SVN-Poppins";
+  --font-family: 'SVN-Poppins';
 }
 
 * {
@@ -110,32 +110,32 @@ input,
 
 //fonts embedded
 @font-face {
-  font-family: "SVN-Poppins";
-  src: url("../assets/font/SVN-Poppins.woff2");
+  font-family: 'SVN-Poppins';
+  src: url('../assets/font/SVN-Poppins.woff2');
   font-weight: 400;
 }
 
 @font-face {
-  font-family: "SVN-Poppins";
-  src: url("../assets/font/SVN-PoppinsBold.woff2");
+  font-family: 'SVN-Poppins';
+  src: url('../assets/font/SVN-PoppinsBold.woff2');
   font-weight: 700;
 }
 
 @font-face {
-  font-family: "SVN-Poppins";
-  src: url("../assets/font/SVN-PoppinsMedium.woff2");
+  font-family: 'SVN-Poppins';
+  src: url('../assets/font/SVN-PoppinsMedium.woff2');
   font-weight: 500;
 }
 
 @font-face {
-  font-family: "SVN-Poppins";
-  src: url("../assets/font/SVN-PoppinsSemiBold.woff2");
+  font-family: 'SVN-Poppins';
+  src: url('../assets/font/SVN-PoppinsSemiBold.woff2');
   font-weight: 600;
 }
 
 //grid
 .wide {
-  // max-width: 1170px;
+  max-width: 1170px;
   margin: 0 auto;
   width: 100%;
   height: 100%;

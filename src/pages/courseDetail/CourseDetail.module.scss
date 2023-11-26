@@ -1,0 +1,74 @@
+.detailCourse {
+  padding-top: 2rem;
+  padding-bottom: 8rem;
+  font-family: var(--font-family);
+  .navLink {
+    color: rgba(0, 0, 0, 0.45);
+    transition: color 0.2s;
+    padding: 0 4px;
+    display: inline-block;
+    font-size: 1.6rem;
+    font-family: var(--font-family);
+  }
+  .infoCourse {
+    font-family: var(--font-family);
+    .thumb {
+      img {
+        height: fit-content;
+      }
+    }
+    h5 {
+      font-size: 3rem;
+      font-weight: 400;
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+    .btnGroup {
+      .btn {
+        text-align: center;
+      }
+      .btn1,
+      .btn2 {
+        width: 25rem;
+        margin: 0 0.6rem;
+        border-radius: 1rem;
+        text-align: center;
+        cursor: pointer;
+        padding: 1.2rem 1.6rem;
+        transition: all ease 0.5s;
+        font-size: 2rem;
+        font-weight: 700;
+        margin-bottom: 2rem;
+        display: inline-block;
+        background-color: orangered;
+        cursor: pointer;
+        button {
+          background: transparent;
+          color: #fff;
+          font-family: var(--font-family);
+          font-weight: 700;
+          cursor: pointer;
+        }
+      }
+      .btn2 {
+        background-color: #fff;
+        border: 2px solid orangered;
+        button {
+          color: orangered;
+        }
+      }
+    }
+    .detailList {
+      margin-left: 50%;
+      transform: translateX(-50%);
+      list-style: none;
+      .detailItem {
+        display: flex;
+        align-items: center;
+        font-size: 1.4rem;
+        margin-bottom: 1rem;
+        gap: 1rem;
+      }
+    }
+  }
+}

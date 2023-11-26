@@ -39,7 +39,7 @@ function CategoryDetail() {
                   desc={desc}
                   nameSubject={nameSubject}
                   index={index}
-
+                  slug={params.slug}
                 />)
             )
           }

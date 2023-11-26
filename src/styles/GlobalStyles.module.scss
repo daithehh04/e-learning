@@ -68,12 +68,12 @@ body {
   line-height: 1.5;
   text-rendering: optimizeSpeed;
   overflow-y: overlay;
+  overflow-x: hidden;
 
   @include responsive(sm) {
     font-size: 1.2rem;
   }
 }
-
 
 //scroll bar
 html *::-webkit-scrollbar {

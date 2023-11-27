@@ -14,18 +14,19 @@ import Learning from "../pages/learning/Learning"
 import Exam from "../pages/exam/Exam"
 
 // Public routers
-export const publicRoutes = [
-  { path: "/", component: Home },
-  { path: "/:slug", component: CategoryDetail },
-  { path: "/:slug/:slugChild", component: CourseDetail },
-  { path: "/gioi-thieu", component: Introduce },
-  { path: "/lien-he", component: Contact },
-  { path: "/dieu-khoan-su-dung", component: Policy },
-  { path: "/chinh-sach-bao-mat", component: Privacy },
-  { path: "/dang-nhap", component: Login },
-  { path: "/dang-ky", component: Register },
-  { path: "*", component: NotFound },
-];
+export const publicRoutes =
+  [
+    { path: "/", component: Home },
+    { path: "/:slug", component: CategoryDetail },
+    { path: "/:slug/:slugChild", component: CourseDetail },
+    { path: "/gioi-thieu", component: Introduce },
+    { path: "/lien-he", component: Contact },
+    { path: "/dieu-khoan-su-dung", component: Policy },
+    { path: "/chinh-sach-bao-mat", component: Privacy },
+    { path: "/dang-nhap", component: Login },
+    { path: "/dang-ky", component: Register },
+    { path: "*", component: NotFound },
+  ];
 
 // Private routes
 export const privateRoutes = [

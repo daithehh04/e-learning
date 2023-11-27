@@ -220,7 +220,7 @@ function Learning() {
                 size={36}
                 strokeColor={'#fff'}
                 percent={Math.round((9 / 18) * 100)}
-                // format={(successPercent) => `${successPercent}%`}
+              // format={(successPercent) => `${successPercent}%`}
               />
               <div className={clsx(styles.lesson)}>
                 <strong>

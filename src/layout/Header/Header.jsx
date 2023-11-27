@@ -36,9 +36,15 @@ export default function Header() {
           </div>
         </NavLink>
         <div className={clsx(styles.groupBtn)}>
-          <button
+          {/* <button
             className={clsx(styles.btnLogin)}
             onClick={() => loginWithPopup()}
+          >
+            Đăng Nhập
+          </button> */}
+          <button
+            className={clsx(styles.btnLogin)}
+            onClick={() => navigate('/dang-nhap')}
           >
             Đăng Nhập
           </button>

@@ -24,6 +24,7 @@ import Sider from 'antd/es/layout/Sider';
 import { Content } from 'antd/es/layout/layout';
 import moment from 'moment/moment';
 import { useSelector } from 'react-redux';
+import { requestLoadTotalLearnedTopic } from '../../stores/middleware/topicMiddleware';
 const loading = false;
 function Learning() {
   const navigate = useNavigate();
@@ -32,12 +33,16 @@ function Learning() {
   const [indexTopic, setIndexTopic] = useState();
   const topics = useSelector((state) => state.topic.topics);
   const course = useSelector((state) => state.course.course);
+  const userInfo = useSelector((state) => state.user.userInfo);
+  const topicTotalLearned = useSelector((state) => state.topic.totalLearned);
+  console.log('topicTotalLearned', topicTotalLearned);
   // Lesson learned
-  // useEffect(() => {
-  //   if (course?.id && userInfo?._id) {
-  //     loadTotalLearnedTopic(course?.id, userInfo?._id);
-  //   }
-  // }, [course?.id, userInfo?._id, userInfo]);
+  useEffect(() => {
+    if (course?.id && userInfo?._id) {
+      console.log('running');
+      requestLoadTotalLearnedTopic(course?.id, userInfo?._id);
+    }
+  }, [course?.id, userInfo?._id, userInfo]);
   const handleClickToggleLesson = (index) => {
     if (indexOpenTopic.find((lesson) => lesson === index + 1)) {
       const indexPrev = indexOpenTopic.filter((o) => o !== index + 1);

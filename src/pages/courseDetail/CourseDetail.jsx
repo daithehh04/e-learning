@@ -25,7 +25,6 @@ const CourseDetail = () => {
   const params = useParams();
   const course = useSelector((state) => state.course.course);
   const topics = useSelector((state) => state.topic.topics);
-  console.log('topics', topics);
   useEffect(() => {
     loadCourse(params.slugChild || '');
   }, [params.slugChild]);

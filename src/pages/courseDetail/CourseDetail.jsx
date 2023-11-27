@@ -13,23 +13,64 @@ import styles from './CourseDetail.module.scss';
 import clsx from 'clsx';
 import Header from '../../layout/Header/Header';
 import Footer from '../../layout/Footer/Footer';
+import { unwrapResult } from '@reduxjs/toolkit';
+import TTCSconfig from '../../helper/config';
+import { useDispatch, useSelector } from 'react-redux';
+import { requestLoadCourseBySlug } from '../../stores/middleware/courseMiddleware';
+import { requestLoadTopicByCourse } from '../../stores/middleware/topicMiddleware';
 
-const course = {
-  id: '1a2e',
-  category: {
-    slug: 'hoc',
-    name: 'Lớp 1',
-  },
-  slug: 'course-slug',
-  courseName: 'Toán học 1',
-  shortDes: 'good',
-  desc: 'helpful',
-  avatar:
-    'http://res.cloudinary.com/dxp3jz1fc/image/upload/v1679486233/mukcavqjhmdsyuqpgljr.jpg',
-};
 const CourseDetail = () => {
   const [totalExam, setTotalExam] = useState(0);
   const loading = false;
+  const params = useParams();
+  const course = useSelector((state) => state.course.course);
+  const topics = useSelector((state) => state.topic.topics);
+  console.log('topics', topics);
+  useEffect(() => {
+    loadCourse(params.slugChild || '');
+  }, [params.slugChild]);
+  useEffect(() => {
+    if (course?.id) {
+      loadTopicByCourse(course?.id || '', 1);
+      loadTopicByCourse(course?.id || '', 2);
+    }
+  }, [course?.id]);
+  const dispatch = useDispatch();
+  const loadCourse = async (slugChild) => {
+    try {
+      const result = dispatch(
+        requestLoadCourseBySlug({
+          slug: slugChild,
+          status: TTCSconfig.STATUS_PUBLIC,
+        })
+      );
+      unwrapResult(result);
+    } catch (error) {
+      notification.error({
+        message: 'server error!!',
+        duration: 1.5,
+      });
+    }
+  };
+  const loadTopicByCourse = async (idCourse, type, parentId) => {
+    try {
+      const result = dispatch(
+        requestLoadTopicByCourse({
+          idCourse,
+          type,
+          parentId,
+          status: TTCSconfig.STATUS_PUBLIC,
+        })
+      );
+      unwrapResult(result);
+    } catch (error) {
+      notification.error({
+        message: 'server error!!',
+        duration: 1.5,
+      });
+    }
+  };
+
   return (
     <>
       <Header />

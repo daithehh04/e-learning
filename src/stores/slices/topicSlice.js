@@ -53,7 +53,7 @@ export const topicSlice = createSlice({
 
     // load topic by id
     builder.addCase(requestLoadTopicById.fulfilled, (state, action) => {
-      state.topicInfo = new Topic(action.payload);
+      state.topicInfo = action.payload;
       state.loading = false;
     });
 
@@ -64,11 +64,11 @@ export const topicSlice = createSlice({
 
     // update topic
     builder.addCase(requestUpdateTopicById.fulfilled, (state, action) => {
-      state.topicInfo = new Topic(action.payload.data);
+      state.topicInfo = action.payload.data;
     });
   },
 });
-export const {} = topicSlice.actions;
+export const { } = topicSlice.actions;
 // Other code such as selectors can use the imported `RootState` type
 export const topicState = (state) => state.topic;
 

@@ -2,9 +2,13 @@ import Header from '../../layout/Header/Header';
 import Footer from '../../layout/Footer/Footer';
 import styles from './Practice.module.scss';
 import clsx from 'clsx';
-
+import { useDispatch, useSelector } from 'react-redux';
+import { unwrapResult } from "@reduxjs/toolkit";
 import { NavLink, useNavigate, useParams } from "react-router-dom";
 import { useEffect, useRef, useState } from "react";
+import { requestLoadCourseBySlug } from '../../stores/middleware/courseMiddleware';
+import { requestLoadQuestionsByIdTopic } from "../../stores/middleware/questionsMiddeware";
+import { requestLoadTopicById } from "../../stores/middleware/topicMiddleware"
 import {
   FaCheckCircle,
   FaClock,
@@ -30,914 +34,24 @@ import {
   Statistic
 } from "antd";
 import moment from "moment";
-const questions = [
-  {
-    "id": "63e4bc7ef5f0bc4cce7ed7c6",
-    "question": "<p>Số cần điền v&agrave;o: ... &ndash; 2 = 1 l&agrave;:</p>",
-    "result": [],
-    "answer": [
-      {
-        "index": 0,
-        "text": "6",
-        "isResult": false,
-        "_id": "63e4bc7ef5f0bc4cce7ed7c7"
-      },
-      {
-        "index": 1,
-        "text": "5",
-        "isResult": false,
-        "_id": "63e4bc7ef5f0bc4cce7ed7c8"
-      },
-      {
-        "index": 2,
-        "text": "3",
-        "isResult": true,
-        "_id": "63e4bc7ef5f0bc4cce7ed7c9"
-      },
-      {
-        "index": 3,
-        "text": "4",
-        "isResult": false,
-        "_id": "63e4bc7ef5f0bc4cce7ed7ca"
-      }
-    ],
-    "status": 1,
-    "idTopic": "63c581ec5713ed65828a373c",
-    "questionChild": null,
-    "parentId": null,
-    "index": 2,
-    "hint": "<p>v&igrave; 1+2 = 3</p>",
-    "createDate": 1675934846011,
-    "updateDate": 1678014793240
-  },
-  {
-    "id": "63e4bd47f5f0bc4cce7ed7d6",
-    "question": "8 + 2 ... 9 – 2 Dấu cần điền là:",
-    "result": [],
-    "answer": [
-      {
-        "index": 0,
-        "text": ">",
-        "isResult": true,
-        "_id": "63e4bd47f5f0bc4cce7ed7d7"
-      },
-      {
-        "index": 1,
-        "text": "<",
-        "isResult": false,
-        "_id": "63e4bd47f5f0bc4cce7ed7d8"
-      },
-      {
-        "index": 2,
-        "text": "=",
-        "isResult": false,
-        "_id": "63e4bd47f5f0bc4cce7ed7d9"
-      }
-    ],
-    "status": 1,
-    "idTopic": "63c581ec5713ed65828a373c",
-    "questionChild": null,
-    "parentId": null,
-    "index": 5,
-    "hint": "",
-    "createDate": 1675935047759,
-    "updateDate": 1675935047759
-  },
-  {
-    "id": "63e4be26f5f0bc4cce7ed844",
-    "question": "<p>Số lớn nhất c&oacute; một chữ số l&agrave;:</p>",
-    "result": [],
-    "answer": [
-      {
-        "index": 0,
-        "text": "8",
-        "isResult": false,
-        "_id": "63e4be26f5f0bc4cce7ed845"
-      },
-      {
-        "index": 1,
-        "text": "10",
-        "isResult": false,
-        "_id": "63e4be26f5f0bc4cce7ed846"
-      },
-      {
-        "index": 2,
-        "text": "9",
-        "isResult": true,
-        "_id": "63e4be26f5f0bc4cce7ed847"
-      },
-      {
-        "index": 3,
-        "text": "7",
-        "isResult": false,
-        "_id": "63e4be26f5f0bc4cce7ed848"
-      }
-    ],
-    "status": 1,
-    "idTopic": "63c581ec5713ed65828a373c",
-    "questionChild": null,
-    "parentId": null,
-    "index": 6,
-    "hint": "<p>v&igrave; 9 lớn hơn tất cả c&aacute;c số c&oacute; 1 chữ c&ograve;n lại.</p>",
-    "createDate": 1675935270076,
-    "updateDate": 1678014607282
-  },
-  {
-    "id": "63e4c0a5f5f0bc4cce7edaa5",
-    "question": "Số lớn nhất có một chữ số là:",
-    "result": [],
-    "answer": [
-      {
-        "index": 0,
-        "text": "8",
-        "isResult": false,
-        "_id": "63e4c0a5f5f0bc4cce7edaa6"
-      },
-      {
-        "index": 1,
-        "text": "10",
-        "isResult": false,
-        "_id": "63e4c0a5f5f0bc4cce7edaa7"
-      },
-      {
-        "index": 2,
-        "text": "9",
-        "isResult": true,
-        "_id": "63e4c0a5f5f0bc4cce7edaa8"
-      },
-      {
-        "index": 3,
-        "text": "7",
-        "isResult": false,
-        "_id": "63e4c0a5f5f0bc4cce7edaa9"
-      }
-    ],
-    "status": 1,
-    "idTopic": "63c581ec5713ed65828a373c",
-    "questionChild": null,
-    "parentId": null,
-    "index": 7,
-    "hint": "",
-    "createDate": 1675935909582,
-    "updateDate": 1675935909582
-  },
-  {
-    "id": "63e4c0a7f5f0bc4cce7edaab",
-    "question": "Số lớn nhất có một chữ số là:",
-    "result": [],
-    "answer": [
-      {
-        "index": 0,
-        "text": "8",
-        "isResult": false,
-        "_id": "63e4c0a7f5f0bc4cce7edaac"
-      },
-      {
-        "index": 1,
-        "text": "10",
-        "isResult": false,
-        "_id": "63e4c0a7f5f0bc4cce7edaad"
-      },
-      {
-        "index": 2,
-        "text": "9",
-        "isResult": true,
-        "_id": "63e4c0a7f5f0bc4cce7edaae"
-      },
-      {
-        "index": 3,
-        "text": "7",
-        "isResult": false,
-        "_id": "63e4c0a7f5f0bc4cce7edaaf"
-      }
-    ],
-    "status": 1,
-    "idTopic": "63c581ec5713ed65828a373c",
-    "questionChild": null,
-    "parentId": null,
-    "index": 8,
-    "hint": "",
-    "createDate": 1675935911826,
-    "updateDate": 1675935911826
-  },
-  {
-    "id": "63e4c0aaf5f0bc4cce7edab1",
-    "question": "Số lớn nhất có một chữ số là:",
-    "result": [],
-    "answer": [
-      {
-        "index": 0,
-        "text": "8",
-        "isResult": false,
-        "_id": "63e4c0aaf5f0bc4cce7edab2"
-      },
-      {
-        "index": 1,
-        "text": "10",
-        "isResult": false,
-        "_id": "63e4c0aaf5f0bc4cce7edab3"
-      },
-      {
-        "index": 2,
-        "text": "9",
-        "isResult": true,
-        "_id": "63e4c0aaf5f0bc4cce7edab4"
-      },
-      {
-        "index": 3,
-        "text": "7",
-        "isResult": false,
-        "_id": "63e4c0aaf5f0bc4cce7edab5"
-      }
-    ],
-    "status": 1,
-    "idTopic": "63c581ec5713ed65828a373c",
-    "questionChild": null,
-    "parentId": null,
-    "index": 9,
-    "hint": "",
-    "createDate": 1675935914400,
-    "updateDate": 1675935914400
-  },
-  {
-    "id": "63e4c0acf5f0bc4cce7edab7",
-    "question": "Số lớn nhất có một chữ số là:",
-    "result": [],
-    "answer": [
-      {
-        "index": 0,
-        "text": "8",
-        "isResult": false,
-        "_id": "63e4c0acf5f0bc4cce7edab8"
-      },
-      {
-        "index": 1,
-        "text": "10",
-        "isResult": false,
-        "_id": "63e4c0acf5f0bc4cce7edab9"
-      },
-      {
-        "index": 2,
-        "text": "9",
-        "isResult": true,
-        "_id": "63e4c0acf5f0bc4cce7edaba"
-      },
-      {
-        "index": 3,
-        "text": "7",
-        "isResult": false,
-        "_id": "63e4c0acf5f0bc4cce7edabb"
-      }
-    ],
-    "status": 1,
-    "idTopic": "63c581ec5713ed65828a373c",
-    "questionChild": null,
-    "parentId": null,
-    "index": 10,
-    "hint": "",
-    "createDate": 1675935916267,
-    "updateDate": 1675935916267
-  },
-  {
-    "id": "63e4c0aef5f0bc4cce7edabd",
-    "question": "Số lớn nhất có một chữ số là:",
-    "result": [],
-    "answer": [
-      {
-        "index": 0,
-        "text": "8",
-        "isResult": false,
-        "_id": "63e4c0aef5f0bc4cce7edabe"
-      },
-      {
-        "index": 1,
-        "text": "10",
-        "isResult": false,
-        "_id": "63e4c0aef5f0bc4cce7edabf"
-      },
-      {
-        "index": 2,
-        "text": "9",
-        "isResult": true,
-        "_id": "63e4c0aef5f0bc4cce7edac0"
-      },
-      {
-        "index": 3,
-        "text": "7",
-        "isResult": false,
-        "_id": "63e4c0aef5f0bc4cce7edac1"
-      }
-    ],
-    "status": 1,
-    "idTopic": "63c581ec5713ed65828a373c",
-    "questionChild": null,
-    "parentId": null,
-    "index": 11,
-    "hint": "",
-    "createDate": 1675935918382,
-    "updateDate": 1675935918382
-  },
-  {
-    "id": "63e4c0b0f5f0bc4cce7edac3",
-    "question": "Số lớn nhất có một chữ số là:",
-    "result": [],
-    "answer": [
-      {
-        "index": 0,
-        "text": "8",
-        "isResult": false,
-        "_id": "63e4c0b0f5f0bc4cce7edac4"
-      },
-      {
-        "index": 1,
-        "text": "10",
-        "isResult": false,
-        "_id": "63e4c0b0f5f0bc4cce7edac5"
-      },
-      {
-        "index": 2,
-        "text": "9",
-        "isResult": true,
-        "_id": "63e4c0b0f5f0bc4cce7edac6"
-      },
-      {
-        "index": 3,
-        "text": "7",
-        "isResult": false,
-        "_id": "63e4c0b0f5f0bc4cce7edac7"
-      }
-    ],
-    "status": 1,
-    "idTopic": "63c581ec5713ed65828a373c",
-    "questionChild": null,
-    "parentId": null,
-    "index": 12,
-    "hint": "",
-    "createDate": 1675935920359,
-    "updateDate": 1675935920359
-  },
-  {
-    "id": "63e4c0b2f5f0bc4cce7edac9",
-    "question": "Số lớn nhất có một chữ số là:",
-    "result": [],
-    "answer": [
-      {
-        "index": 0,
-        "text": "8",
-        "isResult": false,
-        "_id": "63e4c0b2f5f0bc4cce7edaca"
-      },
-      {
-        "index": 1,
-        "text": "10",
-        "isResult": false,
-        "_id": "63e4c0b2f5f0bc4cce7edacb"
-      },
-      {
-        "index": 2,
-        "text": "9",
-        "isResult": true,
-        "_id": "63e4c0b2f5f0bc4cce7edacc"
-      },
-      {
-        "index": 3,
-        "text": "7",
-        "isResult": false,
-        "_id": "63e4c0b2f5f0bc4cce7edacd"
-      }
-    ],
-    "status": 1,
-    "idTopic": "63c581ec5713ed65828a373c",
-    "questionChild": null,
-    "parentId": null,
-    "index": 13,
-    "hint": "",
-    "createDate": 1675935922567,
-    "updateDate": 1675935922567
-  },
-  {
-    "id": "63e4c0b5f5f0bc4cce7edacf",
-    "question": "Số lớn nhất có một chữ số là:",
-    "result": [],
-    "answer": [
-      {
-        "index": 0,
-        "text": "8",
-        "isResult": false,
-        "_id": "63e4c0b5f5f0bc4cce7edad0"
-      },
-      {
-        "index": 1,
-        "text": "10",
-        "isResult": false,
-        "_id": "63e4c0b5f5f0bc4cce7edad1"
-      },
-      {
-        "index": 2,
-        "text": "9",
-        "isResult": true,
-        "_id": "63e4c0b5f5f0bc4cce7edad2"
-      },
-      {
-        "index": 3,
-        "text": "7",
-        "isResult": false,
-        "_id": "63e4c0b5f5f0bc4cce7edad3"
-      }
-    ],
-    "status": 1,
-    "idTopic": "63c581ec5713ed65828a373c",
-    "questionChild": null,
-    "parentId": null,
-    "index": 14,
-    "hint": "",
-    "createDate": 1675935925062,
-    "updateDate": 1675935925062
-  },
-  {
-    "id": "63e4c0b6f5f0bc4cce7edad5",
-    "question": "Số lớn nhất có một chữ số là:",
-    "result": [],
-    "answer": [
-      {
-        "index": 0,
-        "text": "8",
-        "isResult": false,
-        "_id": "63e4c0b6f5f0bc4cce7edad6"
-      },
-      {
-        "index": 1,
-        "text": "10",
-        "isResult": false,
-        "_id": "63e4c0b6f5f0bc4cce7edad7"
-      },
-      {
-        "index": 2,
-        "text": "9",
-        "isResult": true,
-        "_id": "63e4c0b6f5f0bc4cce7edad8"
-      },
-      {
-        "index": 3,
-        "text": "7",
-        "isResult": false,
-        "_id": "63e4c0b6f5f0bc4cce7edad9"
-      }
-    ],
-    "status": 1,
-    "idTopic": "63c581ec5713ed65828a373c",
-    "questionChild": null,
-    "parentId": null,
-    "index": 15,
-    "hint": "",
-    "createDate": 1675935926882,
-    "updateDate": 1675935926882
-  },
-  {
-    "id": "63e4c0b9f5f0bc4cce7edadb",
-    "question": "Số lớn nhất có một chữ số là:",
-    "result": [],
-    "answer": [
-      {
-        "index": 0,
-        "text": "8",
-        "isResult": false,
-        "_id": "63e4c0b9f5f0bc4cce7edadc"
-      },
-      {
-        "index": 1,
-        "text": "10",
-        "isResult": false,
-        "_id": "63e4c0b9f5f0bc4cce7edadd"
-      },
-      {
-        "index": 2,
-        "text": "9",
-        "isResult": true,
-        "_id": "63e4c0b9f5f0bc4cce7edade"
-      },
-      {
-        "index": 3,
-        "text": "7",
-        "isResult": false,
-        "_id": "63e4c0b9f5f0bc4cce7edadf"
-      }
-    ],
-    "status": 1,
-    "idTopic": "63c581ec5713ed65828a373c",
-    "questionChild": null,
-    "parentId": null,
-    "index": 16,
-    "hint": "",
-    "createDate": 1675935929043,
-    "updateDate": 1675935929043
-  },
-  {
-    "id": "63e4c0bcf5f0bc4cce7edae1",
-    "question": "Số lớn nhất có một chữ số là:",
-    "result": [],
-    "answer": [
-      {
-        "index": 0,
-        "text": "8",
-        "isResult": false,
-        "_id": "63e4c0bcf5f0bc4cce7edae2"
-      },
-      {
-        "index": 1,
-        "text": "10",
-        "isResult": false,
-        "_id": "63e4c0bcf5f0bc4cce7edae3"
-      },
-      {
-        "index": 2,
-        "text": "9",
-        "isResult": true,
-        "_id": "63e4c0bcf5f0bc4cce7edae4"
-      },
-      {
-        "index": 3,
-        "text": "7",
-        "isResult": false,
-        "_id": "63e4c0bcf5f0bc4cce7edae5"
-      }
-    ],
-    "status": 1,
-    "idTopic": "63c581ec5713ed65828a373c",
-    "questionChild": null,
-    "parentId": null,
-    "index": 17,
-    "hint": "",
-    "createDate": 1675935932375,
-    "updateDate": 1675935932375
-  },
-  {
-    "id": "63e4c0bdf5f0bc4cce7edae7",
-    "question": "Số lớn nhất có một chữ số là:",
-    "result": [],
-    "answer": [
-      {
-        "index": 0,
-        "text": "8",
-        "isResult": false,
-        "_id": "63e4c0bdf5f0bc4cce7edae8"
-      },
-      {
-        "index": 1,
-        "text": "10",
-        "isResult": false,
-        "_id": "63e4c0bdf5f0bc4cce7edae9"
-      },
-      {
-        "index": 2,
-        "text": "9",
-        "isResult": true,
-        "_id": "63e4c0bdf5f0bc4cce7edaea"
-      },
-      {
-        "index": 3,
-        "text": "7",
-        "isResult": false,
-        "_id": "63e4c0bdf5f0bc4cce7edaeb"
-      }
-    ],
-    "status": 1,
-    "idTopic": "63c581ec5713ed65828a373c",
-    "questionChild": null,
-    "parentId": null,
-    "index": 18,
-    "hint": "",
-    "createDate": 1675935933938,
-    "updateDate": 1675935933938
-  },
-  {
-    "id": "63e4c0c0f5f0bc4cce7edaed",
-    "question": "Số lớn nhất có một chữ số là:",
-    "result": [],
-    "answer": [
-      {
-        "index": 0,
-        "text": "8",
-        "isResult": false,
-        "_id": "63e4c0c0f5f0bc4cce7edaee"
-      },
-      {
-        "index": 1,
-        "text": "10",
-        "isResult": false,
-        "_id": "63e4c0c0f5f0bc4cce7edaef"
-      },
-      {
-        "index": 2,
-        "text": "9",
-        "isResult": true,
-        "_id": "63e4c0c0f5f0bc4cce7edaf0"
-      },
-      {
-        "index": 3,
-        "text": "7",
-        "isResult": false,
-        "_id": "63e4c0c0f5f0bc4cce7edaf1"
-      }
-    ],
-    "status": 1,
-    "idTopic": "63c581ec5713ed65828a373c",
-    "questionChild": null,
-    "parentId": null,
-    "index": 19,
-    "hint": "",
-    "createDate": 1675935936566,
-    "updateDate": 1675935936566
-  },
-  {
-    "id": "63e4c0c3f5f0bc4cce7edaf3",
-    "question": "Số lớn nhất có một chữ số là:",
-    "result": [],
-    "answer": [
-      {
-        "index": 0,
-        "text": "8",
-        "isResult": false,
-        "_id": "63e4c0c3f5f0bc4cce7edaf4"
-      },
-      {
-        "index": 1,
-        "text": "10",
-        "isResult": false,
-        "_id": "63e4c0c3f5f0bc4cce7edaf5"
-      },
-      {
-        "index": 2,
-        "text": "9",
-        "isResult": true,
-        "_id": "63e4c0c3f5f0bc4cce7edaf6"
-      },
-      {
-        "index": 3,
-        "text": "7",
-        "isResult": false,
-        "_id": "63e4c0c3f5f0bc4cce7edaf7"
-      }
-    ],
-    "status": 1,
-    "idTopic": "63c581ec5713ed65828a373c",
-    "questionChild": null,
-    "parentId": null,
-    "index": 20,
-    "hint": "<p>v&igrave; 9 lớn hơn tất cả c&aacute;c số c&oacute; 1 chữ c&ograve;n lại.</p>",
-    "createDate": 1675935939049,
-    "updateDate": 1675935939049
-  },
-  {
-    "id": "63e4c0cff5f0bc4cce7edaf9",
-    "question": "Số lớn nhất có một chữ số là:",
-    "result": [],
-    "answer": [
-      {
-        "index": 0,
-        "text": "8",
-        "isResult": false,
-        "_id": "63e4c0cff5f0bc4cce7edafa"
-      },
-      {
-        "index": 1,
-        "text": "10",
-        "isResult": false,
-        "_id": "63e4c0cff5f0bc4cce7edafb"
-      },
-      {
-        "index": 2,
-        "text": "9",
-        "isResult": true,
-        "_id": "63e4c0cff5f0bc4cce7edafc"
-      },
-      {
-        "index": 3,
-        "text": "7",
-        "isResult": false,
-        "_id": "63e4c0cff5f0bc4cce7edafd"
-      }
-    ],
-    "status": 1,
-    "idTopic": "63c581ec5713ed65828a373c",
-    "questionChild": null,
-    "parentId": null,
-    "index": 20,
-    "hint": "",
-    "createDate": 1675935951830,
-    "updateDate": 1675935951830
-  },
-  {
-    "id": "63e4c0d2f5f0bc4cce7edaff",
-    "question": "Số lớn nhất có một chữ số là:",
-    "result": [],
-    "answer": [
-      {
-        "index": 0,
-        "text": "8",
-        "isResult": false,
-        "_id": "63e4c0d2f5f0bc4cce7edb00"
-      },
-      {
-        "index": 1,
-        "text": "10",
-        "isResult": false,
-        "_id": "63e4c0d2f5f0bc4cce7edb01"
-      },
-      {
-        "index": 2,
-        "text": "9",
-        "isResult": true,
-        "_id": "63e4c0d2f5f0bc4cce7edb02"
-      },
-      {
-        "index": 3,
-        "text": "7",
-        "isResult": false,
-        "_id": "63e4c0d2f5f0bc4cce7edb03"
-      }
-    ],
-    "status": 1,
-    "idTopic": "63c581ec5713ed65828a373c",
-    "questionChild": null,
-    "parentId": null,
-    "index": 21,
-    "hint": "",
-    "createDate": 1675935954412,
-    "updateDate": 1675935954412
-  },
-  {
-    "id": "63e4c0d5f5f0bc4cce7edb05",
-    "question": "Số lớn nhất có một chữ số là:",
-    "result": [],
-    "answer": [
-      {
-        "index": 0,
-        "text": "8",
-        "isResult": false,
-        "_id": "63e4c0d5f5f0bc4cce7edb06"
-      },
-      {
-        "index": 1,
-        "text": "10",
-        "isResult": false,
-        "_id": "63e4c0d5f5f0bc4cce7edb07"
-      },
-      {
-        "index": 2,
-        "text": "9",
-        "isResult": true,
-        "_id": "63e4c0d5f5f0bc4cce7edb08"
-      },
-      {
-        "index": 3,
-        "text": "7",
-        "isResult": false,
-        "_id": "63e4c0d5f5f0bc4cce7edb09"
-      }
-    ],
-    "status": 1,
-    "idTopic": "63c581ec5713ed65828a373c",
-    "questionChild": null,
-    "parentId": null,
-    "index": 22,
-    "hint": "",
-    "createDate": 1675935957673,
-    "updateDate": 1675935957673
-  },
-  {
-    "id": "63e4c0d7f5f0bc4cce7edb0b",
-    "question": "Số lớn nhất có một chữ số là:",
-    "result": [],
-    "answer": [
-      {
-        "index": 0,
-        "text": "8",
-        "isResult": false,
-        "_id": "63e4c0d7f5f0bc4cce7edb0c"
-      },
-      {
-        "index": 1,
-        "text": "10",
-        "isResult": false,
-        "_id": "63e4c0d7f5f0bc4cce7edb0d"
-      },
-      {
-        "index": 2,
-        "text": "9",
-        "isResult": true,
-        "_id": "63e4c0d7f5f0bc4cce7edb0e"
-      },
-      {
-        "index": 3,
-        "text": "7",
-        "isResult": false,
-        "_id": "63e4c0d7f5f0bc4cce7edb0f"
-      }
-    ],
-    "status": 1,
-    "idTopic": "63c581ec5713ed65828a373c",
-    "questionChild": null,
-    "parentId": null,
-    "index": 23,
-    "hint": "",
-    "createDate": 1675935959377,
-    "updateDate": 1675935959377
-  },
-  {
-    "id": "63e4c0d9f5f0bc4cce7edb11",
-    "question": "Số lớn nhất có một chữ số là:",
-    "result": [],
-    "answer": [
-      {
-        "index": 0,
-        "text": "8",
-        "isResult": false,
-        "_id": "63e4c0d9f5f0bc4cce7edb12"
-      },
-      {
-        "index": 1,
-        "text": "10",
-        "isResult": false,
-        "_id": "63e4c0d9f5f0bc4cce7edb13"
-      },
-      {
-        "index": 2,
-        "text": "9",
-        "isResult": true,
-        "_id": "63e4c0d9f5f0bc4cce7edb14"
-      },
-      {
-        "index": 3,
-        "text": "7",
-        "isResult": false,
-        "_id": "63e4c0d9f5f0bc4cce7edb15"
-      }
-    ],
-    "status": 1,
-    "idTopic": "63c581ec5713ed65828a373c",
-    "questionChild": null,
-    "parentId": null,
-    "index": 24,
-    "hint": "",
-    "createDate": 1675935961456,
-    "updateDate": 1675935961456
-  }
-]
-const course = {
-  "id": "63ae88a2fe74a345583ff56e",
-  "courseName": "Toán Học 1",
-  "status": 1,
-  "avatar": "http://res.cloudinary.com/dxp3jz1fc/image/upload/v1679486233/mukcavqjhmdsyuqpgljr.jpg",
-  "des": "<div class=\"courseDetail_detail__topic__AX0tk\">\n<div class=\"courseDetail_detail__topic__GkP8o\">\n<h2 class=\"courseDetail_detail__topic--heading__PKybb\">Bạn sẽ học được g&igrave;?</h2>\n<ul class=\"courseDetail_detail__topic--list__6XnOy\">\n<li class=\"courseDetail_detail__topic--item__zmxXt\">Nắm chắc l&yacute; thuyết chung trong m&ocirc;n học</li>\n<li class=\"courseDetail_detail__topic--item__zmxXt\">Biết c&aacute;ch l&agrave;m c&aacute;c dạng b&agrave;i cơ bản</li>\n<li class=\"courseDetail_detail__topic--item__zmxXt\">Học được c&aacute;ch tư duy b&agrave;i tập một c&aacute;ch hiệu quả</li>\n<li class=\"courseDetail_detail__topic--item__zmxXt\">Được chia sẻ lại kinh nghiệm qua c&aacute;c b&agrave;i tập</li>\n</ul>\n</div>\n<div class=\"courseDetail_detail__topic__GkP8o\">\n<h2 class=\"courseDetail_detail__topic--heading__PKybb\">Y&ecirc;u cầu</h2>\n<ul class=\"courseDetail_detail__topic--list__6XnOy\">\n<li class=\"courseDetail_detail__topic--item__zmxXt\">Nắm chắc c&aacute;c kiến thức của m&ocirc;n học ở c&aacute;c lớp dưới</li>\n<li class=\"courseDetail_detail__topic--item__zmxXt\">Sở hữu m&aacute;y t&iacute;nh hoặc thiết bị di động kết nối internet</li>\n<li class=\"courseDetail_detail__topic--item__zmxXt\">&Yacute; thức cao, tr&aacute;ch nhiệm cao trong việc tự học. Thực h&agrave;nh lại sau mỗi b&agrave;i học</li>\n<li class=\"courseDetail_detail__topic--item__zmxXt\">Khi học nếu c&oacute; kh&uacute;c mắc h&atilde;y hỏi/đ&aacute;p tại phần b&igrave;nh luận</li>\n<li class=\"courseDetail_detail__topic--item__zmxXt\">Bạn kh&ocirc;ng cần biết g&igrave; hơn nữa, kh&oacute;a học sẽ chỉ cho bạn những g&igrave; bạn cần biết</li>\n</ul>\n</div>\n</div>\n<div class=\"ddict_btn\" style=\"top: 23px; left: 589.638px;\">&nbsp;</div>\n<div class=\"ddict_btn\" style=\"top: 291.2px; left: 585.6px;\">&nbsp;</div>\n<div class=\"ddict_btn\" style=\"top: 58px; left: 676.8px;\">&nbsp;</div>",
-  "shortDes": "Giúp con học giỏi Toán lớp 1 hơn một cách nhanh chóng. Video bài giảng Toán lớp 1 hiện đại có minh họa trực quan, ngắn gọn, cực kỳ dễ hiểu và thú vị. Nội dung bài luyện tập phong phú được biên soạn bám sát theo nội dung SGK Toán lớp 1 mới. Có Đề kiểm tra Toán lớp 1 hướng dẫn các em làm bài tốt hơn.",
-  "slug": "toan-hoc-1",
-  "idCategory": "63afdb7d3ae3dacb73148696",
-  "category": {
-    "id": "63afdb7d3ae3dacb73148696",
-    "name": "Lớp 1",
-    "status": 1,
-    "avatar": "https://storage.googleapis.com/staging-ngoaingu24h/hust-cms/2023/01/03/99110882.webp",
-    "des": "<p>Học online c&aacute;c m&ocirc;n To&aacute;n, L&yacute;, H&oacute;a, Sinh, Lịch sử, GDCD, Địa L&yacute;, Văn, Tiếng Anh theo chương tr&igrave;nh lớp 10 mới nhất dưới h&igrave;nh thức trắc nghiệm. C&aacute;c em c&oacute; thể học, luyện theo chương tr&igrave;nh học của bộ GDDT v&agrave; l&agrave;m c&aacute;c b&agrave;i kiểm tra học kỳ 1, học kỳ 2 ngay tr&ecirc;n website learn 4 ever .</p>",
-    "index": 1,
-    "slug": "lop-1",
-    "createDate": 1672469373522,
-    "updateDate": 1699003050550
-  },
-  "idTag": "63ae8fee4113e43df1d5850c",
-  "createDate": 1672382626870,
-  "updateDate": 1701032357653
-}
-const topic = {
-  "id": "63c581ec5713ed65828a373c",
-  "name": "Đề kiểm tra giữa học kì 1 môn Toán 1 - Đề số 1",
-  "status": 1,
-  "idCourse": "63ae88a2fe74a345583ff56e",
-  "topicChild": [],
-  "topicChildData": [],
-  "parentId": "63c580ed5713ed65828a372e",
-  "timePracticeInVideo": [],
-  "type": 2,
-  "des": "Học 10 thi 1",
-  "index": 1,
-  "createDate": 1673888236477,
-  "updateDate": 1698917226768,
-  "topicType": 3,
-  "timeExam": 15,
-  "numQuestion": 25,
-  "video": null
-}
+
 const loading = false;
 
 function Practice() {
+  const dispatch = useDispatch();
+  const userInfo = useSelector(state => state.user.userInfo);
   const [isReview, setIsReview] = useState(false);
-  const [timeCoundown, setTimeCoundown] = useState(Date.now() + (topic?.timeExam || 0) * 1000 * 60);
+  const [timeCoundown, setTimeCoundown] = useState(moment().valueOf());
   const { Countdown } = Statistic;
   const [clockStick, setClockStick] = useState(false);
   const [selectedQuestions, setSelectedQuestions] = useState([]);
   const [correctQuestions, setCorrectQuestions] = useState([]);
   const [correct, setCorrect] = useState(0);
   const params = useParams();
+  const course = useSelector((state) => state.course.course);
+  const questions = useSelector((state) => state.questions.questions);
+  const topic = useSelector((state) => state.topic.topicInFo);
+  const [statusLearn, setStatusLearn] = useState(0);
   const handlSaveSelected = (idQuestion = string, idAnswer = string) => {
     if (selectedQuestions.find((o) => o.idQuestion === idQuestion)) {
       setSelectedQuestions([
@@ -957,6 +71,30 @@ function Practice() {
       ]);
     }
   };
+  const handleClockStick = () => {
+    if (window !== undefined) {
+      let windowHeight = window.scrollY;
+      windowHeight > 180
+        ? setClockStick(!clockStick)
+        : setClockStick(clockStick);
+    }
+  };
+  const loadCourse = async (slugChild) => {
+    try {
+      const result = await dispatch(
+        requestLoadCourseBySlug({
+          slug: slugChild,
+          status: 1,
+        })
+      );
+      unwrapResult(result);
+    } catch (error) {
+      notification.error({
+        message: "server error!!",
+        duration: 1.5,
+      });
+    }
+  };
   const handleMark = (idQuestion = string, isCheck = boolean) => {
     if (isCheck) {
       setCorrectQuestions([...correctQuestions, idQuestion]);
@@ -966,17 +104,81 @@ function Practice() {
       setCorrectQuestions(correctQuestions.filter((o) => o !== idQuestion));
     }
   };
+  console.log(topic);
+  useEffect(() => {
+    if (userInfo?.progess?.find((o) => o.idTopic === params.idChild)) {
+      userInfo?.progess?.find(
+        (o) => o.idTopic === params.idChild && setSelectedQuestions(o.answers)
+      );
+      setStatusLearn(
+        userInfo?.progess?.find((o) => o.idTopic === params.idChild)?.status
+      );
+      setIsReview(true);
+      setCorrect(0);
+      setCorrectQuestions([]);
+    } else {
+      setStatusLearn(0);
+      setSelectedQuestions([]);
+      setIsReview(false);
+      setTimeCoundown(Date.now() + (topic?.timeExam || 0) * 1000 * 60);
+    }
+  }, [params.idChild, userInfo, topic?.id]);
+  useEffect(() => {
+    window.addEventListener("scroll", handleClockStick);
+    return () => {
+      window.removeEventListener("scroll", handleClockStick);
+    };
+  }, []);
+  const loadQuestionByTopic = async (idTopic, status) => {
+    try {
+      const result = await dispatch(
+        requestLoadQuestionsByIdTopic({ idTopic, status })
+      );
+      unwrapResult(result);
+    } catch (error) {
+      notification.error({
+        message: "lỗi server, không tải được câu hỏi",
+        duration: 1.5,
+      });
+    }
+  };
+  const loadTopicById = async (id) => {
+    try {
+      const result = await dispatch(requestLoadTopicById({ id }));
+      unwrapResult(result);
+    } catch (error) {
+      notification.error({
+        message: "lỗi server, không tải được câu hỏi",
+        duration: 1.5,
+      });
+    }
+  };
+
+  useEffect(() => {
+    loadQuestionByTopic(params.idChild || "", 1);
+    loadCourse(params.slugChild || "");
+    loadTopicById(params.idChild || "");
+  }, [params.idChild, params.slugChild]);
+  const handleReviewExam = () => {
+    if (statusLearn === 2) {
+      setSelectedQuestions([]);
+      setStatusLearn(0);
+      setIsOpenReviewExam(false);
+      setIsReview(false);
+      setTimeCoundown(Date.now() + (topic?.timeExam || 0) * 1000 * 60);
+    }
+  };
   return (
     <>
       <Header />
       <main>
         <div className="wide">
-          <div className={clsx("practice__breadcumb")}>
+          <div className={clsx(styles.practiceBreadcumb)}>
             <Breadcrumb separator="›">
               <Breadcrumb.Item>
                 <NavLink
                   to={"/"}
-                  className={clsx("practice__breadcumb--link")}
+                  className={clsx(styles.practiceBreadcumbLink)}
                 >
                   Trang chủ
                 </NavLink>
@@ -986,7 +188,7 @@ function Practice() {
                   <Breadcrumb.Item>
                     <NavLink
                       to={`/${course?.category?.slug}`}
-                      className={clsx("detail__breadcumb--link")}
+                      className={clsx(styles.detailBreadcumbLink)}
                     >
                       {course?.category?.name}
                     </NavLink>
@@ -994,7 +196,7 @@ function Practice() {
                   <Breadcrumb.Item>
                     <NavLink
                       to={`/${course?.category?.slug}/${course?.slug}`}
-                      className={clsx("detail__breadcumb--link")}
+                      className={clsx(styles.detailBreadcumbLink)}
                     >
                       {course?.courseName}
                     </NavLink>
@@ -1052,10 +254,10 @@ function Practice() {
                                   <div className={clsx(styles.feedbackIconWrapper)}>
                                     <FaMarker
                                       className={clsx(styles.feedbackIcon)}
-                                      onClick={() => {
-                                        setIsOpenModelFeedback(true);
-                                        setIdQuestion(qs?.id);
-                                      }}
+                                    // onClick={() => {
+                                    //   setIsOpenModelFeedback(true);
+                                    //   setIdQuestion(qs?.id);
+                                    // }}
                                     />
                                   </div>
                                   <div className={clsx(styles.gameView)}>

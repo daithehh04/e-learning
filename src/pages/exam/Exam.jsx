@@ -2,9 +2,12 @@ import Header from '../../layout/Header/Header'
 import Footer from '../../layout/Footer/Footer'
 import clsx from 'clsx'
 import { NavLink, useNavigate, useParams } from "react-router-dom";
-import { Breadcrumb, Col, Popconfirm, Row } from "antd";
+import { Breadcrumb, Col, Popconfirm, Row, notification } from "antd";
+import { useSelector, useDispatch } from 'react-redux';
 import { useEffect, useState } from "react";
 import styles from './Exam.module.scss';
+import { requestLoadTopicByCourse } from '../../stores/middleware/topicMiddleware';
+import { requestLoadCourseBySlug } from '../../stores/middleware/courseMiddleware'
 import {
   FaChevronDown,
   FaChevronUp,
@@ -12,87 +15,69 @@ import {
   FaRegQuestionCircle,
 } from "react-icons/fa";
 import { BiChevronRight } from "react-icons/bi";
+import { unwrapResult } from "@reduxjs/toolkit";
 import React from 'react'
-const course = {
-  slug: "toan-hoc-1",
-  courseName: "Toán Học 1",
-  category: {
-    slug: "lop-1",
-    name: "lop-1"
-  }
-}
-const topics =
-  [
-    {
-      "id": "63c580ed5713ed65828a372e",
-      "name": "Đề kiểm tra giữa học kì 1 môn Toán 1",
-      "status": 1,
-      "idCourse": "63ae88a2fe74a345583ff56e",
-      "topicChild": [
-        "63c581ec5713ed65828a373c",
-        "63c581ff5713ed65828a3740",
-        "63e4ec8405be95a662802654"
-      ],
-      "topicChildData": [
-        {
-          "id": "63c581ec5713ed65828a373c",
-          "name": "Đề kiểm tra giữa học kì 1 môn Toán 1 - Đề số 1",
-          "status": 1,
-          "idCourse": "63ae88a2fe74a345583ff56e",
-          "topicChild": [],
-          "topicChildData": [],
-          "parentId": "63c580ed5713ed65828a372e",
-          "timePracticeInVideo": [],
-          "type": 2,
-          "des": "Học 10 thi 1",
-          "index": 1,
-          "createDate": 1673888236477,
-          "updateDate": 1698917226768,
-          "topicType": 3,
-          "timeExam": 15,
-          "numQuestion": 25,
-          "video": null
-        },
-        {
-          "id": "63c581ff5713ed65828a3740",
-          "name": "Đề kiểm tra giữa học kì 1 môn Toán 1 - Đề số 2",
-          "status": 1,
-          "idCourse": "63ae88a2fe74a345583ff56e",
-          "topicChild": [],
-          "topicChildData": [],
-          "parentId": "63c580ed5713ed65828a372e",
-          "timePracticeInVideo": [],
-          "type": 2,
-          "des": "",
-          "index": 2,
-          "createDate": 1673888255198,
-          "updateDate": 1698917226768,
-          "topicType": 3,
-          "timeExam": 10,
-          "numQuestion": 5,
-          "video": null
-        },
-      ],
-      "parentId": null,
-      "timePracticeInVideo": [],
-      "type": 2,
-      "des": "",
-      "index": 0,
-      "createDate": 1673887981255,
-      "updateDate": 1673887981255,
-      "topicType": 3,
-      "timeExam": 0,
-      "numQuestion": 0,
-      "video": null
-    }
-  ]
-
-
-
-
 function Exam() {
+  const dispatch = useDispatch();
+  const topics = useSelector((state) => {
+    return state.topic.topics
+  });
+  const course = useSelector((state) => {
+    return state.course.course
+  })
+  const params = useParams();
   const navigate = useNavigate();
   const loading = false;
+  const loadTopicByCourse = async (
+    idCourse,
+    type,
+    parentId
+  ) => {
+    try {
+      const result = await dispatch(
+        requestLoadTopicByCourse({
+          idCourse,
+          type,
+          parentId,
+          status: 1,
+        })
+      );
+      unwrapResult(result);
+    } catch (error) {
+      notification.error({
+        message: "server error!!",
+        duration: 1.5,
+      });
+    }
+  };
+  const loadCourse = async (slugChild) => {
+    try {
+      const result = await dispatch(
+        requestLoadCourseBySlug({
+          slug: slugChild,
+          status: 1,
+        })
+      );
+      unwrapResult(result);
+    } catch (error) {
+      notification.error({
+        message: "server error!!",
+        duration: 1.5,
+      });
+    }
+  };
+
+  useEffect(() => {
+    if (params.id) {
+      const arg = params.id.split("-");
+      if (Number(arg[1]) === 2) {
+        loadTopicByCourse(arg[0], Number(arg[1]));
+      } else {
+        navigate(-1);
+      }
+    }
+    loadCourse(params.slugChild || "");
+  }, [params.slugChild, params.id]);
   return (
     <>
       <Header />
@@ -144,7 +129,6 @@ function Exam() {
             {topics.length > 0 &&
               topics?.map((data) => {
                 const dataChild = data.topicChildData;
-                console.log(dataChild);
                 return (
                   <div className={clsx(styles.examPanel)} key={data.id}>
                     <div className={clsx((styles.examPanelItem))}>
@@ -199,7 +183,6 @@ function Exam() {
                                       placement="top"
                                       title="Bạn muốn làm đề này sao?"
                                       onConfirm={() => {
-                                        console.log(dataChild.id)
                                         navigate(`${dataChild.id}`)
                                       }
                                       }

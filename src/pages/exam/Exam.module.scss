@@ -1,3 +1,35 @@
+@mixin responsive($breakpoint) {
+     @if $breakpoint==xs {
+          @media (max-width: 575.98px) {
+               @content;
+          }
+     }
+
+     @if $breakpoint==sm {
+          @media (min-width: 576px) and (max-width: 767.98px) {
+               @content;
+          }
+     }
+
+     @if $breakpoint==md {
+          @media (min-width: 768px) and (max-width: 991.98px) {
+               @content;
+          }
+     }
+
+     @if $breakpoint==lg {
+          @media (min-width: 992px) and (max-width: 1199.98px) {
+               @content;
+          }
+     }
+
+     @if $breakpoint==xl {
+          @media (min-width: 1200px) {
+               @content;
+          }
+     }
+}
+
 .exam {
      .examBreadcrumb {
           margin-top: 4px;
@@ -36,4 +68,93 @@
           margin-top: 2rem;
      }
 
+
+}
+
+.examPanelBtn {
+     margin-top: 18px;
+     font-size: 1.3rem;
+     font-family: var(--font-family);
+     font-weight: 600;
+     box-shadow: 0 0.4rem 1rem rgb(192 210 235 / 75%);
+     color: #fff;
+     background-color: #ff8223;
+     padding: 0.6rem 0.8rem;
+     border-radius: 1rem;
+     display: flex;
+     align-items: center;
+     cursor: pointer;
+     transition: 0.4s ease-in-out;
+
+     &.review {
+          background-color: #ffba34;
+     }
+
+     @include responsive(sm) {
+          margin-left: auto;
+     }
+
+     @include responsive(xs) {
+          margin-left: auto;
+     }
+}
+
+.panelActionItem {
+     display: flex;
+
+     &>div {
+          display: flex;
+          align-items: center;
+
+          &>span {
+               padding: 0 1rem;
+               margin-top: 0.4rem;
+               font-size: 1.4rem;
+               font-weight: 500;
+               font-family: var(--font-family);
+               color: black;
+          }
+     }
+
+     @include responsive(sm) {
+          justify-content: space-between;
+          margin-bottom: 0.8rem;
+     }
+
+     @include responsive(xs) {
+          justify-content: space-between;
+          margin-bottom: 0.8rem;
+     }
+
+     @include responsive(md) {
+          &>div>span {
+               padding: 0 0.8rem;
+               margin-top: 0.2rem;
+               font-size: 1.2rem;
+          }
+     }
+}
+
+.examPanelContent {
+     padding: 2rem;
+     border-radius: 1rem;
+     border: 0.15rem solid rgb(243, 247, 249);
+     display: flex;
+     flex-direction: column;
+     cursor: pointer;
+     background-color: #fff;
+     transition: all 0.4s ease-in-out;
+
+     &>span {
+          font-size: 1.5rem;
+          font-weight: 500;
+          font-family: var(--font-family);
+          color: #000;
+          margin-bottom: 2.4rem;
+     }
+
+     &:hover {
+          transform: translateY(-6px);
+          box-shadow: 0 4px 10px rgb(192 210 235 / 50%);
+     }
 }

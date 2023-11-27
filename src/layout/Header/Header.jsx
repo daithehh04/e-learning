@@ -4,14 +4,14 @@ import { NavLink } from 'react-router-dom';
 import styles from './Header.module.scss';
 import logo from '../../assets/imgs/logo/logo.svg';
 import { useNavigate } from 'react-router-dom';
-import { useAuth0 } from '@auth0/auth0-react';
+// import { useAuth0 } from '@auth0/auth0-react';
 
 export default function Header() {
   const navLinkClass = ({ isActive }) => {
     return isActive ? 'activated' : ` `;
   };
   const navigate = useNavigate();
-  const { isLoading, loginWithPopup, isAuthenticated } = useAuth0();
+  // const { isLoading, loginWithPopup, isAuthenticated } = useAuth0();
   const [rooms, setRoom] = useState([
     { id: 1, name: 'lớp 1', slug: 'lop-1' },
     { id: 2, name: 'lớp 2', slug: 'lop-2' },
@@ -48,7 +48,7 @@ export default function Header() {
           >
             Đăng Nhập
           </button>
-          {/* <button> <button className={clsx(styles.btnResigter)}>Đăng kí</button></button> */}
+          <button className={clsx(styles.btnResigter)}>Đăng kí</button>
         </div>
       </div>
       <div className={clsx(styles.headerBottom)}>

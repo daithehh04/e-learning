@@ -32,8 +32,8 @@ export const authSlice = createSlice({
       state.loading = true;
     });
     builder.addCase(requestLogin.fulfilled, (state, action) => {
-      state.loading = false;
       state.userInfo = action.payload.userLogin;
+      state.loading = false;
     });
     // requestGetUserFromToken
     builder.addCase(requestGetUserFromToken.pending, (state) => {

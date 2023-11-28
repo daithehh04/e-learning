@@ -17,9 +17,12 @@ const Login = () => {
   const userInfo = useSelector((state) => state.user.userInfo);
   const loading = useSelector((state) => state.user.loading);
   const dispatch = useDispatch();
+  console.log('userInfo', userInfo);
   // lay token tu cookie
   useEffect(() => {
+    console.log('back');
     if (userInfo?._id) {
+      console.log('back2');
       navigate(-1);
     }
   }, [userInfo]);
@@ -27,8 +30,7 @@ const Login = () => {
   const handleLogin = async (data) => {
     try {
       const encodePassword = encrypt(data.password);
-      console.log(encodePassword);
-      const actionResult = dispatch(
+      const actionResult = await dispatch(
         requestLogin({
           account: data.account,
           password: encodePassword,

@@ -284,7 +284,6 @@ function Practice() {
                                         <Space direction="vertical">
                                           <Radio.Group
                                             className={clsx(styles.quizChoicesItemInner)}
-                                          // onChange={onChange} value={value}
                                           >
                                             {qs.answer?.map((item, i) => {
                                               return (
@@ -292,7 +291,7 @@ function Practice() {
                                                   className={
                                                     isReview
                                                       ? statusLearn ===
-                                                      TTCSconfig.STATUS_LEARNED &&
+                                                      2 &&
                                                       (item?.isResult
                                                         ? clsx(
                                                           styles.quizChoicesItemRadio,
@@ -350,61 +349,61 @@ function Practice() {
                                           </Radio.Group>
 
                                           {isReview &&
-                                            {/* statusLearn ===
-                                              TTCSconfig.STATUS_LEARNED && */}
-                                              (
-                                                <div className={clsx(styles.quizExplain)}>
-                                                  {qs.hint && (
-                                                    <div
-                                                      className={clsx(
-                                                        styles.quizExplainItem
-                                                      )}
-                                                    >
-                                                      <p>Giải thích</p>
-                                                    </div>
-                                                  )}
+                                            statusLearn ===
+                                            2 &&
+                                            (
+                                              <div className={clsx(styles.quizExplain)}>
+                                                {qs.hint && (
+                                                  <div
+                                                    className={clsx(
+                                                      styles.quizExplainItem
+                                                    )}
+                                                  >
+                                                    <p>Giải thích</p>
+                                                  </div>
+                                                )}
 
-                                                  {selectedQuestions.find(
-                                                    (o) => o.idQuestion === qs.id
+                                                {selectedQuestions.find(
+                                                  (o) => o.idQuestion === qs.id
+                                                ) ? (
+                                                  qs.answer?.find(
+                                                    (item) =>
+                                                      item?.isResult &&
+                                                      selectedQuestions.find(
+                                                        (o) =>
+                                                          o.idAnswer.toString() ===
+                                                          item?._id?.toString()
+                                                      )
                                                   ) ? (
-                                                    qs.answer?.find(
-                                                      (item) =>
-                                                        item?.isResult &&
-                                                        selectedQuestions.find(
-                                                          (o) =>
-                                                            o.idAnswer.toString() ===
-                                                            item?._id?.toString()
-                                                        )
-                                                    ) ? (
-                                                      <p style={{ color: "#33cd99" }}>
-                                                        Bạn chọn đáp án đúng
-                                                      </p>
-                                                    ) : (
-                                                      <p style={{ color: "#ff4747" }}>
-                                                        Bạn chọn đáp án sai
-                                                      </p>
-                                                    )
+                                                    <p style={{ color: "#33cd99" }}>
+                                                      Bạn chọn đáp án đúng
+                                                    </p>
                                                   ) : (
                                                     <p style={{ color: "#ff4747" }}>
-                                                      Bạn chưa chọn đáp án
+                                                      Bạn chọn đáp án sai
                                                     </p>
-                                                  )}
+                                                  )
+                                                ) : (
+                                                  <p style={{ color: "#ff4747" }}>
+                                                    Bạn chưa chọn đáp án
+                                                  </p>
+                                                )}
 
-                                                  {qs.hint && (
+                                                {qs.hint && (
+                                                  <div
+                                                    className={clsx(
+                                                      "quiz__explain--item"
+                                                    )}
+                                                  >
                                                     <div
-                                                      className={clsx(
-                                                        "quiz__explain--item"
-                                                      )}
-                                                    >
-                                                      <div
-                                                        dangerouslySetInnerHTML={{
-                                                          __html: qs.hint ?? "",
-                                                        }}
-                                                      ></div>
-                                                    </div>
-                                                  )}
-                                                </div>
-                                              )}
+                                                      dangerouslySetInnerHTML={{
+                                                        __html: qs.hint ?? "",
+                                                      }}
+                                                    ></div>
+                                                  </div>
+                                                )}
+                                              </div>
+                                            )}
                                         </Space>
                                       </div>
                                     </div>
@@ -466,7 +465,7 @@ function Practice() {
                                         <span
                                           className={
                                             statusLearn ===
-                                              TTCSconfig.STATUS_LEARNED
+                                              2
                                               ? o.answer?.find(
                                                 (item) =>
                                                   item?.isResult &&
@@ -523,100 +522,99 @@ function Practice() {
                           </div>
 
                           {isReview &&
-                            {/* statusLearn === TTCSconfig.STATUS_LEARNED && */ }
-                              (
-                                <div className={clsx(styles.practicePaletteReview)}>
-                                  {userInfo?.progess?.map(
-                                    (o, i) =>
-                                      o.idTopic === topic?.id && (
-                                        <div key={i}>
-                                          <div className={clsx(styles.examPanelScore)}>
-                                            <FaStar
+                            (
+                              <div className={clsx(styles.practicePaletteReview)}>
+                                {userInfo?.progess?.map(
+                                  (o, i) =>
+                                    o.idTopic === topic?.id && (
+                                      <div key={i}>
+                                        <div className={clsx(styles.examPanelScore)}>
+                                          <FaStar
+                                            style={{
+                                              color: "#ffe644",
+                                              fontSize: "8rem",
+                                            }}
+                                          />
+                                          <span>{o.score}</span>
+                                        </div>
+                                        <Row
+                                          className={clsx(styles.examPanelBody)}
+                                          gutter={[16, 16]}
+                                        >
+                                          <Col
+                                            span={7}
+                                            className={clsx(
+                                              styles.examPanelBodyItem,
+                                              "exam__panel--correct"
+                                            )}
+                                          >
+                                            <FaCheckCircle
                                               style={{
-                                                color: "#ffe644",
-                                                fontSize: "8rem",
+                                                color: "#33cd99",
+                                                fontSize: "1.8rem",
                                               }}
                                             />
-                                            <span>{o.score}</span>
-                                          </div>
-                                          <Row
-                                            className={clsx(styles.examPanelBody)}
-                                            gutter={[16, 16]}
+                                            <span style={{ fontSize: "1.4rem" }}>
+                                              Câu đúng
+                                            </span>
+                                            <span style={{ fontSize: "2.2rem" }}>
+                                              {o.correctQuestion}
+                                            </span>
+                                          </Col>
+                                          <Col
+                                            span={7}
+                                            className={clsx(
+                                              styles.examPanelBodyItem,
+                                              "exam__panel--inCorrect"
+                                            )}
                                           >
-                                            <Col
-                                              span={7}
-                                              className={clsx(
-                                                styles.examPanelBodyItem,
-                                                "exam__panel--correct"
-                                              )}
-                                            >
-                                              <FaCheckCircle
-                                                style={{
-                                                  color: "#33cd99",
-                                                  fontSize: "1.8rem",
-                                                }}
-                                              />
-                                              <span style={{ fontSize: "1.4rem" }}>
-                                                Câu đúng
-                                              </span>
-                                              <span style={{ fontSize: "2.2rem" }}>
-                                                {o.correctQuestion}
-                                              </span>
-                                            </Col>
-                                            <Col
-                                              span={7}
-                                              className={clsx(
-                                                styles.examPanelBodyItem,
-                                                "exam__panel--inCorrect"
-                                              )}
-                                            >
-                                              <FaTimesCircle
-                                                style={{
-                                                  color: "#ff4747",
-                                                  fontSize: "1.8rem",
-                                                }}
-                                              />
-                                              <span style={{ fontSize: "1.4rem" }}>
-                                                Câu sai
-                                              </span>
-                                              <span style={{ fontSize: "2.2rem" }}>
-                                                {/* {totalQuestion - o.correctQuestion} */}
-                                              </span>
-                                            </Col>
-                                            <Col
-                                              span={7}
-                                              className={clsx(
-                                                styles.examPanelBodyItem,
-                                                "exam__panel--time"
-                                              )}
-                                            >
-                                              <FaClock
-                                                style={{
-                                                  color: "#ffba34",
-                                                  fontSize: "1.8rem",
-                                                }}
-                                              />
-                                              <span style={{ fontSize: "1.4rem" }}>
-                                                Thời gian
-                                              </span>
-                                              <span style={{ fontSize: "2.2rem" }}>
-                                                {moment(
-                                                  Math.abs(
-                                                    (topic?.timeExam || 0) * 60000 -
-                                                    o.timeStudy
-                                                  )
-                                                ).format("mm:ss")}
-                                              </span>
-                                            </Col>
-                                          </Row>
-                                        </div>
-                                      )
-                                  )}
-                                </div>
-                              )}
+                                            <FaTimesCircle
+                                              style={{
+                                                color: "#ff4747",
+                                                fontSize: "1.8rem",
+                                              }}
+                                            />
+                                            <span style={{ fontSize: "1.4rem" }}>
+                                              Câu sai
+                                            </span>
+                                            <span style={{ fontSize: "2.2rem" }}>
+                                              {/* {totalQuestion - o.correctQuestion} */}
+                                            </span>
+                                          </Col>
+                                          <Col
+                                            span={7}
+                                            className={clsx(
+                                              styles.examPanelBodyItem,
+                                              "exam__panel--time"
+                                            )}
+                                          >
+                                            <FaClock
+                                              style={{
+                                                color: "#ffba34",
+                                                fontSize: "1.8rem",
+                                              }}
+                                            />
+                                            <span style={{ fontSize: "1.4rem" }}>
+                                              Thời gian
+                                            </span>
+                                            <span style={{ fontSize: "2.2rem" }}>
+                                              {moment(
+                                                Math.abs(
+                                                  (topic?.timeExam || 0) * 60000 -
+                                                  o.timeStudy
+                                                )
+                                              ).format("mm:ss")}
+                                            </span>
+                                          </Col>
+                                        </Row>
+                                      </div>
+                                    )
+                                )}
+                              </div>
+                            )}
                           <div className={clsx(styles.practicePaletteFooter)}>
                             {isReview ? (
-                              statusLearn === TTCSconfig.STATUS_LEARNED ? (
+                              statusLearn === 2 ? (
                                 <div className={clsx(styles.btnGroup)}>
                                   <button
                                     className={clsx(styles.btn, styles.btnSubmit)}

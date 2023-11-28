@@ -2,7 +2,8 @@ import React, { Fragment, useEffect, useState } from 'react';
 import styles from './Learning.module.scss';
 import clsx from 'clsx';
 import { Link, useNavigate } from 'react-router-dom';
-import { Layout, Progress } from 'antd';
+import { Layout, Progress, notification } from 'antd';
+import dayjs from 'dayjs';
 import {
   FaArrowRight,
   FaBars,
@@ -25,21 +26,24 @@ import { Content } from 'antd/es/layout/layout';
 import moment from 'moment/moment';
 import { useSelector } from 'react-redux';
 import { requestLoadTotalLearnedTopic } from '../../stores/middleware/topicMiddleware';
+import { apiLoadTopicById } from '../../api/topic';
+import TTCSconfig from '../../helper/config';
 const loading = false;
 function Learning() {
   const navigate = useNavigate();
   const [isShowSider, setIsShowSider] = useState(false);
   const [indexOpenTopic, setIndexOpenTopic] = useState([]);
   const [indexTopic, setIndexTopic] = useState();
+  const [selectedQuestions, setSelectedQuestions] = useState([]);
+  const [dataTopicActive, setDataTopicActive] = useState();
   const topics = useSelector((state) => state.topic.topics);
   const course = useSelector((state) => state.course.course);
   const userInfo = useSelector((state) => state.user.userInfo);
   const topicTotalLearned = useSelector((state) => state.topic.totalLearned);
-  console.log('topicTotalLearned', topicTotalLearned);
   // Lesson learned
   useEffect(() => {
+    console.log(course?.id && userInfo?._id);
     if (course?.id && userInfo?._id) {
-      console.log('running');
       requestLoadTotalLearnedTopic(course?.id, userInfo?._id);
     }
   }, [course?.id, userInfo?._id, userInfo]);
@@ -49,6 +53,37 @@ function Learning() {
       setIndexOpenTopic(indexPrev);
     } else {
       setIndexOpenTopic([...indexOpenTopic, index + 1]);
+    }
+  };
+  const handleChangeTopic = async (id) => {
+    try {
+      const res = await apiLoadTopicById({ id });
+      setDataTopicActive(res.data);
+      // setIsExercise(true);
+    } catch (error) {
+      notification.error({
+        message: 'server error!!',
+        duration: 1.5,
+      });
+    }
+  };
+  const handleSaveSelected = (idQuestion, idAnswer) => {
+    if (selectedQuestions.find((o) => o.idQuestion === idQuestion)) {
+      setSelectedQuestions([
+        ...selectedQuestions.filter((c) => c.idQuestion !== idQuestion),
+        {
+          idQuestion,
+          idAnswer,
+        },
+      ]);
+    } else {
+      setSelectedQuestions((o) => [
+        ...o,
+        {
+          idQuestion,
+          idAnswer,
+        },
+      ]);
     }
   };
   return (
@@ -137,6 +172,7 @@ function Learning() {
                               <div
                                 onClick={() => {
                                   setIndexTopic(topic.id);
+                                  handleChangeTopic(topicChild.id || '');
                                 }}
                                 className={clsx(styles.subLessonItemWrapper)}
                               >
@@ -145,11 +181,14 @@ function Learning() {
                                     {topicChild?.name}
                                   </h4>
                                   <p className={clsx(styles.iconTopic)}>
-                                    {topicChild?.topicType === 1 ? (
+                                    {topicChild?.topicType ===
+                                    TTCSconfig.TYPE_TOPIC_VIDEO ? (
                                       <FaPlayCircle />
-                                    ) : topicChild?.topicType === 2 ? (
+                                    ) : topicChild?.topicType ===
+                                      TTCSconfig.TYPE_TOPIC_DOCUMENT ? (
                                       <FaFileAlt />
-                                    ) : topicChild?.topicType === 3 ? (
+                                    ) : topicChild?.topicType ===
+                                      TTCSconfig.TYPE_TOPIC_PRATICE ? (
                                       <FaQuestionCircle />
                                     ) : (
                                       <></>
@@ -179,13 +218,167 @@ function Learning() {
             [styles.hideSider]: isShowSider,
           })}
         >
-          <h2>Hình vuông, hình tròn và hình tam giác</h2>
-          <div
-            className={clsx(styles.contentDesc)}
-            dangerouslySetInnerHTML={{
-              __html: topics[0]?.des ?? '',
-            }}
-          ></div>
+          <div>
+            {dataTopicActive?.topicType === TTCSconfig.TYPE_TOPIC_VIDEO && (
+              <div className={clsx(styles.contentVideo)}>
+                <div className={clsx(styles.videoPlayer)}>
+                  <video
+                    controls
+                    autoPlay={false}
+                    className={clsx(styles.videoEmbed)}
+                    title="video player"
+                    // ref={videoPlayerRef}
+                    // onTimeUpdate={handleTimeUpdateVideo}
+                    // onSeeking={handleSeekingVideo}
+                  >
+                    <source
+                      src={dataTopicActive?.video || ''}
+                      type="video/mp4"
+                    />
+                  </video>
+                </div>
+              </div>
+            )}
+          </div>
+          {/* Description */}
+          <div className={clsx(styles.contentDesc)}>
+            <div className={clsx(styles.title)}>
+              <h1 className={clsx(styles.heading)}>{dataTopicActive?.name}</h1>
+              <p className={clsx(styles.timeUpdate)}>
+                Cập nhật ngày {dayjs(dataTopicActive?.updateDate).date()} tháng{' '}
+                {dayjs(dataTopicActive?.updateDate).month() + 1} năm{' '}
+                {dayjs(dataTopicActive?.updateDate).year()}
+              </p>
+            </div>
+            {/* text */}
+            <div
+              className={clsx(styles.descText)}
+              dangerouslySetInnerHTML={{
+                __html: dataTopicActive?.des ?? '',
+              }}
+            ></div>
+          </div>
+          {/* Practice */}
+          {/* <div>
+            {dataTopicActive?.topicType === TTCSconfig.TYPE_TOPIC_PRATICE && (
+              <div>
+                {questions.length > 0 &&
+                  questions?.map((question, index) => {
+                    return (
+                      <Row
+                        id={question.id}
+                        className={clsx(styles.contentPractice)}
+                        key={question.id}
+                      >
+                        <div className={clsx(styles.gameView)}>
+                          <div className={clsx(styles.question)}>
+                            <div className={clsx(styles.questionIdex)}>
+                              <span>{index + 1}.</span>
+                            </div>
+                            <div
+                              className={clsx(styles.questionText)}
+                              dangerouslySetInnerHTML={{
+                                __html: question.question ?? '',
+                              }}
+                            ></div>
+                          </div>
+
+                          <div className={clsx(styles.quiz)}>
+                            <div className={clsx(styles.quizItem)}>
+                              <Space direction="vertical">
+                                {question.answer?.map((item, i) => {
+                                  return (
+                                    <Radio
+                                      className={
+                                        selectedQuestions.find(
+                                          (o) => o.idQuestion === question.id
+                                        )
+                                          ? item?.isResult
+                                            ? cx(
+                                                'quiz-choices__item--radio',
+                                                'correct'
+                                              )
+                                            : selectedQuestions.find(
+                                                (o) =>
+                                                  o.idAnswer.toString() ===
+                                                  item?._id?.toString()
+                                              ) &&
+                                              cx(
+                                                'quiz-choices__item--radio',
+                                                'inCorrect'
+                                              )
+                                          : cx('quiz-choices__item--radio')
+                                      }
+                                      value={item}
+                                      key={i}
+                                      onClick={(e) => {
+                                        handleSaveSelected(
+                                          question?.id || '',
+                                          item?._id || ''
+                                        );
+                                      }}
+                                      disabled={isReview}
+                                      checked={
+                                        !!selectedQuestions.find(
+                                          (o) =>
+                                            o.idAnswer.toString() ===
+                                            item?._id?.toString()
+                                        )
+                                      }
+                                    >
+                                      <span
+                                        className={clsx(
+                                          'quiz-choices__item--answer'
+                                        )}
+                                      >
+                                        {answers[item.index]}.&nbsp;
+                                        <span
+                                          dangerouslySetInnerHTML={{
+                                            __html: item.text ?? '',
+                                          }}
+                                        ></span>
+                                      </span>
+                                    </Radio>
+                                  );
+                                })}
+
+                                {selectedQuestions.find(
+                                  (o) => o.idQuestion === question.id
+                                ) && (
+                                  <div className={clsx('quiz__explain')}>
+                                    <p>Giải thích</p>
+                                    <div
+                                      dangerouslySetInnerHTML={{
+                                        __html: question.hint ?? '',
+                                      }}
+                                    ></div>
+                                  </div>
+                                )}
+                              </Space>
+                            </div>
+                          </div>
+                        </div>
+                      </Row>
+                    );
+                  })}
+                {isReview ? (
+                  <Button onClick={handleRemakeExercise} type="primary">
+                    Làm lại
+                  </Button>
+                ) : (
+                  <Popconfirm
+                    placement="top"
+                    title="Bạn cos chắc muốn nộp?"
+                    onConfirm={() => handleSubmitExercise()}
+                    okText="Yes"
+                    cancelText="No"
+                  >
+                    <Button type="primary">Nộp bài</Button>
+                  </Popconfirm>
+                )}
+              </div>
+            )}
+          </div> */}
         </Content>
       </Layout>
       {/* Footer */}

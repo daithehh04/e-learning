@@ -38,6 +38,7 @@ import moment from "moment";
 const loading = false;
 
 function Practice() {
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const userInfo = useSelector(state => state.user.userInfo);
   const [isReview, setIsReview] = useState(false);
@@ -104,7 +105,6 @@ function Practice() {
       setCorrectQuestions(correctQuestions.filter((o) => o !== idQuestion));
     }
   };
-  console.log(topic);
   useEffect(() => {
     if (userInfo?.progess?.find((o) => o.idTopic === params.idChild)) {
       userInfo?.progess?.find(

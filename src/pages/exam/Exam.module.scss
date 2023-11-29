@@ -99,6 +99,10 @@
      }
 }
 
+.examPanelIcon {
+     font-size: 2rem;
+}
+
 .panelActionItem {
      display: flex;
 
@@ -132,6 +136,33 @@
                margin-top: 0.2rem;
                font-size: 1.2rem;
           }
+     }
+}
+
+.examPanelScore {
+     margin-left: 0.6rem;
+     padding: 0.6rem 0;
+     color: #76b257;
+     border: 0.15rem solid #76b257;
+     border-radius: 1rem;
+
+     &>span {
+          font-size: 1.2rem !important;
+          color: #76b257 !important;
+          font-weight: 700 !important;
+          margin-top: unset !important;
+     }
+
+     @include responsive(xs) {
+          margin-left: unset;
+     }
+
+     @include responsive(sm) {
+          margin-left: unset;
+     }
+
+     @include responsive(md) {
+          margin-left: unset;
      }
 }
 

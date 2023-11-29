@@ -18,16 +18,19 @@ import { BiChevronRight } from "react-icons/bi";
 import { unwrapResult } from "@reduxjs/toolkit";
 import React from 'react'
 function Exam() {
+  const navigate = useNavigate();
+  const loading = useSelector((state) => state.course.loading);
   const dispatch = useDispatch();
+  const params = useParams();
   const topics = useSelector((state) => {
     return state.topic.topics
   });
+  const userInfo = useSelector((state) => state.user.userInfo);
+  const [indexOpenTopic, setIndexOpenTopic] = useState([1]);
   const course = useSelector((state) => {
     return state.course.course
   })
-  const params = useParams();
-  const navigate = useNavigate();
-  const loading = false;
+
   const loadTopicByCourse = async (
     idCourse,
     type,
@@ -178,6 +181,19 @@ function Exam() {
                                           {dataChild?.timeExam} phút
                                         </span>
                                       </div>
+                                      {userInfo?.progess?.map(
+                                        (o) =>
+                                          o.idTopic === dataChild.id && (
+                                            <div
+                                              className={clsx(
+                                                styles.examPanelScore
+                                              )}
+                                              key={o.idTopic}
+                                            >
+                                              <span>{o.score} điểm</span>
+                                            </div>
+                                          )
+                                      )}
                                     </div>
                                     <Popconfirm
                                       placement="top"
@@ -189,18 +205,36 @@ function Exam() {
                                       okText="Yes"
                                       cancelText="No"
                                     >
-                                      <button
-                                        className={clsx(
-                                          styles.examPanelBtn
-                                        )}
-                                      >
-                                        <span>Làm bài</span>
-                                        <BiChevronRight
+                                      {userInfo?.progess?.find(
+                                        (o) => o.idTopic === dataChild.id
+                                      ) ? (
+                                        <button
                                           className={clsx(
-                                            styles.examPanelIcon
+                                            styles.examPanelBtn,
+                                            styles.review
                                           )}
-                                        />
-                                      </button>
+                                        >
+                                          <span>Xem lại</span>
+                                          <BiChevronRight
+                                            className={clsx(
+                                              styles.examPanelIcon
+                                            )}
+                                          />
+                                        </button>
+                                      ) : (
+                                        <button
+                                          className={clsx(
+                                            styles.examPanelBtn
+                                          )}
+                                        >
+                                          <span>Làm bài</span>
+                                          <BiChevronRight
+                                            className={clsx(
+                                              styles.examPanelIcon
+                                            )}
+                                          />
+                                        </button>
+                                      )}
                                     </Popconfirm>
                                   </div>
                                 </div>

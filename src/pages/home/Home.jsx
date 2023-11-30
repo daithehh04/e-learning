@@ -1,6 +1,6 @@
-import React, { useRef, useState } from 'react'
+import React, { useRef, useState, useEffect } from 'react'
 import { clsx } from 'clsx';
-import { LeftOutlined, RightOutlined } from '@ant-design/icons'
+import { LeftOutlined, RightOutlined, UpSquareOutlined } from '@ant-design/icons'
 import { Carousel } from "antd";
 import silde1 from "../../assets/imgs/sildes/slide_1.svg"
 import silde2 from "../../assets/imgs/sildes/slide_2.svg"
@@ -13,7 +13,6 @@ import Marquee from "../../components/Marquee/Marquee"
 import Courses from '../../components/Courses/Courses';
 import Feature from '../../components/Feature/Feature';
 import Feedback from '../../components/Feedback/Feedback';
-
 
 const slides = [
   {
@@ -34,6 +33,25 @@ const slides = [
 ]
 function HomePage() {
   const ref = useRef();
+  const [scrollTop, setScrollTop] = useState();
+  const handleScrollTop = () => {
+    if (window !== undefined) {
+      let windowHeight = window.scrollY;
+      windowHeight < 140
+        ? setScrollTop(false)
+        : setScrollTop(true);
+    }
+  };
+  useEffect(() => {
+    window.addEventListener("scroll", handleScrollTop);
+
+    return () => {
+      window.removeEventListener("scroll", handleScrollTop);
+    };
+  }, []);
+  const handleScropTopClick = () => {
+    window.scrollTo(0, 0);
+  }
   return (
     <div className='home'>
       <Header />
@@ -70,6 +88,12 @@ function HomePage() {
         <Courses />
         <Feature />
         <Feedback />
+        <button
+          className={clsx(styles.arrowToTop, !scrollTop && styles.isHidden)}
+          onClick={handleScropTopClick}
+        >
+          <UpSquareOutlined className={clsx(styles.icon)} />
+        </button>
       </main>
       <Footer />
     </div>

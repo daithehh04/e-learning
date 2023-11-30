@@ -123,7 +123,12 @@ export default function Header() {
             >
               Đăng Nhập
             </button>
-            <button className={clsx(styles.btnResigter)}>Đăng kí</button>
+            <button
+              className={clsx(styles.btnResigter)}
+              onClick={() => navigate('/dang-ky')}
+            >
+              Đăng kí
+            </button>
           </div>
         ) : (
           <Dropdown

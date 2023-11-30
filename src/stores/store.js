@@ -3,6 +3,7 @@ import topicReducer from './slices/topicSlice';
 import courseReducer from './slices/courseSlice';
 import userReducer from './slices/userSlice';
 import questionsReducer from './slices/questionsSlice';
+import categorysReducer from './slices/categorySlice'
 
 export const store = configureStore({
   reducer: {
@@ -10,5 +11,6 @@ export const store = configureStore({
     course: courseReducer,
     user: userReducer,
     questions: questionsReducer,
+    categorys: categorysReducer
   },
 });

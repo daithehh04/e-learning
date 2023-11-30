@@ -1,53 +1,46 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import clsx from 'clsx';
 import styles from './CategoryDetail.module.scss';
 import Header from '../../layout/Header/Header';
 import Footer from '../../layout/Footer/Footer';
 import { useParams } from 'react-router';
-import { Breadcrumb } from 'antd';
+import { Breadcrumb, notification } from 'antd';
 import CategoryItems from '../../components/CategoryItems/CategoryItems';
 import { NavLink } from 'react-router-dom';
-
-import imgCources1 from '../../assets/imgs/courses/imgCourses1.svg';
-import imgCources2 from '../../assets/imgs/courses/imgCourses2.svg';
-import imgCources3 from '../../assets/imgs/courses/imgCourses3.svg';
-import imgCources4 from '../../assets/imgs/courses/imgCourses4.svg';
-import imgCources5 from '../../assets/imgs/courses/imgCourses5.svg';
-
+import { useSelector, useDispatch } from 'react-redux';
+import { unwrapResult } from "@reduxjs/toolkit";
+import { requestLoadCategoryBySlug } from "../../stores/middleware/categoryMiddleware";
 function CategoryDetail() {
-  const [categorys, setCategorys] = useState([
-    {
-      id: 1,
-      nameSubject: `Toán`,
-      img: imgCources1,
-      desc: 'Tổng hợp kiến thức trọng tâm, các phương pháp và cách làm bài các môn Toán, Lý, Hóa, Sinh...',
-    },
-    {
-      id: 2,
-      nameSubject: `Vật Lý`,
-      img: imgCources2,
-      desc: 'Tổng hợp kiến thức trọng tâm, các phương pháp và cách làm bài các môn Toán, Lý, Hóa, Sinh...',
-    },
-    {
-      id: 3,
-      nameSubject: `Sinh`,
-      img: imgCources3,
-      desc: 'Tổng hợp kiến thức trọng tâm, các phương pháp và cách làm bài các môn Toán, Lý, Hóa, Sinh...',
-    },
-    {
-      id: 4,
-      nameSubject: `Tiếng Anh`,
-      img: imgCources4,
-      desc: 'Tổng hợp kiến thức trọng tâm, các phương pháp và cách làm bài các môn Toán, Lý, Hóa, Sinh...',
-    },
-    {
-      id: 5,
-      nameSubject: `Hoá`,
-      img: imgCources5,
-      desc: 'Tổng hợp kiến thức trọng tâm, các phương pháp và cách làm bài các môn Toán, Lý, Hóa, Sinh...',
-    },
-  ]);
+  const dispatch = useDispatch();
+  const categoryInfo = useSelector((state) => state.categorys.categoryInfo);
+  const courses = useSelector((state) => state.categorys.courses);
   const params = useParams();
+  const [courseList, setCourseList] = useState([]);
+  useEffect(() => {
+    loadCategory(params.slug || "");
+  }, [params.slug]);
+  const loadCategory = async (slug) => {
+    try {
+      const result = await dispatch(
+        requestLoadCategoryBySlug({
+          slug,
+        })
+      );
+      unwrapResult(result);
+    } catch (error) {
+      notification.error({
+        message: "server error!!",
+        duration: 1.5,
+      });
+    }
+  };
+  useEffect(() => {
+    const coursePublic = courses.filter(
+      (course) => course.status === 1
+    );
+    setCourseList(coursePublic);
+  }, [courses]);
+
   return (
     <div className={styles.CategoryDetail}>
       <Header />
@@ -64,28 +57,32 @@ function CategoryDetail() {
                 to={`/${params.slug}`}
                 className={clsx(styles.categoryBreadcumbLink)}
               >
-                {params.slug}
+                {categoryInfo?.name}
               </NavLink>
             </Breadcrumb.Item>
           </Breadcrumb>
         </div>
         <h2 className={clsx(styles.headingLv2)}>
-          Luyện tập trắc nghiệm online {params.slug}
+          Luyện tập trắc nghiệm online {categoryInfo?.name}
         </h2>
-        <p className={clsx(styles.desc)}>
-          Tổng hợp kiến thức trọng tâm, các phương pháp và cách làm bài các môn
-          Toán, Lý, Hóa, Sinh...
+        <p
+          className={clsx(styles.desc)}
+          dangerouslySetInnerHTML={{
+            __html: categoryInfo?.des ?? "",
+          }}
+        >
+
         </p>
         <div className={clsx(styles.listCategory)}>
-          {categorys.length > 0 &&
-            categorys.map(({ id, img, desc, nameSubject }, index) => (
+          {courseList.length > 0 &&
+            courseList.map(({ _id, courseName, shortDes, avatar, slug }, index) => (
               <CategoryItems
-                key={id}
-                img={img}
-                desc={desc}
-                nameSubject={nameSubject}
+                key={_id}
+                img={avatar}
+                desc={shortDes}
+                nameSubject={courseName}
                 index={index}
-                slug={params.slug}
+                slug={slug}
               />
             ))}
         </div>

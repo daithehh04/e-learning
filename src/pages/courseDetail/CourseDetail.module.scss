@@ -71,4 +71,26 @@
       }
     }
   }
+  .detailName {
+    font-size: 3.2rem;
+    font-weight: 700;
+    font-family: var(--font-family);
+    margin-top: 1.6rem;
+    margin-bottom: 2rem;
+  }
+  .shortDes {
+    color: var(--textColor);
+    font-size: 1.4rem;
+    font-family: var(--font-family);
+  }
+  .longDes {
+    margin-top: 2rem;
+    font-family: var(--font-family);
+    ul {
+      margin: 1rem 2rem;
+      li {
+        margin-bottom: 1rem;
+      }
+    }
+  }
 }

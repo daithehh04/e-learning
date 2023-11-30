@@ -1,12 +1,86 @@
-import React, { useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import clsx from 'clsx';
-import { NavLink } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
 import styles from './Header.module.scss';
 import logo from '../../assets/imgs/logo/logo.svg';
 import { useNavigate } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+import { Dropdown, notification } from 'antd';
+import Cookies from 'js-cookie';
+import {
+  FaBars,
+  FaChartBar,
+  FaRegIdCard,
+  FaSignOutAlt,
+  FaUser,
+} from 'react-icons/fa';
+import { apiLogout } from '../../api/auth';
+import { requestGetUserFromToken } from '../../stores/middleware/userMiddleware';
+import { unwrapResult } from '@reduxjs/toolkit';
 // import { useAuth0 } from '@auth0/auth0-react';
 
 export default function Header() {
+  const userInfo = useSelector((state) => state.user.userInfo);
+  const handleLogout = useCallback(async () => {
+    try {
+      if (userInfo?._id) {
+        const res = apiLogout({ idUser: userInfo?._id });
+      }
+      Cookies.remove('token');
+      window.location.href = '/';
+    } catch (error) {
+      notification.error({ message: 'Lỗi server', duration: 1.5 });
+    }
+  }, []);
+  const items = [
+    {
+      label: <Link to={'/thong-tin-ca-nhan'}>{userInfo?.name}</Link>,
+      key: '0',
+      icon: <FaRegIdCard />,
+      style: {
+        fontSize: '1.4rem',
+        fontFamily: 'var(--font-family)',
+        padding: '0.8rem',
+      },
+      onClick: async () => {
+        const cookie = Cookies.get('token');
+        try {
+          const result = await dispatch(
+            requestGetUserFromToken({ token: cookie || '' })
+          );
+
+          unwrapResult(result);
+        } catch (error) {
+          if (cookie)
+            notification.error({
+              message: 'Server đang bị lỗi',
+            });
+        }
+      },
+    },
+    {
+      label: <Link to={'/achievement'}>Kết Quả Học Tập</Link>,
+      key: '1',
+      icon: <FaChartBar />,
+      style: {
+        fontSize: '1.4rem',
+        fontFamily: 'var(--font-family)',
+        padding: '0.8rem',
+      },
+    },
+    {
+      label: 'Đăng xuất',
+      key: '3',
+      icon: <FaSignOutAlt />,
+      onClick: handleLogout,
+      style: {
+        fontSize: '1.4rem',
+        fontFamily: 'var(--font-family)',
+        padding: '0.8rem',
+      },
+    },
+  ];
+
   const navLinkClass = ({ isActive }) => {
     return isActive ? 'activated' : ` `;
   };
@@ -35,21 +109,33 @@ export default function Header() {
             <span>KMA WEB</span>
           </div>
         </NavLink>
-        <div className={clsx(styles.groupBtn)}>
-          {/* <button
+        {!userInfo?._id ? (
+          <div className={clsx(styles.groupBtn)}>
+            {/* <button
             className={clsx(styles.btnLogin)}
             onClick={() => loginWithPopup()}
           >
             Đăng Nhập
           </button> */}
-          <button
-            className={clsx(styles.btnLogin)}
-            onClick={() => navigate('/dang-nhap')}
+            <button
+              className={clsx(styles.btnLogin)}
+              onClick={() => navigate('/dang-nhap')}
+            >
+              Đăng Nhập
+            </button>
+            <button className={clsx(styles.btnResigter)}>Đăng kí</button>
+          </div>
+        ) : (
+          <Dropdown
+            menu={{ items }}
+            trigger={['hover']}
+            placement={'bottomRight'}
           >
-            Đăng Nhập
-          </button>
-          <button className={clsx(styles.btnResigter)}>Đăng kí</button>
-        </div>
+            <button className={clsx(styles.btnHeader)}>
+              <FaUser />
+            </button>
+          </Dropdown>
+        )}
       </div>
       <div className={clsx(styles.headerBottom)}>
         {rooms.length > 0 && (

@@ -43,10 +43,10 @@ export default function Header() {
     }
   };
   useEffect(() => {
-    window.addEventListener("scroll", handleNavbarStick);
+    window.addEventListener('scroll', handleNavbarStick);
 
     return () => {
-      window.removeEventListener("scroll", handleNavbarStick);
+      window.removeEventListener('scroll', handleNavbarStick);
     };
   }, []);
 
@@ -120,8 +120,12 @@ export default function Header() {
   ]);
   return (
     <header className={clsx(styles.header)}>
-      <nav className={navbarStick ? clsx(styles.navbar, styles.stick) : clsx(styles.navbar)}
-        onScroll={handleNavbarStick}>
+      <nav
+        className={
+          navbarStick ? clsx(styles.navbar, styles.stick) : clsx(styles.navbar)
+        }
+        onScroll={handleNavbarStick}
+      >
         <div className={clsx(styles.headerTop)}>
           <NavLink to={'/'}>
             <div className={clsx(styles.logo)}>
@@ -131,48 +135,48 @@ export default function Header() {
           </NavLink>
           {!userInfo?._id ? (
             <div className={clsx(styles.groupBtn)}>
-               <button
-              className={clsx(styles.btnLogin)}
-              onClick={() => loginWithPopup()}
+              <button
+                className={clsx(styles.btnLogin)}
+                onClick={() => loginWithPopup()}
+              >
+                Đăng Nhập
+              </button>
+              <button
+                className={clsx(styles.btnResigter)}
+                onClick={() => navigate('/dang-ky')}
+              >
+                Đăng kí
+              </button>
+            </div>
+          ) : (
+            <Dropdown
+              menu={{ items }}
+              trigger={['hover']}
+              placement={'bottomRight'}
             >
-              Đăng Nhập
-            </button>
-            <button
-              className={clsx(styles.btnResigter)}
-              onClick={() => navigate('/dang-ky')}
-            >
-              Đăng kí
-            </button>
-          </div>
-        ) : (
-          <Dropdown
-            menu={{ items }}
-            trigger={['hover']}
-            placement={'bottomRight'}
-          >
-            <button className={clsx(styles.btnHeader)}>
-              <FaUser />
-            </button>
-          </Dropdown>
-        )}
-      </div>
-      <div className={clsx(styles.headerBottom)}>
-        {rooms.length > 0 && (
-          <ul>
-            {rooms.map(({ id, name, slug }) => (
-              <li key={id}>
-                <NavLink
-                  to={`/${slug}`}
-                  className={clsx(styles.navLinkRoom, styles.navLinkClass)}
-                >
-                  {name}
-                </NavLink>
-              </li>
-            ))}
-          </ul>
-        )}
-      </div>
-          
+              <button className={clsx(styles.btnHeader)}>
+                <FaUser />
+              </button>
+            </Dropdown>
+          )}
+        </div>
+        <div className={clsx(styles.headerBottom)}>
+          {rooms.length > 0 && (
+            <ul>
+              {rooms.map(({ id, name, slug }) => (
+                <li key={id}>
+                  <NavLink
+                    to={`/${slug}`}
+                    className={clsx(styles.navLinkRoom, styles.navLinkClass)}
+                  >
+                    {name}
+                  </NavLink>
+                </li>
+              ))}
+            </ul>
+          )}
+        </div>
+      </nav>
     </header>
   );
 }

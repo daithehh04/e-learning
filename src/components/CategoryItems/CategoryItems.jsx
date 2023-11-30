@@ -3,12 +3,7 @@ import styles from './CategoryItems.module.scss';
 import clsx from 'clsx';
 import { useNavigate, useParams } from 'react-router-dom';
 
-export default function CategorysItems({
-  img,
-  desc,
-  nameSubject,
-  slug,
-}) {
+export default function CategorysItems({ img, desc, nameSubject, slug }) {
   const params = useParams();
   const navigate = useNavigate();
   return (

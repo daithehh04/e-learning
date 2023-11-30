@@ -6,9 +6,10 @@ import { useNavigate, useParams } from 'react-router-dom';
 export default function CategorysItems({ img, desc, nameSubject, slug }) {
   const params = useParams();
   const navigate = useNavigate();
+  console.log(params);
   return (
     <div
-      onClick={() => navigate(`/${params}/${slug}`)}
+      onClick={() => navigate(`/${params.slug}/${slug}`)}
       className={clsx(styles.categorysItems)}
     >
       <div className={clsx(styles.imgWrap)}>

@@ -2,7 +2,7 @@ import React, { useCallback, useState, useEffect } from 'react';
 import clsx from 'clsx';
 import { Link, NavLink } from 'react-router-dom';
 import styles from './Header.module.scss';
-import logo from '../../assets/imgs/logo/logo.svg';
+import logo from '../../assets/imgs/logo/logokma.png';
 import { useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { Dropdown, notification } from 'antd';

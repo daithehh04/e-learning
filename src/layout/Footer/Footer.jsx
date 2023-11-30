@@ -8,7 +8,7 @@ import { BsFillGeoAltFill } from 'react-icons/bs';
 import { PiUsersThreeFill } from 'react-icons/pi';
 import { NavLink, Link } from 'react-router-dom';
 
-import logo from '../../assets/imgs/logo/logo.svg';
+import logo from '../../assets/imgs/logo/logokma.png';
 import footerImg from '../../assets/imgs/footer/footer__bottom.png';
 import facebook from '../../assets/imgs/footer/facebook.svg';
 import youtube from '../../assets/imgs/footer/youtube.svg';

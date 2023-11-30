@@ -18,6 +18,7 @@ import TTCSconfig from '../../helper/config';
 import { useDispatch, useSelector } from 'react-redux';
 import { requestLoadCourseBySlug } from '../../stores/middleware/courseMiddleware';
 import { requestLoadTopicByCourse } from '../../stores/middleware/topicMiddleware';
+import { apiLoadTopicByCourse } from '../../api/topic';
 
 const CourseDetail = () => {
   const [totalExam, setTotalExam] = useState(0);
@@ -25,6 +26,8 @@ const CourseDetail = () => {
   const params = useParams();
   const course = useSelector((state) => state.course.course);
   const topics = useSelector((state) => state.topic.topics);
+  const totalTopic = useSelector((state) => state.topic.total);
+  console.log('courseLearning', course);
   useEffect(() => {
     loadCourse(params.slugChild || '');
   }, [params.slugChild]);
@@ -53,15 +56,25 @@ const CourseDetail = () => {
   };
   const loadTopicByCourse = async (idCourse, type, parentId) => {
     try {
-      const result = dispatch(
-        requestLoadTopicByCourse({
+      if (type === TTCSconfig.TYPE_LESSON) {
+        const result = dispatch(
+          requestLoadTopicByCourse({
+            idCourse,
+            type,
+            parentId,
+            status: TTCSconfig.STATUS_PUBLIC,
+          })
+        );
+        unwrapResult(result);
+      } else {
+        const res = await apiLoadTopicByCourse({
           idCourse,
           type,
           parentId,
           status: TTCSconfig.STATUS_PUBLIC,
-        })
-      );
-      unwrapResult(result);
+        });
+        setTotalExam(res.data.total);
+      }
     } catch (error) {
       notification.error({
         message: 'server error!!',
@@ -107,12 +120,12 @@ const CourseDetail = () => {
 
           <Row style={{ width: '100%', margin: '0' }} gutter={16}>
             <Col xl={16} lg={16} md={24} sm={24} xs={24}>
-              <h1>{course?.courseName}</h1>
-
+              <h2 className={styles.detailName}>{course?.courseName}</h2>
               <div>
-                <p>{course?.shortDes}</p>
+                <p className={styles.shortDes}>{course?.shortDes}</p>
               </div>
               <div
+                className={styles.longDes}
                 dangerouslySetInnerHTML={{
                   __html: course?.des ?? '',
                 }}
@@ -168,7 +181,7 @@ const CourseDetail = () => {
                   <li className={clsx(styles.detailItem)}>
                     <FaFilm className={clsx(styles.detailIcon)} />
                     <span>
-                      Tổng số <strong>{6}</strong> bài học
+                      Tổng số <strong>{totalTopic}</strong> bài học
                     </span>
                   </li>
                   <li className={clsx(styles.detailItem)}>
@@ -176,22 +189,21 @@ const CourseDetail = () => {
                     <span>
                       Thời lượng{' '}
                       <strong>
-                        {/* {moment(
-                              topics
-                                .map((topic, i) =>
-                                  topic?.topicChildData.reduce(
-                                    (accumulator, currentValue) =>
-                                      accumulator +
-                                      Number(currentValue.timeExam),
-                                    0
-                                  )
-                                )
-                                .reduce(
-                                  (accumulator, currentValue) =>
-                                    accumulator + currentValue,
-                                  0
-                                ) * 1000
-                            ).format("mm:ss")} */}
+                        {moment(
+                          topics
+                            .map((topic, i) =>
+                              topic?.topicChildData.reduce(
+                                (accumulator, currentValue) =>
+                                  accumulator + Number(currentValue.timeExam),
+                                0
+                              )
+                            )
+                            .reduce(
+                              (accumulator, currentValue) =>
+                                accumulator + currentValue,
+                              0
+                            ) * 1000
+                        ).format('mm:ss')}
                       </strong>
                     </span>
                   </li>

@@ -1,7 +1,7 @@
 import React, { Fragment, useEffect, useRef, useState } from 'react';
 import styles from './Learning.module.scss';
 import clsx from 'clsx';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import {
   Button,
   Layout,
@@ -34,13 +34,17 @@ import Sider from 'antd/es/layout/Sider';
 import { Content } from 'antd/es/layout/layout';
 import moment from 'moment/moment';
 import { useDispatch, useSelector } from 'react-redux';
-import { requestLoadTotalLearnedTopic } from '../../stores/middleware/topicMiddleware';
+import {
+  requestLoadTopicByCourse,
+  requestLoadTotalLearnedTopic,
+} from '../../stores/middleware/topicMiddleware';
 import { apiLoadTopicById } from '../../api/topic';
 import TTCSconfig from '../../helper/config';
 import { requestLoadQuestionsByIdTopic } from '../../stores/middleware/questionsMiddeware';
 import { unwrapResult } from '@reduxjs/toolkit';
 import { requestUpdateStudiedForUser } from '../../stores/middleware/userMiddleware';
 import { answers } from '../../utils/constants';
+import { requestLoadCourseBySlug } from '../../stores/middleware/courseMiddleware';
 const loading = false;
 function Learning() {
   const navigate = useNavigate();
@@ -60,7 +64,47 @@ function Learning() {
   const topicTotalLearned = useSelector((state) => state.topic.totalLearned);
   const topicTotal = useSelector((state) => state.topic.total);
   const [isReview, setIsReview] = useState(false);
+  const [arrAllTopic, setArrAllTopic] = useState([]);
   const dispatch = useDispatch();
+  const params = useParams();
+  // console.log('topics', topics);
+  useEffect(() => {
+    let arrAllTopics = [];
+    topics.forEach((topic) => {
+      arrAllTopics.push(...topic?.topicChildData);
+    });
+    arrAllTopics = arrAllTopics.filter(
+      (topic) => topic.status === TTCSconfig.STATUS_PUBLIC
+    );
+    setArrAllTopic(arrAllTopics);
+  }, [topics]);
+
+  const handleNextTopic = () => {
+    const id = arrAllTopic.findIndex((topic) => {
+      return topic.id === dataTopicActive?.id;
+    });
+    if (id > -1) {
+      let indexNext = id + 1;
+      if (indexNext > arrAllTopic.length) {
+        indexNext = arrAllTopic.length;
+      }
+      let idNext = arrAllTopic[indexNext].id;
+      handleChangeTopic(idNext);
+    }
+  };
+  const handlePrevTopic = () => {
+    const id = arrAllTopic.findIndex((topic) => {
+      return topic.id === dataTopicActive?.id;
+    });
+    if (id > -1) {
+      let indexPrev = id - 1;
+      if (indexPrev < 0) {
+        indexPrev = 0;
+      }
+      let idNext = arrAllTopic[indexPrev].id;
+      handleChangeTopic(idNext);
+    }
+  };
   // Lesson learned
   useEffect(() => {
     if (course?.id && userInfo?._id) {
@@ -80,9 +124,57 @@ function Learning() {
       });
     }
   };
+  useEffect(() => {
+    if (params.id) {
+      loadTopicByParam(params.id);
+    }
+    loadCourse(params.slugChild || '');
+  }, [params.slugChild, params.id]);
+  const loadCourse = async (slugChild) => {
+    try {
+      const result = dispatch(
+        requestLoadCourseBySlug({
+          slug: slugChild,
+          status: TTCSconfig.STATUS_PUBLIC,
+        })
+      );
+      unwrapResult(result);
+    } catch (error) {
+      notification.error({
+        message: 'server error!!',
+        duration: 1.5,
+      });
+    }
+  };
+  const loadTopicByParam = (param) => {
+    const arg = param.split('-');
+    if (Number(arg[1]) === TTCSconfig.TYPE_LESSON) {
+      loadTopicByCourse(arg[0], Number(arg[1]));
+    } else {
+      navigate(-1);
+    }
+  };
+  const loadTopicByCourse = async (idCourse, type, parentId) => {
+    try {
+      const result = dispatch(
+        requestLoadTopicByCourse({
+          idCourse,
+          type,
+          parentId,
+          status: TTCSconfig.STATUS_PUBLIC,
+        })
+      );
+      unwrapResult(result);
+    } catch (error) {
+      notification.error({
+        message: 'server error!!',
+        duration: 1.5,
+      });
+    }
+  };
   const loadQuestionsByIdTopic = async (idTopic) => {
     try {
-      const result = await dispatch(
+      const result = dispatch(
         requestLoadQuestionsByIdTopic({
           idTopic,
           status: TTCSconfig.STATUS_PUBLIC,
@@ -157,6 +249,7 @@ function Learning() {
       });
     }
   };
+
   const handleSaveSelected = (idQuestion, idAnswer) => {
     if (selectedQuestions.find((o) => o.idQuestion === idQuestion)) {
       setSelectedQuestions([
@@ -372,47 +465,52 @@ function Learning() {
                       [...topic?.topicChildData]?.map(
                         (topicChild, indexChild) => {
                           return (
-                            <div key={indexChild}>
-                              <div
-                                onClick={() => {
-                                  setIndexTopic(topic.id);
-                                  handleChangeTopic(topicChild.id || '');
-                                }}
-                                className={clsx(styles.subLessonItemWrapper)}
-                              >
-                                <div className={clsx(styles.subLessonItem)}>
-                                  <h4 className={clsx(styles.nameTopic)}>
-                                    {topicChild?.name}
-                                  </h4>
-                                  <p className={clsx(styles.iconTopic)}>
-                                    {topicChild?.topicType ===
-                                    TTCSconfig.TYPE_TOPIC_VIDEO ? (
-                                      <FaPlayCircle />
-                                    ) : topicChild?.topicType ===
-                                      TTCSconfig.TYPE_TOPIC_DOCUMENT ? (
-                                      <FaFileAlt />
-                                    ) : topicChild?.topicType ===
-                                      TTCSconfig.TYPE_TOPIC_PRATICE ? (
-                                      <FaQuestionCircle />
-                                    ) : (
-                                      <></>
-                                    )}
-                                    <span>
-                                      {moment(
-                                        (topicChild?.timeExam || 0) * 1000
-                                      ).format('mm:ss')}
-                                    </span>
-                                  </p>
-                                </div>
-                                <div className={clsx(styles.iconDone)}>
-                                  {userInfo?.progess?.find(
-                                    (c) =>
-                                      c.idTopic === topicChild.id &&
-                                      c.status === TTCSconfig.STATUS_LEARNED
-                                  ) && <FaCheckCircle />}
+                            topicChild.status === TTCSconfig.STATUS_PUBLIC && (
+                              <div key={indexChild}>
+                                <div
+                                  onClick={() => {
+                                    setIndexTopic(topic.id);
+                                    handleChangeTopic(topicChild.id || '');
+                                  }}
+                                  className={clsx(styles.subLessonItemWrapper, {
+                                    [styles.lessonActive]:
+                                      dataTopicActive?.id === topicChild?.id,
+                                  })}
+                                >
+                                  <div className={clsx(styles.subLessonItem)}>
+                                    <h4 className={clsx(styles.nameTopic)}>
+                                      {topicChild?.name}
+                                    </h4>
+                                    <p className={clsx(styles.iconTopic)}>
+                                      {topicChild?.topicType ===
+                                      TTCSconfig.TYPE_TOPIC_VIDEO ? (
+                                        <FaPlayCircle />
+                                      ) : topicChild?.topicType ===
+                                        TTCSconfig.TYPE_TOPIC_DOCUMENT ? (
+                                        <FaFileAlt />
+                                      ) : topicChild?.topicType ===
+                                        TTCSconfig.TYPE_TOPIC_PRATICE ? (
+                                        <FaQuestionCircle />
+                                      ) : (
+                                        <></>
+                                      )}
+                                      <span>
+                                        {moment(
+                                          (topicChild?.timeExam || 0) * 1000
+                                        ).format('mm:ss')}
+                                      </span>
+                                    </p>
+                                  </div>
+                                  <div className={clsx(styles.iconDone)}>
+                                    {userInfo?.progess?.find(
+                                      (c) =>
+                                        c.idTopic === topicChild.id &&
+                                        c.status === TTCSconfig.STATUS_LEARNED
+                                    ) && <FaCheckCircle />}
+                                  </div>
                                 </div>
                               </div>
-                            </div>
+                            )
                           );
                         }
                       )}
@@ -596,11 +694,17 @@ function Learning() {
       </Layout>
       {/* Footer */}
       <footer className={clsx(styles.footerLearning)}>
-        <button className={clsx(styles.btnLessonPrev)}>
+        <button
+          className={clsx(styles.btnLessonPrev)}
+          onClick={handlePrevTopic}
+        >
           <FaChevronLeft className={styles.iconPrev} />
           <span>BÀI TRƯỚC</span>
         </button>
-        <button className={clsx(styles.btnLessonNext)}>
+        <button
+          className={clsx(styles.btnLessonNext)}
+          onClick={handleNextTopic}
+        >
           <span>BÀI TIẾP</span>
           <FaChevronRight className={styles.iconNext} />
         </button>

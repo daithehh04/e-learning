@@ -43,7 +43,8 @@ export const topicSlice = createSlice({
         (topic) => {
           return {
             ...topic,
-            topicChildData: _.orderBy(topic.topicChildData, ['index'], ['asc']),
+            topicChildData:
+              _.orderBy(topic.topicChildData, ['index'], ['asc']),
           };
         }
       );
@@ -54,6 +55,7 @@ export const topicSlice = createSlice({
     // load topic by id
     builder.addCase(requestLoadTopicById.fulfilled, (state, action) => {
       state.topicInfo = action.payload;
+      console.log(state.topicInfo, action.payload, "slice topic");
       state.loading = false;
     });
 

@@ -130,22 +130,43 @@ function Exam() {
 
           <div className={clsx(styles.examView)}>
             {topics.length > 0 &&
-              topics?.map((data) => {
+              topics?.map((data, i) => {
                 const dataChild = data.topicChildData;
                 return (
                   <div className={clsx(styles.examPanel)} key={data.id}>
                     <div className={clsx((styles.examPanelItem))}>
-                      <div
-                        className={clsx((styles.examPanelTitle))}
-                      >
-                        <FaChevronDown className={clsx(styles.panelIcon)} />
-                        <h3 className={clsx(clsx(styles.panelText))}>
-                          {data?.name}
-                        </h3>
-                      </div>
+                      {indexOpenTopic.find((o) => o === i + 1) ? (
+                        <div
+                          className={clsx((styles.examPanelTitle))}
+                          onClick={() => {
+                            const indexPrev = indexOpenTopic.filter(
+                              (o) => o !== i + 1
+                            );
+                            setIndexOpenTopic(indexPrev);
+                          }}
+
+                        >
+                          <FaChevronDown className={clsx(styles.panelIcon)} />
+                          <h3 className={clsx(clsx(styles.panelText))}>
+                            {data?.name}
+                          </h3>
+                        </div>
+                      ) : (
+                        <div
+                          className={clsx(styles.examPanelTitle)}
+                          onClick={() => {
+                            setIndexOpenTopic([...indexOpenTopic, i + 1]);
+                          }}
+                        >
+                          <FaChevronDown className={clsx(styles.panelIcon)} />
+                          <h3 className={clsx(styles.panelText)}>
+                            {data?.name}
+                          </h3>
+                        </div>
+
+                      )}
                       <Row
                         gutter={[12, 12]}
-
                       >
                         {dataChild[0] &&
                           dataChild?.map(

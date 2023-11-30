@@ -70,7 +70,7 @@ export const topicSlice = createSlice({
     });
   },
 });
-export const { } = topicSlice.actions;
+export const {} = topicSlice.actions;
 // Other code such as selectors can use the imported `RootState` type
 export const topicState = (state) => state.topic;
 

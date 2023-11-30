@@ -37,6 +37,7 @@ const Login = () => {
         })
       );
       const res = unwrapResult(actionResult);
+      console.log('res', res);
       switch (res.loginCode) {
         case TTCSconfig.LOGIN_FAILED:
           return notification.error({

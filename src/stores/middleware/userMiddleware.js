@@ -8,8 +8,8 @@ import {
 } from '../../api/user';
 
 export const requestLogin = createAsyncThunk('auth/login', async (props) => {
-  console.log(props);
   const res = await apiLogin(props);
+  console.log(props);
   return res.data;
 });
 

@@ -35,7 +35,7 @@ export const courseSlice = createSlice({
   },
 });
 
-export const { } = courseSlice.actions;
+export const {} = courseSlice.actions;
 
 // Other code such as selectors can use the imported `RootState` type
 export const courseState = (state) => state.course;

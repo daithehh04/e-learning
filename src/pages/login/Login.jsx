@@ -37,7 +37,6 @@ const Login = () => {
         })
       );
       const res = unwrapResult(actionResult);
-      console.log('res', res);
       switch (res.loginCode) {
         case TTCSconfig.LOGIN_FAILED:
           return notification.error({
@@ -105,6 +104,7 @@ const Login = () => {
                 }
                 placeholder="Nhập tài khoản"
                 style={{ padding: '12px' }}
+                className={clsx(styles.inputForm)}
               />
             </Form.Item>
             <Form.Item
@@ -126,16 +126,19 @@ const Login = () => {
                 type="password"
                 placeholder="Nhập mật khẩu"
                 style={{ padding: '12px' }}
+                className={clsx(styles.inputForm)}
               />
             </Form.Item>
             <Form.Item>
               <Form.Item name="remember" valuePropName="checked" noStyle>
-                <Checkbox>Duy trì đăng nhập</Checkbox>
+                <Checkbox className={clsx(styles.maintainLogin)}>
+                  Duy trì đăng nhập
+                </Checkbox>
               </Form.Item>
 
-              <a className={clsx(styles.loginForgot)} href="/">
+              <Link className={clsx(styles.loginForgot)} href="/">
                 Quên mật khẩu
-              </a>
+              </Link>
             </Form.Item>
 
             <Form.Item>

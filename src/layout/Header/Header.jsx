@@ -131,49 +131,48 @@ export default function Header() {
           </NavLink>
           {!userInfo?._id ? (
             <div className={clsx(styles.groupBtn)}>
-              {/* <button
+               <button
               className={clsx(styles.btnLogin)}
               onClick={() => loginWithPopup()}
             >
               Đăng Nhập
-            </button> */}
-              <button
-                className={clsx(styles.btnLogin)}
-                onClick={() => navigate('/dang-nhap')}
-              >
-                Đăng Nhập
-              </button>
-              <button className={clsx(styles.btnResigter)}>Đăng kí</button>
-            </div>
-          ) : (
-            <Dropdown
-              menu={{ items }}
-              trigger={['hover']}
-              placement={'bottomRight'}
+            </button>
+            <button
+              className={clsx(styles.btnResigter)}
+              onClick={() => navigate('/dang-ky')}
             >
-              <button className={clsx(styles.btnHeader)}>
-                <FaUser />
-              </button>
-            </Dropdown>
-          )}
-        </div>
-        <div className={clsx(styles.headerBottom)}>
-          {rooms.length > 0 && (
-            <ul>
-              {rooms.map(({ id, name, slug }) => (
-                <li key={id}>
-                  <NavLink
-                    to={`/${slug}`}
-                    className={clsx(styles.navLinkRoom, styles.navLinkClass)}
-                  >
-                    {name}
-                  </NavLink>
-                </li>
-              ))}
-            </ul>
-          )}
-        </div>
-      </nav>
+              Đăng kí
+            </button>
+          </div>
+        ) : (
+          <Dropdown
+            menu={{ items }}
+            trigger={['hover']}
+            placement={'bottomRight'}
+          >
+            <button className={clsx(styles.btnHeader)}>
+              <FaUser />
+            </button>
+          </Dropdown>
+        )}
+      </div>
+      <div className={clsx(styles.headerBottom)}>
+        {rooms.length > 0 && (
+          <ul>
+            {rooms.map(({ id, name, slug }) => (
+              <li key={id}>
+                <NavLink
+                  to={`/${slug}`}
+                  className={clsx(styles.navLinkRoom, styles.navLinkClass)}
+                >
+                  {name}
+                </NavLink>
+              </li>
+            ))}
+          </ul>
+        )}
+      </div>
+          
     </header>
   );
 }

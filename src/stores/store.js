@@ -9,6 +9,6 @@ export const store = configureStore({
     topic: topicReducer,
     course: courseReducer,
     user: userReducer,
-    questions: questionsReducer
+    questions: questionsReducer,
   },
 });

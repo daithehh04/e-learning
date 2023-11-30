@@ -137,7 +137,7 @@ export default function Header() {
             <div className={clsx(styles.groupBtn)}>
               <button
                 className={clsx(styles.btnLogin)}
-                onClick={() => loginWithPopup()}
+                onClick={() => navigate('/dang-nhap')}
               >
                 Đăng Nhập
               </button>

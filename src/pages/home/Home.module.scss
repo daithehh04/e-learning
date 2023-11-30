@@ -2,6 +2,10 @@ body {
      background-color: #f3f6fd;
 }
 
+html {
+     scroll-behavior: smooth;
+}
+
 .slides {
      position: relative;
 
@@ -65,5 +69,33 @@ body {
      .nextSlide {
           right: 0;
           top: 50%;
+     }
+}
+
+.arrowToTop {
+     position: fixed;
+     bottom: 50px;
+     right: 60px;
+     z-index: 99;
+     cursor: pointer;
+     outline: none;
+     border: none;
+     background-color: transparent;
+
+     &.isHidden {
+          display: none;
+     }
+
+     &:hover {
+          background-color: orange;
+
+          .icon {
+               color: #fff;
+          }
+
+     }
+
+     .icon {
+          font-size: 5.0rem;
      }
 }

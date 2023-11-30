@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useState, useEffect } from 'react';
 import clsx from 'clsx';
 import { Link, NavLink } from 'react-router-dom';
 import styles from './Header.module.scss';
@@ -20,7 +20,9 @@ import { unwrapResult } from '@reduxjs/toolkit';
 // import { useAuth0 } from '@auth0/auth0-react';
 
 export default function Header() {
+  const [navbarStick, setNavbarStick] = useState(false);
   const userInfo = useSelector((state) => state.user.userInfo);
+
   const handleLogout = useCallback(async () => {
     try {
       if (userInfo?._id) {
@@ -32,6 +34,22 @@ export default function Header() {
       notification.error({ message: 'Lỗi server', duration: 1.5 });
     }
   }, []);
+  const handleNavbarStick = () => {
+    if (window !== undefined) {
+      let windowHeight = window.scrollY;
+      windowHeight > 150
+        ? setNavbarStick(!navbarStick)
+        : setNavbarStick(navbarStick);
+    }
+  };
+  useEffect(() => {
+    window.addEventListener("scroll", handleNavbarStick);
+
+    return () => {
+      window.removeEventListener("scroll", handleNavbarStick);
+    };
+  }, []);
+
   const items = [
     {
       label: <Link to={'/thong-tin-ca-nhan'}>{userInfo?.name}</Link>,
@@ -102,24 +120,20 @@ export default function Header() {
   ]);
   return (
     <header className={clsx(styles.header)}>
-      <div className={clsx(styles.headerTop)}>
-        <NavLink to={'/'}>
-          <div className={clsx(styles.logo)}>
-            <img src={logo} alt="logo" />
-            <span>KMA WEB</span>
-          </div>
-        </NavLink>
-        {!userInfo?._id ? (
-          <div className={clsx(styles.groupBtn)}>
-            {/* <button
-            className={clsx(styles.btnLogin)}
-            onClick={() => loginWithPopup()}
-          >
-            Đăng Nhập
-          </button> */}
-            <button
+      <nav className={navbarStick ? clsx(styles.navbar, styles.stick) : clsx(styles.navbar)}
+        onScroll={handleNavbarStick}>
+        <div className={clsx(styles.headerTop)}>
+          <NavLink to={'/'}>
+            <div className={clsx(styles.logo)}>
+              <img src={logo} alt="logo" />
+              <span>KMA WEB</span>
+            </div>
+          </NavLink>
+          {!userInfo?._id ? (
+            <div className={clsx(styles.groupBtn)}>
+               <button
               className={clsx(styles.btnLogin)}
-              onClick={() => navigate('/dang-nhap')}
+              onClick={() => loginWithPopup()}
             >
               Đăng Nhập
             </button>
@@ -158,6 +172,7 @@ export default function Header() {
           </ul>
         )}
       </div>
+          
     </header>
   );
 }

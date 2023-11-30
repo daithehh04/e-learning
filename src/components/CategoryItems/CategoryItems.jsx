@@ -1,19 +1,19 @@
 import React from 'react';
 import styles from './CategoryItems.module.scss';
 import clsx from 'clsx';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 
 export default function CategorysItems({
   img,
   desc,
   nameSubject,
-  index,
   slug,
 }) {
+  const params = useParams();
   const navigate = useNavigate();
   return (
     <div
-      onClick={() => navigate(`/${slug}/toan-hoc-1`)}
+      onClick={() => navigate(`/${params}/${slug}`)}
       className={clsx(styles.categorysItems)}
     >
       <div className={clsx(styles.imgWrap)}>

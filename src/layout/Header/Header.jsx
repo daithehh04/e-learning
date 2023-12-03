@@ -4,7 +4,7 @@ import { Link, NavLink } from 'react-router-dom';
 import styles from './Header.module.scss';
 import logo from '../../assets/imgs/logo/logokma.png';
 import { useNavigate } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { Dropdown, notification } from 'antd';
 import Cookies from 'js-cookie';
 import {
@@ -17,10 +17,18 @@ import {
 import { apiLogout } from '../../api/auth';
 import { requestGetUserFromToken } from '../../stores/middleware/userMiddleware';
 import { unwrapResult } from '@reduxjs/toolkit';
+import ChatGPT from '../../components/ChatGPT/ChatGPT';
+import imageChat from '../../assets/imgs/chatgpt/chatbot.jpg'
+import useSelection from 'antd/es/table/hooks/useSelection';
+import { chatgptSlice } from '../../stores/slices/chatgptSlice';
 // import { useAuth0 } from '@auth0/auth0-react';
 
 export default function Header() {
+  const dispatch = useDispatch();
+  console.log([chatgptSlice]);
+  const { toggle } = chatgptSlice.actions;
   const [navbarStick, setNavbarStick] = useState(false);
+  const isShowChatGPT = useSelector(state => state.chatGPT.isShow);
   const userInfo = useSelector((state) => state.user.userInfo);
 
   const handleLogout = useCallback(async () => {
@@ -98,6 +106,12 @@ export default function Header() {
       },
     },
   ];
+  const hanldeShowChatGpt = () => {
+
+    dispatch(toggle(true));
+
+  }
+  console.log(isShowChatGPT);
 
   const navLinkClass = ({ isActive }) => {
     return isActive ? 'activated' : ` `;
@@ -137,7 +151,7 @@ export default function Header() {
             <div className={clsx(styles.groupBtn)}>
               <button
                 className={clsx(styles.btnLogin)}
-                onClick={() => loginWithPopup()}
+                onClick={() => navigate('/dang-nhap')}
               >
                 Đăng Nhập
               </button>
@@ -177,6 +191,17 @@ export default function Header() {
           )}
         </div>
       </nav>
+      <div className={styles.chatGpt} >
+        <button
+          onClick={hanldeShowChatGpt}
+          className={clsx(styles.btnChatGpt)}>
+          <img src={imageChat} alt="" />
+        </button>
+        {
+          isShowChatGPT && <ChatGPT />
+        }
+      </div>
+
     </header>
   );
 }

@@ -43,9 +43,11 @@
       width: 100%;
       box-shadow: 0 0.2rem 4rem 0 hsl(0deg 0% 6% / 5%);
       animation: 0.3s ease 0s normal none 1 running fadeInDown;
-      z-index: 100;
+      z-index: 3;
     }
   }
+
+
 
   @keyframes fadeInDown {
     0% {
@@ -166,6 +168,29 @@
         text-transform: uppercase;
         font-weight: 600;
       }
+    }
+  }
+
+  .chatGpt {
+
+    position: fixed;
+    bottom: 52px;
+    right: 25px;
+    width: 45px;
+    height: 45px;
+    z-index: 99;
+
+    .btnChatGpt {
+      cursor: pointer;
+    }
+
+    img {
+      width: 100%;
+      height: 45px;
+    }
+
+    .isShowChatGPT {
+      translate: 0;
     }
   }
 }

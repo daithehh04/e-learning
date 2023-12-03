@@ -8,19 +8,19 @@ import { store } from './stores/store.js';
 const domain = import.meta.env.VITE_REACT_APP_AUTH0_DOMAIN;
 const clientId = import.meta.env.VITE_REACT_APP_AUTH0_CLIENT_ID;
 ReactDOM.createRoot(document.getElementById('root')).render(
-  <React.StrictMode>
-    <Auth0Provider
-      domain={domain}
-      clientId={clientId}
-      authorizationParams={{
-        redirect_uri: window.location.origin,
-      }}
-    >
-      <Provider store={store}>
-        <GlobalStyles>
-          <App />
-        </GlobalStyles>
-      </Provider>
-    </Auth0Provider>
-  </React.StrictMode>
+  // <React.StrictMode>
+  <Auth0Provider
+    domain={domain}
+    clientId={clientId}
+    authorizationParams={{
+      redirect_uri: window.location.origin,
+    }}
+  >
+    <Provider store={store}>
+      <GlobalStyles>
+        <App />
+      </GlobalStyles>
+    </Provider>
+  </Auth0Provider>
+  /* </React.StrictMode> */
 );

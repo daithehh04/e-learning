@@ -82,39 +82,41 @@ export default function ChatGPT() {
                     className={clsx(styles.btnToggle)}>
                     <GrLinkPrevious className={clsx(styles.icon)} />
                </button>
-               {
-                    arrayBot.map((message, i) => {
+               <div className={clsx(styles.listQuestions)}>
+                    {
+                         arrayBot.map((message, i) => {
 
-                         return (<div key={i}>
-                              <div className={styles.bot}>
-                                   <div className={clsx(styles.chatResponse)}>
-                                        <img src={chatGPT} alt="avatar" />
-                                        <span>
-                                             {message}
-                                        </span>
-                                   </div>
-                              </div>
-                              {
-                                   arrayUser.length > 0 && i <= arrayUser.length - 1 && (
-                                        <div className={styles.user}>
-                                             <div className={clsx(styles.chatResponse)}>
-                                                  <span>
-                                                       {arrayUser[i]}
-                                                  </span>
-                                                  <span className={clsx(styles.avatar)}>T</span>
-                                             </div>
+                              return (<div key={i}>
+                                   <div className={styles.bot}>
+                                        <div className={clsx(styles.chatResponse)}>
+                                             <img src={chatGPT} alt="avatar" />
+                                             <span>
+                                                  {message}
+                                             </span>
                                         </div>
-                                   )
+                                   </div>
+                                   {
+                                        arrayUser.length > 0 && i <= arrayUser.length - 1 && (
+                                             <div className={styles.user}>
+                                                  <div className={clsx(styles.chatResponse)}>
+                                                       <span>
+                                                            {arrayUser[i]}
+                                                       </span>
+                                                       <span className={clsx(styles.avatar)}>T</span>
+                                                  </div>
+                                             </div>
+                                        )
 
-                              }
+                                   }
 
-                         </div>)
-                    })
-
-
+                              </div>)
+                         })
 
 
-               }
+
+
+                    }
+               </div>
                <div className={clsx(styles.fromWrap)}>
                     <form
                          onSubmit={handleSubmit}

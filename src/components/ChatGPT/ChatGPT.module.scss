@@ -2,7 +2,7 @@
      right: 0;
      bottom: 0;
      position: fixed;
-     padding: 60px 0px 20px 0px;
+     padding: 60px 0px 60px 0px;
      border-radius: 12px;
      background-color: #fff;
      box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
@@ -26,6 +26,12 @@
           background-color: #6e6a6a;
 
           color: #fff;
+     }
+
+     .listQuestions {
+          height: calc(100vh - 120px);
+          overflow: auto;
+
      }
 
      .fromWrap {

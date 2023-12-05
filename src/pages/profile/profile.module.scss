@@ -1,0 +1,222 @@
+@mixin responsive($breakpoint) {
+     @if $breakpoint==xs {
+          @media (max-width: 575.98px) {
+               @content;
+          }
+     }
+
+     @if $breakpoint==sm {
+          @media (min-width: 576px) and (max-width: 767.98px) {
+               @content;
+          }
+     }
+
+     @if $breakpoint==md {
+          @media (min-width: 768px) and (max-width: 991.98px) {
+               @content;
+          }
+     }
+
+     @if $breakpoint==lg {
+          @media (min-width: 992px) and (max-width: 1199.98px) {
+               @content;
+          }
+     }
+
+     @if $breakpoint==xl {
+          @media (min-width: 1200px) {
+               @content;
+          }
+     }
+}
+
+.profileButton {
+     display: inline-flex;
+     -webkit-box-align: center;
+     align-items: center;
+     -webkit-box-pack: center;
+     justify-content: center;
+     position: relative;
+     box-sizing: border-box;
+     -webkit-tap-highlight-color: transparent;
+     cursor: pointer;
+     user-select: none;
+     vertical-align: middle;
+     appearance: none;
+     font-family: var(--font-family);
+     text-transform: unset;
+     font-weight: 500;
+     font-size: 1.8rem;
+     min-width: 6.4rem;
+     border-radius: 10rem;
+     border: 0.1rem solid rgb(213, 221, 231);
+     padding: 1.2rem 1.6rem;
+     margin: 2rem 0.8rem 0rem;
+     transition: ease 0.5s;
+
+     &.btnChange {
+          width: 160px;
+          background-color: orangered;
+          color: #fff;
+     }
+
+     &.btnUpdate {
+          width: 160px;
+          background-color: rgb(60, 60, 247);
+          color: #fff;
+     }
+
+     &.btnModal {
+          background-color: blue;
+          color: #fff;
+          display: flex;
+          padding: 2.4rem 1.6rem;
+          margin: 2rem auto 2rem;
+
+          &:hover {
+               color: #fff;
+               border-color: blue;
+               outline: none;
+          }
+     }
+
+     &:hover {
+          transform: translateY(-0.4rem);
+     }
+}
+
+.profileGroupBtn {
+     display: flex;
+     justify-content: end;
+
+     @include responsive(xs) {
+          justify-content: center;
+     }
+}
+
+.profileSelect {
+     width: 100%;
+     height: 5.6rem;
+     display: flex;
+     align-items: center;
+     border-radius: 0.6rem;
+
+     &>div {
+          height: 5.6rem !important;
+          align-items: center;
+          border-radius: 0.6rem !important;
+     }
+}
+
+.profileFormitem {
+     margin-bottom: 4rem !important;
+}
+
+.profileContainer {
+     background-color: #f3f7f9;
+}
+
+.profileIcon {
+     width: 20rem;
+     height: 20rem;
+     fill: rgb(50, 50, 241) !important;
+
+     @include responsive(xs) {
+          width: 15rem;
+          height: 15rem;
+     }
+
+     @include responsive(sm) {
+          width: 16rem;
+          height: 16rem;
+     }
+
+     @include responsive(md) {
+          width: 18rem;
+          height: 18rem;
+     }
+}
+
+.profileWrapper {
+     padding: 5rem 2.4rem;
+     font-family: var(--font-family);
+
+     @include responsive(xs) {
+          padding: 5rem 1.6rem;
+     }
+}
+
+.profileAvatarWrap {
+     display: flex;
+     align-items: center;
+     justify-content: center;
+     flex-direction: column;
+}
+
+.profileDatepicker {
+     padding: 0 !important;
+     width: 100%;
+
+     &>div {
+          display: flex !important;
+          flex-direction: row-reverse !important;
+          padding: 1.6rem !important;
+
+          &>span {
+               margin: 0 0.8rem 0 0 !important;
+               cursor: pointer !important;
+
+               &>svg {
+                    font-size: 1.8rem;
+                    color: rgba(0, 0, 0, 0.88);
+               }
+          }
+     }
+}
+
+.profileUsername {
+     text-align: center;
+     margin: 2rem;
+     font-weight: 500;
+     font-size: 1.8rem;
+
+     @include responsive(xs) {
+          margin: 1rem 0 3rem;
+     }
+}
+
+.profileBox {
+     padding: 6rem 4rem;
+     background-color: #fff;
+     border-radius: 1.5rem;
+     margin-bottom: 5rem;
+
+     @include responsive(xs) {
+          padding: 5rem 2rem;
+     }
+}
+
+.profileModalTitle {
+     color: #29313a;
+     font-size: 2.4rem;
+     font-weight: 600;
+     text-align: center;
+     margin: 0px;
+     padding: 3rem 2.4rem;
+}
+
+.profileModalForm {
+     padding: 0rem 2.4rem !important;
+
+     @include responsive(xs) {
+          padding: 0rem 0rem !important;
+     }
+}
+
+.profileTitle {
+     color: #29313a;
+     font-size: 3rem;
+     font-weight: 700;
+     text-align: center;
+     padding-bottom: 3rem;
+}

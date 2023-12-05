@@ -191,17 +191,18 @@ export default function Header() {
           )}
         </div>
       </nav>
-      <div className={styles.chatGpt} >
-        <button
-          onClick={hanldeShowChatGpt}
-          className={clsx(styles.btnChatGpt)}>
-          <img src={imageChat} alt="" />
-        </button>
-        {
-          isShowChatGPT && <ChatGPT />
-        }
-      </div>
-
+      {
+        userInfo?._id && (<div className={styles.chatGpt} >
+          <button
+            onClick={hanldeShowChatGpt}
+            className={clsx(styles.btnChatGpt)}>
+            <img src={imageChat} alt="" />
+          </button>
+          {
+            isShowChatGPT && <ChatGPT />
+          }
+        </div>)
+      }
     </header>
   );
 }

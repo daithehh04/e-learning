@@ -47,8 +47,8 @@
 }
 
 [data-theme="dark"] {
-  background-color: rgb(20, 20, 20);
-  color: #fff;
+  background-color: rgb(20, 20, 20) !important;
+  color: #fff !important;
 }
 
 * {

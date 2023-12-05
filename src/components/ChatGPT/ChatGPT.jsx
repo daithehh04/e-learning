@@ -8,7 +8,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { chatgptSlice } from "../../stores/slices/chatgptSlice";
 import { notification } from "antd";
 const apiKey = `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`;
-const apiKey1 = `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`;
+const apiKey1 = `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`;
 export default function ChatGPT() {
      const [isSubmit, setIsSubmit] = useState(true)
      const { name } = useSelector(state => state.user.userInfo);

@@ -150,7 +150,6 @@ export default function Header() {
           </NavLink>
           {!userInfo?._id ? (
             <div className={clsx(styles.groupBtn)}>
-              <DarkMode />
               <button
                 className={clsx(styles.btnLogin)}
                 onClick={() => navigate('/dang-nhap')}

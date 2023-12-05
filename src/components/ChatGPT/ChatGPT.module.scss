@@ -34,6 +34,10 @@
 
      }
 
+     .message {
+          word-break: break-all;
+     }
+
      .fromWrap {
           width: 100%;
           position: absolute;
@@ -76,6 +80,7 @@
                align-items: center;
 
                .avatar {
+                    flex-shrink: 0;
                     display: block;
                     width: 25px;
                     height: 25px;

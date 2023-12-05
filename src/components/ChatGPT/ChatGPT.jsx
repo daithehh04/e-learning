@@ -6,9 +6,11 @@ import { IoSend } from "react-icons/io5";
 import { GrLinkPrevious } from "react-icons/gr";
 import { useSelector, useDispatch } from 'react-redux';
 import { chatgptSlice } from "../../stores/slices/chatgptSlice";
+import { notification } from "antd";
 const apiKey = `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`;
 const apiKey1 = `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`;
 export default function ChatGPT() {
+     const [isSubmit, setIsSubmit] = useState(true)
      const { name } = useSelector(state => state.user.userInfo);
      const dispatch = useDispatch();
      const { toggle } = chatgptSlice.actions;
@@ -51,6 +53,7 @@ export default function ChatGPT() {
           if (value) {
                setArrayUser([...arrayUser, value]);
                setArrayBot([...arrayBot, "..."]);
+               setIsSubmit(false);
                setValue("");
 
 
@@ -61,19 +64,26 @@ export default function ChatGPT() {
                const dataBot = JSON.parse(JSON.stringify(arrayBot));
                dataBot.splice(arrayBot.length - 1, 1);
                if (data) {
-                    setArrayBot([...dataBot, data.choices[0].message.content])
+                    setArrayBot([...dataBot, data.choices[0].message.content]);
+                    setIsSubmit(true);
                }
           }).catch((err) => {
                if (arrayUser.length > 0) {
                     const dataBot = JSON.parse(JSON.stringify(arrayBot));
                     dataBot.splice(arrayBot.length - 1, 1);
                     setArrayBot([...dataBot, "đang có lỗi xảy ra"])
+                    setIsSubmit(true);
                }
           })
+
 
      }, [arrayUser]);
      const handleHidden = () => {
           dispatch(toggle(false));
+
+     }
+     const validateForm = (e) => {
+          e.preventDefault();
 
      }
      return (
@@ -91,7 +101,7 @@ export default function ChatGPT() {
                                    <div className={styles.bot}>
                                         <div className={clsx(styles.chatResponse)}>
                                              <img src={chatGPT} alt="avatar" />
-                                             <span>
+                                             <span className={clsx(styles.message)}>
                                                   {message}
                                              </span>
                                         </div>
@@ -100,7 +110,7 @@ export default function ChatGPT() {
                                         arrayUser.length > 0 && i <= arrayUser.length - 1 && (
                                              <div className={styles.user}>
                                                   <div className={clsx(styles.chatResponse)}>
-                                                       <span>
+                                                       <span className={clsx(styles.message)}>
                                                             {arrayUser[i]}
                                                        </span>
                                                        <span className={clsx(styles.avatar)}>{name.length > 0 && name[0].toUpperCase()}</span>
@@ -118,9 +128,12 @@ export default function ChatGPT() {
 
                     }
                </div>
-               <div className={clsx(styles.fromWrap)}>
+               <div
+
+                    className={clsx(styles.fromWrap)}>
                     <form
-                         onSubmit={handleSubmit}
+
+                         onSubmit={isSubmit ? handleSubmit : validateForm}
                          className={clsx(styles.btnSumbit)}>
                          <div className={clsx(styles.fromGroup)}>
                               <input

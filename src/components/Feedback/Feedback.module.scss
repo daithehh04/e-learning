@@ -32,6 +32,7 @@
 
 .feedBack {
      padding: 135px 100px;
+     border-top: 1px solid rgba(126, 121, 121, 0.623);
 
      @include responsive(xs) {
           padding: 10px;
@@ -60,13 +61,14 @@
      }
 
      .feedBackItem {
+
           padding: 0 8px;
 
           .feedBackItemInner {
+               background: #E0EAE5;
                user-select: none;
                border-radius: 1.2rem;
                padding: 1.6rem;
-               background-color: #fff;
                min-height: 250px;
                display: flex !important;
                flex-direction: column;

@@ -31,9 +31,10 @@
 }
 
 .courseItems {
+     color: black;
      flex: 1 0 calc(100% / 3 - 30px);
      padding: 24px;
-     background-color: #fff;
+     background-color: #f3f6fd;
      border-radius: 12px;
      cursor: pointer;
 

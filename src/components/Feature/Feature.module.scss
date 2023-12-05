@@ -39,8 +39,9 @@ html {
 }
 
 .features {
+     border-top: 1px solid rgba(126, 121, 121, 0.623);
      padding: 100px 0 100px 0;
-     background: #E0EAE5;
+     color: black;
 
      span {
           display: block;
@@ -48,6 +49,7 @@ html {
      }
 
      .content {
+
           max-width: 50%;
           margin: 0 auto;
 
@@ -109,13 +111,13 @@ html {
 
      .featureBottom,
      .featureTop {
+          background: #E0EAE5;
           position: relative;
           padding: 60px;
           display: flex;
           align-items: center;
           justify-content: center;
           width: 70%;
-          background-color: #fff;
           height: 450px;
 
           @include responsive(xs) {

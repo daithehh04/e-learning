@@ -17,7 +17,7 @@ import clsx from 'clsx';
 import { useDispatch, useSelector } from 'react-redux';
 import { classes, genders } from "../../utils/contants";
 import { LockOutlined } from "@ant-design/icons";
-import { AvatarIcon } from "../../components/icons/icons";
+import { AvatarIcon } from "../../components/Icons/Icons";
 import Cookies from "js-cookie";
 import { unwrapResult } from "@reduxjs/toolkit";
 import {

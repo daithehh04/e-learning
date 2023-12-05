@@ -9,6 +9,7 @@ import { chatgptSlice } from "../../stores/slices/chatgptSlice";
 const apiKey = `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`;
 const apiKey1 = `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`;
 export default function ChatGPT() {
+     const { name } = useSelector(state => state.user.userInfo);
      const dispatch = useDispatch();
      const { toggle } = chatgptSlice.actions;
      const [arrayBot, setArrayBot] = useState([`Hello there! How can I help you today.`]);
@@ -102,7 +103,7 @@ export default function ChatGPT() {
                                                        <span>
                                                             {arrayUser[i]}
                                                        </span>
-                                                       <span className={clsx(styles.avatar)}>T</span>
+                                                       <span className={clsx(styles.avatar)}>{name.length > 0 && name[0].toUpperCase()}</span>
                                                   </div>
                                              </div>
                                         )

@@ -45,6 +45,7 @@ import { unwrapResult } from '@reduxjs/toolkit';
 import { requestUpdateStudiedForUser } from '../../stores/middleware/userMiddleware';
 import { answers } from '../../utils/constants';
 import { requestLoadCourseBySlug } from '../../stores/middleware/courseMiddleware';
+import DarkMode from '../../components/DarkMode/DarkMode'
 const loading = false;
 function Learning() {
   const navigate = useNavigate();
@@ -401,6 +402,7 @@ function Learning() {
                 </strong>
                 <p>&nbsp;bài học</p>
               </div>
+              <DarkMode />
             </div>
           )}
         </div>
@@ -408,6 +410,7 @@ function Learning() {
       {/* Content */}
       <Layout className={clsx(styles.layoutLearning)}>
         <Sider
+          style={{ backgroundColor: 'transparent', color: "inherit" }}
           className={clsx(styles.layoutSider, {
             [styles.hideSider]: isShowSider,
           })}
@@ -483,7 +486,7 @@ function Learning() {
                                     </h4>
                                     <p className={clsx(styles.iconTopic)}>
                                       {topicChild?.topicType ===
-                                      TTCSconfig.TYPE_TOPIC_VIDEO ? (
+                                        TTCSconfig.TYPE_TOPIC_VIDEO ? (
                                         <FaPlayCircle />
                                       ) : topicChild?.topicType ===
                                         TTCSconfig.TYPE_TOPIC_DOCUMENT ? (
@@ -536,7 +539,7 @@ function Learning() {
                     title="video player"
                     ref={videoPlayerRef}
                     onTimeUpdate={handleTimeUpdateVideo}
-                    // onSeeking={handleSeekingVideo}
+                  // onSeeking={handleSeekingVideo}
                   >
                     <source
                       src={dataTopicActive?.video || ''}
@@ -604,18 +607,18 @@ function Learning() {
                                         )
                                           ? item?.isResult
                                             ? clsx(
-                                                styles.quizChoiceRadio,
-                                                styles.correct
-                                              )
+                                              styles.quizChoiceRadio,
+                                              styles.correct
+                                            )
                                             : selectedQuestions.find(
-                                                (o) =>
-                                                  o.idAnswer.toString() ===
-                                                  item?._id?.toString()
-                                              ) &&
-                                              clsx(
-                                                styles.quizChoiceRadio,
-                                                styles.inCorrect
-                                              )
+                                              (o) =>
+                                                o.idAnswer.toString() ===
+                                                item?._id?.toString()
+                                            ) &&
+                                            clsx(
+                                              styles.quizChoiceRadio,
+                                              styles.inCorrect
+                                            )
                                           : clsx(styles.quizChoiceRadio)
                                       }
                                       value={item}
@@ -654,17 +657,17 @@ function Learning() {
                                 {selectedQuestions.find(
                                   (o) => o.idQuestion === question.id
                                 ) && (
-                                  <div className={clsx(styles.quizExplain)}>
-                                    <p className={clsx(styles.text)}>
-                                      Giải thích
-                                    </p>
-                                    <div
-                                      dangerouslySetInnerHTML={{
-                                        __html: question.hint ?? '',
-                                      }}
-                                    ></div>
-                                  </div>
-                                )}
+                                    <div className={clsx(styles.quizExplain)}>
+                                      <p className={clsx(styles.text)}>
+                                        Giải thích
+                                      </p>
+                                      <div
+                                        dangerouslySetInnerHTML={{
+                                          __html: question.hint ?? '',
+                                        }}
+                                      ></div>
+                                    </div>
+                                  )}
                               </Space>
                             </div>
                           </div>

@@ -8,46 +8,56 @@
     padding: 6.8px 2%;
     background: orangered;
     color: white;
+
     .icon {
       cursor: pointer;
       font-size: 2.5rem;
     }
+
     .nameCourse {
       font-weight: 700;
     }
+
     .logo {
       margin: 0 2rem;
+
       img {
         width: 30px;
         height: 40px;
       }
     }
+
     .progress {
       margin-left: auto;
       display: flex;
       align-items: center;
       gap: 1rem;
+
       div span {
         color: #fff !important;
         font-weight: 500;
       }
     }
+
     .lesson {
       display: flex;
+
     }
   }
+
   .layoutLearning {
     flex-direction: row-reverse;
     margin-top: 6rem;
   }
+
   .layoutSider {
     font-family: var(--font-family);
     border-left: 0.1rem solid #e7e7e7 !important;
-    background-color: #fff !important;
+    // background-color: #fff !important;
     width: 25% !important;
     max-width: 25% !important;
     min-width: 25% !important;
-    background-color: initial;
+    // background-color: initial;
     position: fixed;
     right: 0;
     top: 0;
@@ -58,20 +68,23 @@
     overflow-x: hidden;
     overscroll-behavior: contain;
     z-index: 2;
+
     &.hideSider {
       width: 0 !important;
       max-width: 0 !important;
       min-width: 0 !important;
       display: none;
     }
+
     .heading {
       padding: 1.2rem 1.6rem;
       font-weight: 600;
       font-size: 1.6rem;
     }
+
     .lessonItem {
       .itemChapter {
-        background-color: #f7f8fa;
+        // background-color: #f7f8fa;
         border-bottom: 0.1rem solid #dedfe0;
         padding: 0.8rem 2rem;
         position: relative;
@@ -80,24 +93,29 @@
         position: sticky;
         z-index: 3;
         top: 0;
+
         &:hover {
-          background-color: #edeff1;
+          // background-color: #edeff1;
         }
+
         .iconArrowUp {
           position: absolute;
           top: 1rem;
           right: 0.5rem;
           font-size: 2rem;
           transition: all 0.3s;
+
           &.iconDown {
             rotate: 180deg;
           }
         }
       }
+
       .nameChapter {
         font-weight: 600;
         font-size: 1.6rem;
       }
+
       .timeChapter {
         color: #29303b;
         font-size: 1.2rem;
@@ -111,12 +129,15 @@
       display: flex;
       justify-content: space-between;
       transition: all 0.3s ease-in-out;
+
       &:hover {
-        background: #edeff1;
+        // background: #edeff1;
       }
+
       .subLessonItem {
         margin-left: 2rem;
         cursor: pointer;
+
         .nameTopic {
           font-size: 1.4rem;
           font-weight: 400;
@@ -124,6 +145,7 @@
           margin: 0;
           position: relative;
         }
+
         .iconTopic {
           font-size: 1.1rem;
           margin-top: 1rem;
@@ -133,6 +155,7 @@
           align-items: center;
         }
       }
+
       .iconDone {
         display: flex;
         justify-content: center;
@@ -142,13 +165,16 @@
         color: #5db85c;
       }
     }
+
     .lessonActive {
-      background: rgba(239, 137, 100, 0.5);
+      // background: rgba(239, 137, 100, 0.5);
+
       &:hover {
-        background: rgba(239, 137, 100, 0.5);
+        // background: rgba(239, 137, 100, 0.5);
       }
     }
   }
+
   .layoutContent {
     font-family: var(--font-family);
     margin-top: 6rem;
@@ -161,18 +187,22 @@
     overscroll-behavior: contain;
     position: fixed;
     top: 0;
+
     .contentDesc {
       padding: 0 8%;
       // min-height: 40rem;
     }
+
     &.hideSider {
       width: 100% !important;
     }
+
     .practiceContent {
       padding: 0 8%;
       height: 100%;
       display: block;
     }
+
     .contentPractice {
       font-family: var(--font-family);
       border: 2px solid orangered;
@@ -182,6 +212,7 @@
       border-radius: 1rem;
       padding: 3rem;
       font-size: 1.6rem;
+
       .question {
         display: flex;
         gap: 4px;
@@ -189,13 +220,16 @@
         margin-bottom: 1rem;
         font-weight: 500;
       }
+
       .quizChoiceAnswer {
         display: flex;
       }
+
       .quiz {
         .rowQuiz {
           width: 100%;
-          & > div {
+
+          &>div {
             label {
               font-family: var(--font-family);
               font-weight: 500;
@@ -206,27 +240,33 @@
             }
           }
         }
+
         .quizChoiceRadio {
           div {
             width: 100%;
+
             label {
               width: 100%;
             }
           }
         }
+
         .correct {
           background-color: rgba(103, 228, 113, 0.861);
           width: 100%;
         }
+
         .inCorrect {
           background-color: rgba(239, 25, 25, 0.715);
           width: 100%;
         }
       }
+
       .quizExplain {
         font-style: italic;
         font-size: 1.4rem;
         color: #000;
+
         .text {
           font-style: normal;
           font-size: 1.6rem;
@@ -236,16 +276,19 @@
         }
       }
     }
+
     .contentVideo {
-      background-color: #000;
+      // background-color: #000;
       padding: 0 8%;
       position: relative;
       width: 100%;
+
       .videoPlayer {
         padding-top: 56.25%;
         position: relative;
         overflow: hidden;
       }
+
       .videoEmbed {
         width: 100%;
         height: 100%;
@@ -256,6 +299,7 @@
       }
     }
   }
+
   .footerLearning {
     position: fixed;
     display: flex;
@@ -264,18 +308,21 @@
     bottom: 0;
     width: 100%;
     height: 5rem;
-    background-color: #f0f0f0;
+    // background-color: #f0f0f0;
     box-shadow: 0 -0.2rem 0.3rem rgb(0 0 0 / 10%);
+
     .btnLessonToggle {
       display: flex;
       align-items: center;
       margin-left: auto;
+
       h3 {
         font-weight: 500;
         font-size: 1.4rem;
       }
+
       button {
-        background-color: #fff;
+        // background-color: #fff;
         border-radius: 50%;
         cursor: pointer;
         display: flex;
@@ -289,11 +336,12 @@
         box-shadow: rgba(5, 24, 43, 0.1) 0rem;
       }
     }
+
     .btnLessonPrev {
       margin-left: 40%;
       height: 4rem;
       border-radius: 0.6rem;
-      color: #404040;
+      // color: #404040;
       font-size: 1.4rem;
       font-weight: 500;
       transition: 0.3s ease;
@@ -305,7 +353,8 @@
       align-items: center;
       justify-content: center;
       cursor: pointer;
-      & > span {
+
+      &>span {
         padding: 0.8rem;
       }
 
@@ -313,6 +362,7 @@
         opacity: 0.8;
       }
     }
+
     .btnLessonNext {
       height: 4rem;
       border: 0.2rem solid orangered;
@@ -330,7 +380,8 @@
       align-items: center;
       justify-content: center;
       cursor: pointer;
-      & > span {
+
+      &>span {
         padding: 0.8rem;
       }
 

@@ -21,6 +21,7 @@ import ChatGPT from '../../components/ChatGPT/ChatGPT';
 import imageChat from '../../assets/imgs/chatgpt/chatbot.jpg'
 import useSelection from 'antd/es/table/hooks/useSelection';
 import { chatgptSlice } from '../../stores/slices/chatgptSlice';
+import DarkMode from '../../components/DarkMode/DarkMode';
 // import { useAuth0 } from '@auth0/auth0-react';
 
 export default function Header() {
@@ -149,6 +150,7 @@ export default function Header() {
           </NavLink>
           {!userInfo?._id ? (
             <div className={clsx(styles.groupBtn)}>
+              <DarkMode />
               <button
                 className={clsx(styles.btnLogin)}
                 onClick={() => navigate('/dang-nhap')}
@@ -163,15 +165,18 @@ export default function Header() {
               </button>
             </div>
           ) : (
-            <Dropdown
-              menu={{ items }}
-              trigger={['hover']}
-              placement={'bottomRight'}
-            >
-              <button className={clsx(styles.btnHeader)}>
-                <FaUser />
-              </button>
-            </Dropdown>
+            <div className={clsx(styles.groupUserDarkMode)}>
+              <Dropdown
+                menu={{ items }}
+                trigger={['hover']}
+                placement={'bottomRight'}
+              >
+                <button className={clsx(styles.btnHeader)}>
+                  <FaUser />
+                </button>
+              </Dropdown>
+              <DarkMode />
+            </div>
           )}
         </div>
         <div className={clsx(styles.headerBottom)}>

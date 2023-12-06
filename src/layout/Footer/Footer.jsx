@@ -17,7 +17,7 @@ import instagram from '../../assets/imgs/footer/instagram.png';
 
 export default function Footer() {
   return (
-    <footer className={styles.footer}>
+    <footer className={clsx(styles.footer, 'dark')}>
       <div className={clsx(styles.footerContainer)}>
         <Row>
           <Col xs={24} sm={24} md={24} lg={8}>

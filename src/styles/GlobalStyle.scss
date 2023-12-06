@@ -45,14 +45,31 @@
   --hoverSecondaryColor: #ffb933;
   --titleColor: #0a342f;
   --textColor: #333333;
+  --colorDark: #191d1e;
 
   //font
   --font-family: 'SVN-Poppins';
 }
 
-[data-theme="dark"] {
-  background-color: #191d1e !important;
+[data-theme='dark'] {
+  background-color: var(--colorDark) !important;
   color: #fff !important;
+  .dark {
+    background-color: var(--colorDark) !important;
+    color: #fff !important;
+    a {
+      background-color: var(--colorDark) !important;
+      color: #fff !important;
+    }
+  }
+}
+
+.text-common {
+  background-image: var(--primaryColor);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  text-fill-color: transparent;
 }
 
 * {
@@ -114,6 +131,11 @@ input,
 [tabindex] {
   outline: none;
   border: none;
+}
+
+.btn-common {
+  background: var(--primaryColor);
+  color: #fff;
 }
 
 //fonts embedded

@@ -36,8 +36,12 @@
 
 :root {
   //color
-  --primaryColor: #009d9d;
-  --secondaryColor: #ffa800;
+  --primaryColor: linear-gradient(
+    90deg,
+    rgb(94, 187, 255) 0%,
+    rgb(161, 116, 255) 100%
+  );
+  --secondaryColor: #0093fc;
   --hoverSecondaryColor: #ffb933;
   --titleColor: #0a342f;
   --textColor: #333333;

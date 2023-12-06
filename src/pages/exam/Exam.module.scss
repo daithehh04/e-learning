@@ -1,191 +1,186 @@
 @mixin responsive($breakpoint) {
-     @if $breakpoint==xs {
-          @media (max-width: 575.98px) {
-               @content;
-          }
-     }
+  @if $breakpoint==xs {
+    @media (max-width: 575.98px) {
+      @content;
+    }
+  }
 
-     @if $breakpoint==sm {
-          @media (min-width: 576px) and (max-width: 767.98px) {
-               @content;
-          }
-     }
+  @if $breakpoint==sm {
+    @media (min-width: 576px) and (max-width: 767.98px) {
+      @content;
+    }
+  }
 
-     @if $breakpoint==md {
-          @media (min-width: 768px) and (max-width: 991.98px) {
-               @content;
-          }
-     }
+  @if $breakpoint==md {
+    @media (min-width: 768px) and (max-width: 991.98px) {
+      @content;
+    }
+  }
 
-     @if $breakpoint==lg {
-          @media (min-width: 992px) and (max-width: 1199.98px) {
-               @content;
-          }
-     }
+  @if $breakpoint==lg {
+    @media (min-width: 992px) and (max-width: 1199.98px) {
+      @content;
+    }
+  }
 
-     @if $breakpoint==xl {
-          @media (min-width: 1200px) {
-               @content;
-          }
-     }
+  @if $breakpoint==xl {
+    @media (min-width: 1200px) {
+      @content;
+    }
+  }
 }
 
 .exam {
-     .examBreadcrumb {
-          margin-top: 4px;
+  .examBreadcrumb {
+    margin-top: 4px;
 
-          .examBreadcumbLink {
-               font-size: 1.8rem;
-          }
+    .examBreadcumbLink {
+      font-size: 1.8rem;
+    }
+  }
 
+  .headingLv2 {
+    margin-top: 18px;
+    text-align: center;
+    font-size: 2.2rem;
+  }
 
-     }
+  .examView {
+    padding: 10px;
+  }
 
-     .headingLv2 {
-          margin-top: 18px;
-          text-align: center;
-          font-size: 2.2rem;
-     }
+  .examPanel {
+    width: 100%;
+  }
 
-     .examView {
-          padding: 10px;
-     }
+  .examPanelTitle {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
 
-     .examPanel {
-          width: 100%;
-     }
-
-     .examPanelTitle {
-          display: flex;
-          align-items: center;
-          gap: 10px;
-     }
-
-     .examPanelItem {
-          background-color: #fff;
-          border-radius: 1.5rem;
-          padding: 1.2rem 1.5rem;
-          margin-top: 2rem;
-     }
-
-
+  .examPanelItem {
+    // background-color: #ffffffe6;
+    border-radius: 1.5rem;
+    padding: 1.2rem 1.5rem;
+    margin-top: 2rem;
+  }
 }
 
 .examPanelBtn {
-     margin-top: 18px;
-     font-size: 1.3rem;
-     font-family: var(--font-family);
-     font-weight: 600;
-     box-shadow: 0 0.4rem 1rem rgb(192 210 235 / 75%);
-     color: #fff;
-     background-color: #ff8223;
-     padding: 0.6rem 0.8rem;
-     border-radius: 1rem;
-     display: flex;
-     align-items: center;
-     cursor: pointer;
-     transition: 0.4s ease-in-out;
+  margin-top: 18px;
+  font-size: 1.3rem;
+  font-family: var(--font-family);
+  font-weight: 600;
+  box-shadow: 0 0.4rem 1rem rgb(192 210 235 / 75%);
+  // color: #ffffffe6;
+  padding: 0.6rem 0.8rem;
+  border-radius: 1rem;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  transition: 0.4s ease-in-out;
 
-     &.review {
-          background-color: #ffba34;
-     }
+  &.review {
+    background-color: var(--primaryColor);
+  }
 
-     @include responsive(sm) {
-          margin-left: auto;
-     }
+  @include responsive(sm) {
+    margin-left: auto;
+  }
 
-     @include responsive(xs) {
-          margin-left: auto;
-     }
+  @include responsive(xs) {
+    margin-left: auto;
+  }
 }
 
 .examPanelIcon {
-     font-size: 2rem;
+  font-size: 2rem;
 }
 
 .panelActionItem {
-     display: flex;
+  display: flex;
 
-     &>div {
-          display: flex;
-          align-items: center;
+  & > div {
+    display: flex;
+    align-items: center;
 
-          &>span {
-               padding: 0 1rem;
-               margin-top: 0.4rem;
-               font-size: 1.4rem;
-               font-weight: 500;
-               font-family: var(--font-family);
-               color: black;
-          }
-     }
+    & > span {
+      padding: 0 1rem;
+      margin-top: 0.4rem;
+      font-size: 1.4rem;
+      font-weight: 500;
+      font-family: var(--font-family);
+      // color: black;
+    }
+  }
 
-     @include responsive(sm) {
-          justify-content: space-between;
-          margin-bottom: 0.8rem;
-     }
+  @include responsive(sm) {
+    justify-content: space-between;
+    margin-bottom: 0.8rem;
+  }
 
-     @include responsive(xs) {
-          justify-content: space-between;
-          margin-bottom: 0.8rem;
-     }
+  @include responsive(xs) {
+    justify-content: space-between;
+    margin-bottom: 0.8rem;
+  }
 
-     @include responsive(md) {
-          &>div>span {
-               padding: 0 0.8rem;
-               margin-top: 0.2rem;
-               font-size: 1.2rem;
-          }
-     }
+  @include responsive(md) {
+    & > div > span {
+      padding: 0 0.8rem;
+      margin-top: 0.2rem;
+      font-size: 1.2rem;
+    }
+  }
 }
 
 .examPanelScore {
-     margin-left: 0.6rem;
-     padding: 0.6rem 0;
-     color: orangered;
-     border: 0.15rem solid #76b257;
-     border-radius: 1rem;
+  margin-left: 0.6rem;
+  padding: 0.6rem 0;
+  color: orangered;
+  border: 0.15rem solid #76b257;
+  border-radius: 1rem;
 
-     &>span {
-          font-size: 1.2rem !important;
-          color: #b28e57 !important;
-          font-weight: 700 !important;
-          margin-top: unset !important;
-     }
+  & > span {
+    font-size: 1.2rem !important;
+    color: #b28e57 !important;
+    font-weight: 700 !important;
+    margin-top: unset !important;
+  }
 
-     @include responsive(xs) {
-          margin-left: unset;
-     }
+  @include responsive(xs) {
+    margin-left: unset;
+  }
 
-     @include responsive(sm) {
-          margin-left: unset;
-     }
+  @include responsive(sm) {
+    margin-left: unset;
+  }
 
-     @include responsive(md) {
-          margin-left: unset;
-     }
+  @include responsive(md) {
+    margin-left: unset;
+  }
 }
 
 .examPanelContent {
-     padding: 2rem;
-     border-radius: 1rem;
-     border: 0.15rem solid rgb(243, 247, 249);
-     display: flex;
-     flex-direction: column;
-     cursor: pointer;
-     background-color: #fff;
-     transition: all 0.4s ease-in-out;
+  padding: 2rem;
+  border-radius: 1rem;
+  border: 0.15rem solid rgb(243, 247, 249);
+  display: flex;
+  flex-direction: column;
+  cursor: pointer;
+  // background-color: #ffffffe6;
+  transition: all 0.4s ease-in-out;
 
-     &>span {
-          font-size: 1.5rem;
-          font-weight: 500;
-          font-family: var(--font-family);
-          color: #000;
-          margin-bottom: 2.4rem;
-     }
+  & > span {
+    font-size: 1.5rem;
+    font-weight: 500;
+    font-family: var(--font-family);
+    // color: #000;
+    margin-bottom: 2.4rem;
+  }
 
-     &:hover {
-          transform: translateY(-6px);
-          box-shadow: 0 4px 10px rgb(192 210 235 / 50%);
-     }
+  &:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 4px 10px rgb(192 210 235 / 50%);
+  }
 }

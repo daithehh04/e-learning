@@ -87,7 +87,7 @@ const CourseDetail = () => {
     <>
       <Header />
       <div className="wide">
-        <div className={clsx(styles.detailCourse)}>
+        <div className={clsx(styles.detailCourse, 'dark')}>
           <div className={clsx(styles.detailContainer)}>
             <Breadcrumb separator="›">
               <Breadcrumb.Item>
@@ -150,7 +150,7 @@ const CourseDetail = () => {
                     >
                       <NavLink
                         to={`chuong-trinh-hoc/${course?.id}-1`}
-                        className={clsx(styles.btn1)}
+                        className={clsx(styles.btn1, 'btn-common')}
                       >
                         <button>Chương trình học</button>
                       </NavLink>

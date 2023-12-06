@@ -26,7 +26,6 @@ import DarkMode from '../../components/DarkMode/DarkMode';
 
 export default function Header() {
   const dispatch = useDispatch();
-  console.log([chatgptSlice]);
   const { toggle } = chatgptSlice.actions;
   const [navbarStick, setNavbarStick] = useState(false);
   const isShowChatGPT = useSelector((state) => state.chatGPT.isShow);

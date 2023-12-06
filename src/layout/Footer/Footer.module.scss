@@ -31,9 +31,10 @@
 }
 
 .footer {
-  color: #fff;
+  // color: #FFFFFFE6;
   padding: 80px 100px 40px 100px;
-  background-color: var(--colorDark) !important;
+  border-top: 1px solid #ccc;
+  // background-color: var(--colorDark);
 
   @include responsive(xs) {
     margin-top: 60px;
@@ -102,7 +103,7 @@
 
     li,
     a {
-      color: #fff;
+      // color: #FFFFFFE6;
       @include responsive(xs) {
         justify-content: center;
       }

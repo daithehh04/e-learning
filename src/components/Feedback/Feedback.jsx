@@ -9,7 +9,7 @@ export default function Feedback() {
     <section className={clsx(styles.feedBack)}>
       <h2 className={clsx(styles.headingLv2)}>Đánh giá và Phản Hồi</h2>
       <Carousel
-        className={clsx(styles.carouselFeedBack)}
+        className={clsx(styles.carouselFeedBack, 'dark')}
         autoplay
         pauseOnDotsHover
         pauseOnHover

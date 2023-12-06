@@ -60,14 +60,15 @@
     padding: 0 8px;
 
     .feedBackItemInner {
-      background: var(--primaryColor);
+      // background: var(--primaryColor);
+      border: 2px solid #6c4fd9;
       user-select: none;
       border-radius: 1.2rem;
       padding: 1.6rem;
       min-height: 250px;
       display: flex !important;
       flex-direction: column;
-      color: #fff;
+      // color: #FFFFFFE6;
 
       .nameSchool {
         display: block;

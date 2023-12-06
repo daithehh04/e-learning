@@ -6,8 +6,8 @@
     width: 100%;
     align-items: center;
     padding: 6.8px 2%;
-    background: orangered;
-    color: white;
+    background: var(--secondaryColor);
+    color: #ffffffe6;
 
     .icon {
       cursor: pointer;
@@ -22,7 +22,7 @@
       margin: 0 2rem;
 
       img {
-        width: 30px;
+        width: 40px;
         height: 40px;
       }
     }
@@ -34,14 +34,13 @@
       gap: 1rem;
 
       div span {
-        color: #fff !important;
+        color: #ffffffe6 !important;
         font-weight: 500;
       }
     }
 
     .lesson {
       display: flex;
-
     }
   }
 
@@ -53,7 +52,7 @@
   .layoutSider {
     font-family: var(--font-family);
     border-left: 0.1rem solid #e7e7e7 !important;
-    // background-color: #fff !important;
+    // background-color: #FFFFFFE6 !important;
     width: 25% !important;
     max-width: 25% !important;
     min-width: 25% !important;
@@ -84,7 +83,7 @@
 
     .lessonItem {
       .itemChapter {
-        // background-color: #f7f8fa;
+        background-color: #f7f8fa;
         border-bottom: 0.1rem solid #dedfe0;
         padding: 0.8rem 2rem;
         position: relative;
@@ -167,10 +166,11 @@
     }
 
     .lessonActive {
-      // background: rgba(239, 137, 100, 0.5);
+      background: #7d5fff;
+      color: #fff;
 
       &:hover {
-        // background: rgba(239, 137, 100, 0.5);
+        background: #7d5fff;
       }
     }
   }
@@ -205,7 +205,7 @@
 
     .contentPractice {
       font-family: var(--font-family);
-      border: 2px solid orangered;
+      border: 2px solid #7d5fff;
       margin-top: 3rem;
       margin-bottom: 3rem;
       display: block;
@@ -229,7 +229,7 @@
         .rowQuiz {
           width: 100%;
 
-          &>div {
+          & > div {
             label {
               font-family: var(--font-family);
               font-weight: 500;
@@ -278,7 +278,7 @@
     }
 
     .contentVideo {
-      // background-color: #000;
+      background-color: #000;
       padding: 0 8%;
       position: relative;
       width: 100%;
@@ -322,7 +322,7 @@
       }
 
       button {
-        // background-color: #fff;
+        // background-color: #FFFFFFE6;
         border-radius: 50%;
         cursor: pointer;
         display: flex;
@@ -354,7 +354,7 @@
       justify-content: center;
       cursor: pointer;
 
-      &>span {
+      & > span {
         padding: 0.8rem;
       }
 
@@ -365,9 +365,9 @@
 
     .btnLessonNext {
       height: 4rem;
-      border: 0.2rem solid orangered;
+      border: 0.2rem solid #7d5fff;
       border-radius: 0.6rem;
-      color: orangered;
+      color: #7d5fff;
       font-size: 1.4rem;
       font-weight: 500;
       transition: 0.3s ease;
@@ -381,12 +381,53 @@
       justify-content: center;
       cursor: pointer;
 
-      &>span {
+      & > span {
         padding: 0.8rem;
       }
 
       &:hover {
         opacity: 0.8;
+      }
+    }
+  }
+}
+
+[data-theme='dark'] {
+  .learning {
+    .headerWrapper {
+      background: rgba(25, 29, 30, 0.6);
+    }
+    .layoutSider {
+      border-left: 0.1rem solid #000 !important;
+      .lessonItem {
+        background: #272a31;
+        .itemChapter {
+          background: #272a31;
+          border-bottom: 1px solid #181d1e;
+        }
+        .timeChapter {
+          color: rgb(128, 139, 154);
+        }
+      }
+      .lessonActive {
+        background: #181d1e;
+
+        &:hover {
+          background: #181d1e;
+        }
+      }
+    }
+    .footerLearning {
+      .btnLessonPrev {
+        border: 3px solid #7d5fff;
+        background-color: #181d1e;
+        color: #fff;
+      }
+
+      .btnLessonNext {
+        color: #fff;
+        border: none;
+        background: var(--primaryColor);
       }
     }
   }

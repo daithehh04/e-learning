@@ -23,7 +23,9 @@ export default function CourseItems({
       <div className={clsx(styles.imgWrap)}>
         <img src={img} alt={desc} />
         <div className={styles.overlay}>
-          <button className={clsx(styles.btn, styles.btnAdd)}>Làm ngay</button>
+          <button className={clsx(styles.btn, styles.btnAdd, 'btn-common')}>
+            Làm ngay
+          </button>
         </div>
       </div>
       <div className={clsx(styles.content)}>

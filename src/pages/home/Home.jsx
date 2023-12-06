@@ -1,59 +1,61 @@
-import React, { useRef, useState, useEffect } from 'react'
+import React, { useRef, useState, useEffect } from 'react';
 import { clsx } from 'clsx';
-import { LeftOutlined, RightOutlined, UpSquareOutlined } from '@ant-design/icons'
-import { Carousel } from "antd";
-import silde1 from "../../assets/imgs/sildes/slide_1.svg"
-import silde2 from "../../assets/imgs/sildes/slide_2.svg"
-import silde3 from "../../assets/imgs/sildes/slide_3.jpg"
-import styles from './Home.module.scss'
-import Header from "../../layout/Header/Header"
-import Footer from "../../layout/Footer/Footer"
-import Slide from '../../components/Slide/Slide'
-import Marquee from "../../components/Marquee/Marquee"
+import {
+  LeftOutlined,
+  RightOutlined,
+  UpSquareOutlined,
+} from '@ant-design/icons';
+import { Carousel } from 'antd';
+import silde1 from '../../assets/imgs/sildes/slide_1.svg';
+import silde2 from '../../assets/imgs/sildes/slide_2.svg';
+import silde3 from '../../assets/imgs/sildes/slide_3.jpg';
+import styles from './Home.module.scss';
+import Header from '../../layout/Header/Header';
+import Footer from '../../layout/Footer/Footer';
+import Slide from '../../components/Slide/Slide';
+import Marquee from '../../components/Marquee/Marquee';
 import Courses from '../../components/Courses/Courses';
 import Feature from '../../components/Feature/Feature';
 import Feedback from '../../components/Feedback/Feedback';
 
 const slides = [
   {
-    title: "Học thoải mái tại nhà riêng của bạn",
-    desc: "Circuit là nhà cung cấp đào tạo toàn cầu có trụ sở trên khắp Vương quốc Anh, chuyên về các khóa đào tạo được công nhận và thiết kế riêng.",
-    img: silde1
+    title: 'Học thoải mái tại nhà riêng của bạn',
+    desc: 'Circuit là nhà cung cấp đào tạo toàn cầu có trụ sở trên khắp Vương quốc Anh, chuyên về các khóa đào tạo được công nhận và thiết kế riêng.',
+    img: silde1,
   },
   {
-    title: "Chúng tôi chia sẻ kiến thức với thế giới",
-    desc: "Circuit là nhà cung cấp đào tạo toàn cầu có trụ sở trên khắp Vương quốc Anh, chuyên về các khóa đào tạo được công nhận và thiết kế riêng.",
-    img: silde2
+    title: 'Chúng tôi chia sẻ kiến thức với thế giới',
+    desc: 'Circuit là nhà cung cấp đào tạo toàn cầu có trụ sở trên khắp Vương quốc Anh, chuyên về các khóa đào tạo được công nhận và thiết kế riêng.',
+    img: silde2,
   },
   {
-    title: "Bạn học hôm nay và kiếm được vào ngày mai.",
-    desc: "Circuit là nhà cung cấp đào tạo toàn cầu có trụ sở trên khắp Vương quốc Anh, chuyên về các khóa đào tạo được công nhận và thiết kế riêng.",
-    img: silde3
-  }
-]
+    title: 'Bạn học hôm nay và kiếm được vào ngày mai.',
+    desc: 'Circuit là nhà cung cấp đào tạo toàn cầu có trụ sở trên khắp Vương quốc Anh, chuyên về các khóa đào tạo được công nhận và thiết kế riêng.',
+    img: silde3,
+  },
+];
 function HomePage() {
   const ref = useRef();
   const [scrollTop, setScrollTop] = useState();
   const handleScrollTop = () => {
     if (window !== undefined) {
       let windowHeight = window.scrollY;
-      windowHeight < 140
-        ? setScrollTop(false)
-        : setScrollTop(true);
+      windowHeight < 140 ? setScrollTop(false) : setScrollTop(true);
     }
   };
   useEffect(() => {
-    window.addEventListener("scroll", handleScrollTop);
+    window.addEventListener('scroll', handleScrollTop);
 
     return () => {
-      window.removeEventListener("scroll", handleScrollTop);
+      window.removeEventListener('scroll', handleScrollTop);
     };
   }, []);
   const handleScropTopClick = () => {
     window.scrollTo(0, 0);
-  }
+  };
   return (
-    <div className='home'>
+    <div className="home">
       <Header />
       <main>
         <Marquee />
@@ -67,23 +69,26 @@ function HomePage() {
             draggable
             ref={ref}
             autoplaySpeed={4500}
-            style={{ backgroundColor: "#bed4c9", borderRadius: 12, marginLeft: 12, marginRight: 12 }}
+            // style={{
+            //   background: '',
+            //   borderRadius: 12,
+            //   marginLeft: 12,
+            //   marginRight: 12,
+            // }}
           >
             {slides?.length > 0 &&
-              slides.map(({ title, desc, img }, index) =>
-                <Slide
-                  key={index}
-                  title={title}
-                  desc={desc}
-                  img={img}
-                />)}
+              slides.map(({ title, desc, img }, index) => (
+                <Slide key={index} title={title} desc={desc} img={img} />
+              ))}
           </Carousel>
           <LeftOutlined
             onClick={() => ref.current.prev()}
-            className={clsx(styles.preSlide)} />
+            className={clsx(styles.preSlide)}
+          />
           <RightOutlined
             onClick={() => ref.current.next()}
-            className={clsx(styles.nextSlide)} />
+            className={clsx(styles.nextSlide)}
+          />
         </section>
         <Courses />
         <Feature />
@@ -97,7 +102,7 @@ function HomePage() {
       </main>
       <Footer />
     </div>
-  )
+  );
 }
 
-export default HomePage
+export default HomePage;

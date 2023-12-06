@@ -18,7 +18,7 @@ import { apiLogout } from '../../api/auth';
 import { requestGetUserFromToken } from '../../stores/middleware/userMiddleware';
 import { unwrapResult } from '@reduxjs/toolkit';
 import ChatGPT from '../../components/ChatGPT/ChatGPT';
-import imageChat from '../../assets/imgs/chatgpt/chatbot.jpg'
+import imageChat from '../../assets/imgs/chatgpt/chatbot.jpg';
 import useSelection from 'antd/es/table/hooks/useSelection';
 import { chatgptSlice } from '../../stores/slices/chatgptSlice';
 import DarkMode from '../../components/DarkMode/DarkMode';
@@ -29,7 +29,7 @@ export default function Header() {
   console.log([chatgptSlice]);
   const { toggle } = chatgptSlice.actions;
   const [navbarStick, setNavbarStick] = useState(false);
-  const isShowChatGPT = useSelector(state => state.chatGPT.isShow);
+  const isShowChatGPT = useSelector((state) => state.chatGPT.isShow);
   const userInfo = useSelector((state) => state.user.userInfo);
 
   const handleLogout = useCallback(async () => {
@@ -108,10 +108,8 @@ export default function Header() {
     },
   ];
   const hanldeShowChatGpt = () => {
-
     dispatch(toggle(true));
-
-  }
+  };
   console.log(isShowChatGPT);
 
   const navLinkClass = ({ isActive }) => {
@@ -151,13 +149,13 @@ export default function Header() {
           {!userInfo?._id ? (
             <div className={clsx(styles.groupBtn)}>
               <button
-                className={clsx(styles.btnLogin)}
+                className={clsx(styles.btnLogin, 'btn-common')}
                 onClick={() => navigate('/dang-nhap')}
               >
                 Đăng Nhập
               </button>
               <button
-                className={clsx(styles.btnResigter)}
+                className={clsx(styles.btnResigter, 'btn-common')}
                 onClick={() => navigate('/dang-ky')}
               >
                 Đăng kí
@@ -195,18 +193,17 @@ export default function Header() {
           )}
         </div>
       </nav>
-      {
-        userInfo?._id && (<div className={styles.chatGpt} >
+      {userInfo?._id && (
+        <div className={styles.chatGpt}>
           <button
             onClick={hanldeShowChatGpt}
-            className={clsx(styles.btnChatGpt)}>
+            className={clsx(styles.btnChatGpt)}
+          >
             <img src={imageChat} alt="" />
           </button>
-          {
-            isShowChatGPT && <ChatGPT />
-          }
-        </div>)
-      }
+          {isShowChatGPT && <ChatGPT />}
+        </div>
+      )}
     </header>
   );
 }

@@ -168,7 +168,7 @@ export default function Header() {
                 placement={'bottomRight'}
               >
                 <button className={clsx(styles.btnHeader)}>
-                  <FaUser />
+                  <FaUser className={clsx(styles.user)} />
                 </button>
               </Dropdown>
               <DarkMode />

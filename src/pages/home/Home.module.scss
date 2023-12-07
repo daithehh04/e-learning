@@ -80,16 +80,14 @@ html {
   cursor: pointer;
   outline: none;
   border: none;
-  background: var(--primaryColor);
-  color: #fff;
-  border-radius: 6px;
+  background-color: transparent;
 
   &.isHidden {
     display: none;
   }
 
   &:hover {
-    background: orangered;
+    background-color: orange;
 
     .icon {
       color: #ffffffe6;

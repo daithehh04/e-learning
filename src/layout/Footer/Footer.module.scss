@@ -31,9 +31,9 @@
 }
 
 .footer {
-  color: #fff;
+  border-top: 1px solid #ccc;
+  color: black;
   padding: 80px 100px 100px 100px;
-  background-color: var(--colorDark) !important;
 
   @include responsive(xs) {
     margin-top: 60px;
@@ -102,7 +102,7 @@
 
     li,
     a {
-      color: #fff;
+      color: black;
 
       @include responsive(xs) {
         justify-content: center;
@@ -165,7 +165,6 @@
         font-weight: 900;
         font-size: 2.5rem;
         white-space: nowrap;
-        color: transparent;
         -webkit-background-clip: text;
         background-image: var(--primaryColor);
       }

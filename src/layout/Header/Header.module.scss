@@ -36,11 +36,11 @@
 }
 
 .header {
-  background-color: #e0eae5;
+  background-color: #fff;
   padding-top: 14px;
 
   .navbar {
-    background-color: #e0eae5;
+    background-color: #fff;
 
     &.stick {
       position: fixed;
@@ -86,6 +86,12 @@
       line-height: 1.7;
       padding: 0.6rem 0.8rem;
       transition: ease 0.5s;
+
+      .user {
+        fill:
+          rgb(35, 152, 236) !important;
+        ;
+      }
     }
 
     .logo {
@@ -199,4 +205,15 @@
       translate: 0;
     }
   }
+}
+
+[data-theme='dark'] {
+  .header {
+    background-color: var(--colorDark) !important;
+
+    .navbar {
+      background-color: var(--colorDark) !important;
+    }
+  }
+
 }

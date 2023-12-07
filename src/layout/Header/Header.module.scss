@@ -88,9 +88,7 @@
       transition: ease 0.5s;
 
       .user {
-        fill:
-          rgb(35, 152, 236) !important;
-        ;
+        fill: rgb(35, 152, 236) !important;
       }
     }
 
@@ -125,11 +123,13 @@
         color: transparent;
         -webkit-background-clip: text;
         background-color: #4158d0;
-        background-image: linear-gradient(43deg,
-            #4158d0 0%,
-            #df2bab 30%,
-            #ff7072 66%,
-            #e10404 100%);
+        background-image: linear-gradient(
+          43deg,
+          #4158d0 0%,
+          #df2bab 30%,
+          #ff7072 66%,
+          #e10404 100%
+        );
       }
     }
   }
@@ -167,7 +167,7 @@
         color: #fff;
 
         &:hover {
-          background: rgb(78, 78, 236);
+          background: var(--hoverSecondaryColor);
         }
 
         cursor: pointer;
@@ -215,5 +215,4 @@
       background-color: var(--colorDark) !important;
     }
   }
-
 }

@@ -80,21 +80,22 @@ html {
   cursor: pointer;
   outline: none;
   border: none;
-  background-color: transparent;
+  background: transparent;
+  color: var(--secondaryColor);
 
   &.isHidden {
     display: none;
   }
 
   &:hover {
-    background-color: orange;
+    // background-color: orange;
 
     .icon {
-      color: #ffffffe6;
+      // color: #ffffffe6;
     }
   }
 
   .icon {
-    font-size: 5rem;
+    font-size: 4.5rem;
   }
 }

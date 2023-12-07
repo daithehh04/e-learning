@@ -188,6 +188,10 @@
     position: fixed;
     top: 0;
 
+    img {
+      width: unset;
+      height: unset;
+    }
     .contentDesc {
       padding: 0 8%;
       // min-height: 40rem;

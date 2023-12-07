@@ -1,10 +1,7 @@
 import React, { useRef, useState, useEffect } from 'react';
 import { clsx } from 'clsx';
-import {
-  LeftOutlined,
-  RightOutlined,
-  UpSquareOutlined,
-} from '@ant-design/icons';
+import { LeftOutlined, RightOutlined } from '@ant-design/icons';
+import { FaArrowCircleUp } from 'react-icons/fa';
 import { Carousel } from 'antd';
 import silde1 from '../../assets/imgs/sildes/slide_1.svg';
 import silde2 from '../../assets/imgs/sildes/slide_2.svg';
@@ -69,12 +66,12 @@ function HomePage() {
             draggable
             ref={ref}
             autoplaySpeed={4500}
-          // style={{
-          //   background: '',
-          //   borderRadius: 12,
-          //   marginLeft: 12,
-          //   marginRight: 12,
-          // }}
+            // style={{
+            //   background: '',
+            //   borderRadius: 12,
+            //   marginLeft: 12,
+            //   marginRight: 12,
+            // }}
           >
             {slides?.length > 0 &&
               slides.map(({ title, desc, img }, index) => (
@@ -97,7 +94,7 @@ function HomePage() {
           className={clsx(styles.arrowToTop, !scrollTop && styles.isHidden)}
           onClick={handleScropTopClick}
         >
-          <UpSquareOutlined className={clsx(styles.icon)} />
+          <FaArrowCircleUp className={clsx(styles.icon)} />
         </button>
       </main>
       <Footer />

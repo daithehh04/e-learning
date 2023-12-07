@@ -69,12 +69,12 @@ function HomePage() {
             draggable
             ref={ref}
             autoplaySpeed={4500}
-            // style={{
-            //   background: '',
-            //   borderRadius: 12,
-            //   marginLeft: 12,
-            //   marginRight: 12,
-            // }}
+          // style={{
+          //   background: '',
+          //   borderRadius: 12,
+          //   marginLeft: 12,
+          //   marginRight: 12,
+          // }}
           >
             {slides?.length > 0 &&
               slides.map(({ title, desc, img }, index) => (

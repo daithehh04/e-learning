@@ -10,6 +10,7 @@ html {
     color: #fff;
     margin: 8px;
     border-radius: 16px;
+
     ul li {
       width: 36px !important;
       height: 6px !important;
@@ -79,14 +80,16 @@ html {
   cursor: pointer;
   outline: none;
   border: none;
-  background-color: transparent;
+  background: var(--primaryColor);
+  color: #fff;
+  border-radius: 6px;
 
   &.isHidden {
     display: none;
   }
 
   &:hover {
-    background-color: orange;
+    background: orangered;
 
     .icon {
       color: #fff;

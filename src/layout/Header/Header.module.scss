@@ -119,13 +119,11 @@
         color: transparent;
         -webkit-background-clip: text;
         background-color: #4158d0;
-        background-image: linear-gradient(
-          43deg,
-          #4158d0 0%,
-          #df2bab 30%,
-          #ff7072 66%,
-          #e10404 100%
-        );
+        background-image: linear-gradient(43deg,
+            #4158d0 0%,
+            #df2bab 30%,
+            #ff7072 66%,
+            #e10404 100%);
       }
     }
   }
@@ -184,7 +182,12 @@
     z-index: 99;
 
     .btnChatGpt {
+      background-color: transparent;
       cursor: pointer;
+
+      img {
+        border-radius: 12px;
+      }
     }
 
     img {

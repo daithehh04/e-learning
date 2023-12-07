@@ -45,7 +45,7 @@ import { unwrapResult } from '@reduxjs/toolkit';
 import { requestUpdateStudiedForUser } from '../../stores/middleware/userMiddleware';
 import { answers } from '../../utils/constants';
 import { requestLoadCourseBySlug } from '../../stores/middleware/courseMiddleware';
-import DarkMode from '../../components/DarkMode/DarkMode'
+import DarkMode from '../../components/DarkMode/DarkMode';
 const loading = false;
 function Learning() {
   const navigate = useNavigate();
@@ -363,11 +363,11 @@ function Learning() {
     }, 1695);
   };
 
-  const handleSeekingVideo = (e) => {
-    if (e.target.currentTime > previousTime) {
-      e.target.currentTime = previousTime;
-    }
-  };
+  // const handleSeekingVideo = (e) => {
+  //   if (e.target.currentTime > previousTime) {
+  //     e.target.currentTime = previousTime;
+  //   }
+  // };
 
   return (
     <div className={clsx(styles.learning)}>
@@ -380,12 +380,14 @@ function Learning() {
 
           <Link to={'/'} className={clsx(styles.logo)}>
             <img
-              src={'http://localhost:8080/src/assets/imgs/logo/logo.svg'}
+              src={
+                'data:image/png;base64,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'
+              }
               alt="learn4ever_logo"
             />
           </Link>
 
-          <div className={clsx(styles.nameCourse)}>Toán 1</div>
+          <div className={clsx(styles.nameCourse)}>{course?.courseName}</div>
 
           {!loading && (
             <div className={clsx(styles.progress)}>
@@ -410,7 +412,7 @@ function Learning() {
       {/* Content */}
       <Layout className={clsx(styles.layoutLearning)}>
         <Sider
-          style={{ backgroundColor: 'transparent', color: "inherit" }}
+          style={{ backgroundColor: 'transparent', color: 'inherit' }}
           className={clsx(styles.layoutSider, {
             [styles.hideSider]: isShowSider,
           })}
@@ -486,7 +488,7 @@ function Learning() {
                                     </h4>
                                     <p className={clsx(styles.iconTopic)}>
                                       {topicChild?.topicType ===
-                                        TTCSconfig.TYPE_TOPIC_VIDEO ? (
+                                      TTCSconfig.TYPE_TOPIC_VIDEO ? (
                                         <FaPlayCircle />
                                       ) : topicChild?.topicType ===
                                         TTCSconfig.TYPE_TOPIC_DOCUMENT ? (
@@ -539,7 +541,7 @@ function Learning() {
                     title="video player"
                     ref={videoPlayerRef}
                     onTimeUpdate={handleTimeUpdateVideo}
-                  // onSeeking={handleSeekingVideo}
+                    // onSeeking={handleSeekingVideo}
                   >
                     <source
                       src={dataTopicActive?.video || ''}
@@ -571,7 +573,7 @@ function Learning() {
           {/* ====================== Practice ====================== */}
           <div>
             {dataTopicActive?.topicType === TTCSconfig.TYPE_TOPIC_PRATICE && (
-              <div className={styles.practiceContent}>
+              <div className={clsx(styles.practiceContent, 'dark')}>
                 {questions.length > 0 &&
                   questions?.map((question, index) => {
                     return (
@@ -607,18 +609,18 @@ function Learning() {
                                         )
                                           ? item?.isResult
                                             ? clsx(
-                                              styles.quizChoiceRadio,
-                                              styles.correct
-                                            )
+                                                styles.quizChoiceRadio,
+                                                styles.correct
+                                              )
                                             : selectedQuestions.find(
-                                              (o) =>
-                                                o.idAnswer.toString() ===
-                                                item?._id?.toString()
-                                            ) &&
-                                            clsx(
-                                              styles.quizChoiceRadio,
-                                              styles.inCorrect
-                                            )
+                                                (o) =>
+                                                  o.idAnswer.toString() ===
+                                                  item?._id?.toString()
+                                              ) &&
+                                              clsx(
+                                                styles.quizChoiceRadio,
+                                                styles.inCorrect
+                                              )
                                           : clsx(styles.quizChoiceRadio)
                                       }
                                       value={item}
@@ -657,17 +659,17 @@ function Learning() {
                                 {selectedQuestions.find(
                                   (o) => o.idQuestion === question.id
                                 ) && (
-                                    <div className={clsx(styles.quizExplain)}>
-                                      <p className={clsx(styles.text)}>
-                                        Giải thích
-                                      </p>
-                                      <div
-                                        dangerouslySetInnerHTML={{
-                                          __html: question.hint ?? '',
-                                        }}
-                                      ></div>
-                                    </div>
-                                  )}
+                                  <div className={clsx(styles.quizExplain)}>
+                                    <p className={clsx(styles.text)}>
+                                      Giải thích
+                                    </p>
+                                    <div
+                                      dangerouslySetInnerHTML={{
+                                        __html: question.hint ?? '',
+                                      }}
+                                    ></div>
+                                  </div>
+                                )}
                               </Space>
                             </div>
                           </div>

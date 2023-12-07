@@ -1,119 +1,111 @@
 .chatGpt {
-     right: 0;
-     bottom: 0;
-     position: fixed;
-     padding: 60px 0px 60px 0px;
-     border-radius: 12px;
-     background-color: #fff;
-     box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
-     width: 400px;
-     height: 100vh;
-     z-index: 999;
-     background-color: #221b1b;
+  right: 0;
+  bottom: 0;
+  position: fixed;
+  padding: 60px 0px 60px 0px;
+  border-radius: 12px;
+  background-color: #ffffffe6;
+  box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+  width: 400px;
+  height: 100vh;
+  z-index: 999;
+  background-color: #221b1b;
 
-     .bot {
-          .chatResponse {
-               display: flex;
-               gap: 20px;
-               padding: 20px 10px;
+  .bot {
+    .chatResponse {
+      display: flex;
+      gap: 20px;
+      padding: 20px 10px;
 
-               img {
-                    width: 25px;
-                    height: 25px;
-               }
-          }
+      img {
+        width: 25px;
+        height: 25px;
+      }
+    }
 
-          background-color: #6e6a6a;
+    background-color: #6e6a6a;
 
-          color: #fff;
-     }
+    color: #ffffffe6;
+  }
 
-     .listQuestions {
-          height: calc(100vh - 120px);
-          overflow: auto;
+  .listQuestions {
+    height: calc(100vh - 120px);
+    overflow: auto;
+  }
 
-     }
+  .message {
+    word-break: break-all;
+  }
 
-     .message {
-          word-break: break-all;
-     }
+  .fromWrap {
+    width: 100%;
+    position: absolute;
+    bottom: 0;
+    left: 0;
 
-     .fromWrap {
-          width: 100%;
-          position: absolute;
-          bottom: 0;
-          left: 0;
+    .btnSumbit {
+      border-radius: 12px;
+      background-color: #ffffffe6;
+      max-width: 350px;
+      margin: 0 auto;
+      padding: 10px;
 
-          .btnSumbit {
-               border-radius: 12px;
-               background-color: #fff;
-               max-width: 350px;
-               margin: 0 auto;
-               padding: 10px;
+      input {
+        display: block;
+        width: 280px;
+        padding: 10px;
+      }
 
-               input {
-                    display: block;
-                    width: 280px;
-                    padding: 10px;
+      .fromGroup {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      }
+    }
+  }
 
-               }
+  .user {
+    background-color: #080808;
+    color: #ffffffe6;
 
-               .fromGroup {
-                    display: flex;
-                    align-items: center;
-                    justify-content: space-between;
-               }
-          }
+    .chatResponse {
+      padding: 20px 10px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
 
+      .avatar {
+        flex-shrink: 0;
+        display: block;
+        width: 25px;
+        height: 25px;
+        border-radius: 50%;
+        text-align: center;
+        line-height: 25px;
+        background-color: rgb(7, 7, 241);
+      }
+    }
+  }
 
+  .btnToggle {
+    cursor: pointer;
+    position: absolute;
+    width: 40px;
+    top: 10px;
+    left: 0px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: transparent;
 
-     }
+    &:active {
+      background-color: orange;
+    }
 
-     .user {
-          background-color: #080808;
-          color: #fff;
-
-          .chatResponse {
-               padding: 20px 10px;
-               display: flex;
-               justify-content: space-between;
-               align-items: center;
-
-               .avatar {
-                    flex-shrink: 0;
-                    display: block;
-                    width: 25px;
-                    height: 25px;
-                    border-radius: 50%;
-                    text-align: center;
-                    line-height: 25px;
-                    background-color: rgb(7, 7, 241);
-
-               }
-          }
-     }
-
-     .btnToggle {
-          cursor: pointer;
-          position: absolute;
-          width: 40px;
-          top: 10px;
-          left: 0px;
-          height: 40px;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          background-color: transparent;
-
-          &:active {
-               background-color: orange;
-          }
-
-          .icon {
-               color: #fff;
-               font-size: 2.5rem;
-          }
-
-     }
-
+    .icon {
+      color: #ffffffe6;
+      font-size: 2.5rem;
+    }
+  }
 }

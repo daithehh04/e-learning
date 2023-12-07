@@ -8,8 +8,8 @@ import { Breadcrumb, notification } from 'antd';
 import CategoryItems from '../../components/CategoryItems/CategoryItems';
 import { NavLink } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
-import { unwrapResult } from "@reduxjs/toolkit";
-import { requestLoadCategoryBySlug } from "../../stores/middleware/categoryMiddleware";
+import { unwrapResult } from '@reduxjs/toolkit';
+import { requestLoadCategoryBySlug } from '../../stores/middleware/categoryMiddleware';
 function CategoryDetail() {
   const dispatch = useDispatch();
   const categoryInfo = useSelector((state) => state.categorys.categoryInfo);
@@ -17,7 +17,7 @@ function CategoryDetail() {
   const params = useParams();
   const [courseList, setCourseList] = useState([]);
   useEffect(() => {
-    loadCategory(params.slug || "");
+    loadCategory(params.slug || '');
   }, [params.slug]);
   const loadCategory = async (slug) => {
     try {
@@ -29,15 +29,13 @@ function CategoryDetail() {
       unwrapResult(result);
     } catch (error) {
       notification.error({
-        message: "server error!!",
+        message: 'server error!!',
         duration: 1.5,
       });
     }
   };
   useEffect(() => {
-    const coursePublic = courses.filter(
-      (course) => course.status === 1
-    );
+    const coursePublic = courses.filter((course) => course.status === 1);
     setCourseList(coursePublic);
   }, [courses]);
 
@@ -68,23 +66,23 @@ function CategoryDetail() {
         <p
           className={clsx(styles.desc)}
           dangerouslySetInnerHTML={{
-            __html: categoryInfo?.des ?? "",
+            __html: categoryInfo?.des ?? '',
           }}
-        >
-
-        </p>
+        ></p>
         <div className={clsx(styles.listCategory)}>
           {courseList.length > 0 &&
-            courseList.map(({ _id, courseName, shortDes, avatar, slug }, index) => (
-              <CategoryItems
-                key={_id}
-                img={avatar}
-                desc={shortDes}
-                nameSubject={courseName}
-                index={index}
-                slug={slug}
-              />
-            ))}
+            courseList.map(
+              ({ _id, courseName, shortDes, avatar, slug }, index) => (
+                <CategoryItems
+                  key={_id}
+                  img={avatar}
+                  desc={shortDes}
+                  nameSubject={courseName}
+                  index={index}
+                  slug={slug}
+                />
+              )
+            )}
         </div>
       </main>
       <Footer />

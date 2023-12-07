@@ -40,21 +40,20 @@
         font-weight: 700;
         margin-bottom: 2rem;
         display: inline-block;
-        background-color: orangered;
         cursor: pointer;
         button {
           background: transparent;
-          color: #fff;
+          color: #ffffffe6;
           font-family: var(--font-family);
           font-weight: 700;
           cursor: pointer;
         }
       }
       .btn2 {
-        background-color: #fff;
-        border: 2px solid orangered;
+        background-color: #ffffffe6;
+        border: 2.5px solid var(--secondaryColor);
         button {
-          color: orangered;
+          color: var(--secondaryColor);
         }
       }
     }
@@ -79,7 +78,7 @@
     margin-bottom: 2rem;
   }
   .shortDes {
-    color: var(--textColor);
+    // color: var(--textColor);
     font-size: 1.4rem;
     font-family: var(--font-family);
   }

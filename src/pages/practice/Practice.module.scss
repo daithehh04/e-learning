@@ -1,749 +1,747 @@
 @mixin responsive($breakpoint) {
-     @if $breakpoint==xs {
-          @media (max-width: 575.98px) {
-               @content;
-          }
-     }
+  @if $breakpoint==xs {
+    @media (max-width: 575.98px) {
+      @content;
+    }
+  }
 
-     @if $breakpoint==sm {
-          @media (min-width: 576px) and (max-width: 767.98px) {
-               @content;
-          }
-     }
+  @if $breakpoint==sm {
+    @media (min-width: 576px) and (max-width: 767.98px) {
+      @content;
+    }
+  }
 
-     @if $breakpoint==md {
-          @media (min-width: 768px) and (max-width: 991.98px) {
-               @content;
-          }
-     }
+  @if $breakpoint==md {
+    @media (min-width: 768px) and (max-width: 991.98px) {
+      @content;
+    }
+  }
 
-     @if $breakpoint==lg {
-          @media (min-width: 992px) and (max-width: 1199.98px) {
-               @content;
-          }
-     }
+  @if $breakpoint==lg {
+    @media (min-width: 992px) and (max-width: 1199.98px) {
+      @content;
+    }
+  }
 
-     @if $breakpoint==xl {
-          @media (min-width: 1200px) {
-               @content;
-          }
-     }
+  @if $breakpoint==xl {
+    @media (min-width: 1200px) {
+      @content;
+    }
+  }
 }
 
 .practiceClockPanel {
-     width: 100%;
-     display: flex !important;
-     align-items: center;
-     flex-wrap: nowrap;
-     justify-content: center;
-     margin-bottom: 1rem;
-     top: auto;
-     left: auto;
-     z-index: 1;
-     background-color: #fff;
-     border-radius: 1.5rem;
-     padding: 1rem 0;
+  width: 100%;
+  display: flex !important;
+  align-items: center;
+  flex-wrap: nowrap;
+  justify-content: center;
+  margin-bottom: 1rem;
+  top: auto;
+  left: auto;
+  z-index: 1;
+  background-color: #ffffffe6;
+  border-radius: 1.5rem;
+  padding: 1rem 0;
 
-     &.stick {
-          position: fixed;
-          top: 6rem;
-          width: 20%;
-          box-shadow: 0 0.2rem 4rem 0 hsl(0deg 0% 6% / 10%);
-          animation: 0.3s ease 0s normal none 1 running fadeInDown;
-          z-index: 50;
+  &.stick {
+    position: fixed;
+    top: 6rem;
+    width: 20%;
+    box-shadow: 0 0.2rem 4rem 0 hsl(0deg 0% 6% / 10%);
+    animation: 0.3s ease 0s normal none 1 running fadeInDown;
+    z-index: 50;
 
-          @include responsive(xs) {
-               top: 4.8rem;
-               width: 50%;
-          }
+    @include responsive(xs) {
+      top: 4.8rem;
+      width: 50%;
+    }
 
-          @include responsive(sm) {
-               top: 4.8rem;
-          }
+    @include responsive(sm) {
+      top: 4.8rem;
+    }
 
-          @include responsive(md) {
-               top: 4.8rem;
-          }
+    @include responsive(md) {
+      top: 4.8rem;
+    }
 
-          @include responsive(lg) {
-               top: 4.8rem;
-          }
-     }
-
+    @include responsive(lg) {
+      top: 4.8rem;
+    }
+  }
 }
 
 .practiceBreadcumbLink {
-     &:hover {
-          -webkit-text-decoration: underline;
-          text-decoration: underline;
-          background-color: transparent !important;
-     }
+  &:hover {
+    -webkit-text-decoration: underline;
+    text-decoration: underline;
+    background-color: transparent !important;
+  }
 }
 
 .practiceBreadcumbLink.active {
-     color: orangered;
-     -webkit-text-decoration: underline;
-     text-decoration: underline;
-     opacity: 0.9;
+  color: orangered;
+  -webkit-text-decoration: underline;
+  text-decoration: underline;
+  opacity: 0.9;
 
-     &:hover {
-          color: orangered;
-          opacity: 1;
-     }
+  &:hover {
+    color: orangered;
+    opacity: 1;
+  }
 }
 
 .practiceBreadcumb {
-     margin-bottom: 2rem;
+  margin-bottom: 2rem;
 }
 
 .practiceBreadcumbLink {
-     &:hover {
-          -webkit-text-decoration: underline;
-          text-decoration: underline;
-          background-color: transparent !important;
-     }
+  &:hover {
+    -webkit-text-decoration: underline;
+    text-decoration: underline;
+    background-color: transparent !important;
+  }
 }
 
 .practiceClockIcon {
-     height: 3rem;
-     width: 2.7rem;
-     margin-right: 1.2rem;
+  height: 3rem;
+  width: 2.7rem;
+  margin-right: 1.2rem;
 }
 
 .practiceClockTime span {
-     color: rgb(38, 192, 72);
-     font-size: 1.6rem;
-     font-weight: bold;
-     font-family: var(--font-family);
+  color: rgb(38, 192, 72);
+  font-size: 1.6rem;
+  font-weight: bold;
+  font-family: var(--font-family);
 }
 
 .practiceView {
-     width: 100%;
-     margin-top: 2rem;
-     font-family: var(--font-family);
+  width: 100%;
+  margin-top: 2rem;
+  font-family: var(--font-family);
 
-     @include responsive(xs) {
-          margin-bottom: 5rem;
-     }
+  @include responsive(xs) {
+    margin-bottom: 5rem;
+  }
 
-     @include responsive(sm) {
-          margin-bottom: 5rem;
-     }
+  @include responsive(sm) {
+    margin-bottom: 5rem;
+  }
 
-     @include responsive(md) {
-          margin-bottom: 5rem;
-     }
+  @include responsive(md) {
+    margin-bottom: 5rem;
+  }
 }
 
 .quizChoicesItemInner {
-     width: 100%;
+  width: 100%;
 }
 
 .quizChoicesItemRadio {
-     width: 100%;
-     display: flex;
-     flex-wrap: nowrap;
-     padding: 10px;
+  width: 100%;
+  display: flex;
+  flex-wrap: nowrap;
+  padding: 10px;
 }
 
 .practicePracticeItem {
-     background: #fff;
-     border-radius: 1.5rem;
-     padding: 3.2rem 0 1rem;
-     margin-bottom: 1rem;
-     width: 100%;
-     position: relative;
+  background: #fff;
+  border-radius: 1.5rem;
+  padding: 3.2rem 0 1rem;
+  margin-bottom: 1rem;
+  width: 100%;
+  position: relative;
 }
 
 .gameViewQuestionIndex {
-     border-radius: 1rem;
-     height: 3rem;
-     padding-left: 3rem;
-     display: flex;
-     align-items: center;
-     justify-content: center;
-     margin-right: 0.4rem;
-     position: relative;
+  border-radius: 1rem;
+  height: 3rem;
+  padding-left: 3rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 0.4rem;
+  position: relative;
 
-     span {
-          position: absolute;
-          left: 50%;
-          transform: translateX(-50%);
-          font-size: 1.8rem;
-          font-weight: 600;
-     }
+  span {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 1.8rem;
+    font-weight: 600;
+  }
 }
 
 .practicePractice {
-     height: 100%;
-     font-family: var(--font-family);
+  height: 100%;
+  font-family: var(--font-family);
 }
 
 .feedbackIconWrapper {
-     position: absolute;
-     top: 1rem;
-     right: 1rem;
-     display: flex;
-     align-items: center;
-     justify-content: center;
-     width: 2.6rem;
-     height: 2.6rem;
-     border-radius: 50%;
-     background: #fff;
-     box-shadow: 0 0.2rem 0.8rem hsl(0deg 0% 49% / 25%);
-     cursor: pointer;
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.6rem;
+  height: 2.6rem;
+  border-radius: 50%;
+  background: #fff;
+  box-shadow: 0 0.2rem 0.8rem hsl(0deg 0% 49% / 25%);
+  cursor: pointer;
 }
 
 .feedbackIcon {
-     width: 1.4rem;
-     height: 1.6rem;
+  width: 1.4rem;
+  height: 1.6rem;
 }
 
-
 .gameView {
-     padding: 0 3rem;
+  padding: 0 3rem;
 
-     @include responsive(xs) {
-          padding: unset;
-     }
+  @include responsive(xs) {
+    padding: unset;
+  }
 }
 
 .gameViewQuestion {
-     display: flex;
+  display: flex;
 }
 
 .gameViewQuestionText {
-     font-size: 1.8rem;
-     font-family: inherit !important;
-     font-weight: 500;
-     line-height: 3rem;
-     color: #1d1d1d;
-     text-align: justify;
-     margin-right: 1.7rem;
+  font-size: 1.8rem;
+  font-family: inherit !important;
+  font-weight: 500;
+  line-height: 3rem;
+  color: #1d1d1d;
+  text-align: justify;
+  margin-right: 1.7rem;
 }
 
 .gameViewQuizChoices {
-     margin-top: 2.8rem;
-     margin-bottom: 2.8rem;
+  margin-top: 2.8rem;
+  margin-bottom: 2.8rem;
 
-     .quizChoicesItem {
+  .quizChoicesItem {
+    padding: 1rem;
+
+    & > div {
+      width: 100%;
+
+      & > div {
+        width: 100%;
+
+        & > label {
+          width: 100%;
           padding: 1rem;
 
-          &>div {
-               width: 100%;
-
-               &>div {
-                    width: 100%;
-
-                    &>label {
-                         width: 100%;
-                         padding: 1rem;
-
-                         &:hover {
-                              background: #ececec;
-                              border-radius: 0.5rem;
-                         }
-                    }
-               }
+          &:hover {
+            background: #ececec;
+            border-radius: 0.5rem;
           }
-     }
+        }
+      }
+    }
+  }
 }
 
 .quizChoicesItemAnswer {
-     text-align: justify;
-     color: #1d1d1d;
-     font-weight: 500;
-     font-size: 1.6rem;
-     line-height: 2.4rem;
-     flex: 1;
+  text-align: justify;
+  color: #1d1d1d;
+  font-weight: 500;
+  font-size: 1.6rem;
+  line-height: 2.4rem;
+  flex: 1;
 }
 
 .quizExplain {
-     &>p {
-          font-size: 1.4rem;
-          font-style: italic;
-          font-weight: 500;
-          padding: 1rem 0;
-          border-top: 0.5px solid #717171;
-     }
+  & > p {
+    font-size: 1.4rem;
+    font-style: italic;
+    font-weight: 500;
+    padding: 1rem 0;
+    border-top: 0.5px solid #717171;
+  }
 }
 
 .quizExplainItem {
-     &>p {
-          color: #009d9d;
-          font-size: 1.6rem;
-          font-weight: 500;
-          padding: 1rem 0;
-     }
+  & > p {
+    color: #009d9d;
+    font-size: 1.6rem;
+    font-weight: 500;
+    padding: 1rem 0;
+  }
 
-     &>div>p {
-          font-size: 1.4rem;
-          color: #777;
-          font-style: italic;
-          font-weight: 400;
-     }
+  & > div > p {
+    font-size: 1.4rem;
+    color: #777;
+    font-style: italic;
+    font-weight: 400;
+  }
 }
 
 .practicePalettePanel {
-     width: 100%;
-     margin-bottom: 3.6rem;
-     position: sticky;
-     top: 10%;
+  width: 100%;
+  margin-bottom: 3.6rem;
+  position: sticky;
+  top: 10%;
 }
 
 .practicePaletteMain {
-     padding: 2rem;
-     background: #fff;
-     border-radius: 1.5rem;
+  padding: 2rem;
+  background: #fff;
+  border-radius: 1.5rem;
 }
 
 .practicePaletteHeader {
-     display: flex;
-     justify-content: center;
-     align-items: center;
-     margin-bottom: 1rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 1rem;
 }
 
 .practicePaletteTitle {
-     font-weight: 700;
-     font-size: 1.6rem;
-     line-height: 2.4rem;
-     color: #1d1d1d;
+  font-weight: 700;
+  font-size: 1.6rem;
+  line-height: 2.4rem;
+  color: #1d1d1d;
 }
 
 .examPanelScore {
-     font-size: 2.5rem;
-     font-weight: 700;
-     text-align: center;
-     color: var(--textColor);
-     position: relative;
-     user-select: none;
+  font-size: 2.5rem;
+  font-weight: 700;
+  text-align: center;
+  color: var(--textColor);
+  position: relative;
+  user-select: none;
 
-     &>span {
-          position: absolute;
-          transform: translateX(-50%);
-          left: 50%;
-          line-height: 3.5;
-     }
+  & > span {
+    position: absolute;
+    transform: translateX(-50%);
+    left: 50%;
+    line-height: 3.5;
+  }
 }
 
 .examPanelBodyItem {
-     display: flex;
-     align-items: center;
-     flex-direction: column;
-     border-radius: 1rem;
-     width: 100%;
-     box-shadow: 0 0 2rem rgb(0 0 0 / 10%);
-     padding: 0.6rem;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  border-radius: 1rem;
+  width: 100%;
+  box-shadow: 0 0 2rem rgb(0 0 0 / 10%);
+  padding: 0.6rem;
 }
 
 .practicePaletteProgress {
-     display: flex;
-     align-items: center;
-     margin-top: 2.4rem;
+  display: flex;
+  align-items: center;
+  margin-top: 2.4rem;
 
-     @include responsive(xs) {
-          margin-top: 0;
-     }
+  @include responsive(xs) {
+    margin-top: 0;
+  }
 
-     @include responsive(sm) {
-          margin-top: 0;
-     }
+  @include responsive(sm) {
+    margin-top: 0;
+  }
 
-     @include responsive(md) {
-          margin-top: 0;
-     }
+  @include responsive(md) {
+    margin-top: 0;
+  }
 }
 
 .questionItemBground {
-     display: flex;
-     align-content: center;
-     justify-content: center;
-     background: #f2f3f7;
-     min-width: 2.8rem;
-     max-width: 2.8rem;
-     border-radius: 1rem;
-     padding: 0.4rem 0;
-     color: var(--textColor);
-     font-size: 1.4rem;
-     font-weight: 600;
-     font-family: var(--font-family);
-     cursor: pointer;
-     border: 0.2rem solid transparent;
-     margin: auto;
+  display: flex;
+  align-content: center;
+  justify-content: center;
+  background: #f2f3f7;
+  min-width: 2.8rem;
+  max-width: 2.8rem;
+  border-radius: 1rem;
+  padding: 0.4rem 0;
+  color: var(--textColor);
+  font-size: 1.4rem;
+  font-weight: 600;
+  font-family: var(--font-family);
+  cursor: pointer;
+  border: 0.2rem solid transparent;
+  margin: auto;
 
-     &.active {
-          border: 0.2rem solid var(--primaryColor);
-     }
+  &.active {
+    border: 0.2rem solid var(--primaryColor);
+  }
 
-     &.red {
-          background-color: #ff9696;
-     }
+  &.red {
+    background-color: #ff9696;
+  }
 
-     &.green {
-          background-color: #b5ffe6;
-     }
+  &.green {
+    background-color: #b5ffe6;
+  }
 }
 
 .modalFeedbackList {
-     margin-bottom: 2rem;
+  margin-bottom: 2rem;
 }
 
 .modalFeedbackItem {
-     text-align: center;
+  text-align: center;
 
-     &>span {
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          background: #fff;
-          border: 0.1rem solid #dde8f2;
-          box-shadow: 0 0.4rem 1rem rgb(210 222 241 / 25%);
-          border-radius: 2rem;
-          font-weight: 400;
-          font-family: var(--font-family);
-          font-size: 1.4rem;
-          color: #000;
-          padding: 0.4rem;
-          cursor: pointer;
+  & > span {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #fff;
+    border: 0.1rem solid #dde8f2;
+    box-shadow: 0 0.4rem 1rem rgb(210 222 241 / 25%);
+    border-radius: 2rem;
+    font-weight: 400;
+    font-family: var(--font-family);
+    font-size: 1.4rem;
+    color: #000;
+    padding: 0.4rem;
+    cursor: pointer;
 
-          @include responsive(xs) {
-               min-height: 60px;
-          }
+    @include responsive(xs) {
+      min-height: 60px;
+    }
 
-          @include responsive(sm) {
-               min-height: 60px;
-          }
+    @include responsive(sm) {
+      min-height: 60px;
+    }
 
-          &.selected {
-               background-color: var(--primaryColor);
-               color: #fff;
-          }
-     }
+    &.selected {
+      background-color: var(--primaryColor);
+      color: #ffffffe6;
+    }
+  }
 }
 
 .btnFeedback {
-     background-color: #009d9d;
-     color: #fff;
-     border-radius: 2rem;
-     padding: 2rem;
-     line-height: 0;
-     font-weight: 500;
-     font-size: 1.6rem;
-     font-family: var(--font-family);
-     font-style: normal;
-     text-transform: capitalize;
+  background-color: #009d9d;
+  color: #ffffffe6;
+  border-radius: 2rem;
+  padding: 2rem;
+  line-height: 0;
+  font-weight: 500;
+  font-size: 1.6rem;
+  font-family: var(--font-family);
+  font-style: normal;
+  text-transform: capitalize;
 
-     &:hover {
-          color: #fff !important;
-     }
+  &:hover {
+    color: #ffffffe6 !important;
+  }
 }
 
 .practiceContainer {
-     padding: 0 2.4rem;
+  padding: 0 2.4rem;
 
-     @include responsive(xs) {
-          padding: 0 1.6rem;
-     }
+  @include responsive(xs) {
+    padding: 0 1.6rem;
+  }
 
-     @include responsive(sm) {
-          padding: 0 2.4rem;
-     }
+  @include responsive(sm) {
+    padding: 0 2.4rem;
+  }
 
-     @include responsive(md) {
-          padding: 0 2.4rem;
-     }
+  @include responsive(md) {
+    padding: 0 2.4rem;
+  }
 
-     @include responsive(lg) {
-          padding: 0 2.4rem;
-     }
+  @include responsive(lg) {
+    padding: 0 2.4rem;
+  }
 }
 
 .modalFeedback {
-     width: 700px !important;
+  width: 700px !important;
 
-     &>div:nth-child(2)>div:last-child {
-          text-align: center !important;
-     }
+  & > div:nth-child(2) > div:last-child {
+    text-align: center !important;
+  }
 }
 
 .modal {
-     top: 30%;
+  top: 30%;
 
-     &>div:nth-child(2)>div:nth-child(2) {
-          text-align: center;
-          font-family: var(--font-family);
-     }
+  & > div:nth-child(2) > div:nth-child(2) {
+    text-align: center;
+    font-family: var(--font-family);
+  }
 
-     @include responsive(xs) {
-          top: 20%;
-     }
+  @include responsive(xs) {
+    top: 20%;
+  }
 
-     @include responsive(sm) {
-          top: 20%;
-     }
+  @include responsive(sm) {
+    top: 20%;
+  }
 }
 
 .practicePaletteProgressTitle {
-     margin-bottom: 0.4rem;
-     font-family: var(--font-family);
+  margin-bottom: 0.4rem;
+  font-family: var(--font-family);
 }
 
 .practicePaletteFooter {
-     display: flex;
-     flex-direction: column;
-     align-items: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .practicePaletteQuestionList {
-     margin-top: 1.6rem;
-     width: 100%;
-     height: 30vh;
-     padding: 0 0.5rem;
+  margin-top: 1.6rem;
+  width: 100%;
+  height: 30vh;
+  padding: 0 0.5rem;
 
-     @include responsive(xs) {
-          height: unset !important;
-     }
+  @include responsive(xs) {
+    height: unset !important;
+  }
 
-     @include responsive(sm) {
-          height: unset !important;
-     }
+  @include responsive(sm) {
+    height: unset !important;
+  }
 
-     @include responsive(md) {
-          height: unset !important;
-     }
+  @include responsive(md) {
+    height: unset !important;
+  }
 }
 
 .practicePaletteReview {
-     margin-bottom: 1.2rem;
+  margin-bottom: 1.2rem;
 }
 
 .practiceDrawer {
-     border-radius: 2.4rem 2.4rem 0 0;
+  border-radius: 2.4rem 2.4rem 0 0;
 
-     &>div>div {
-          border: none !important;
+  & > div > div {
+    border: none !important;
 
-          &>div {
-               justify-content: end !important;
-          }
-     }
+    & > div {
+      justify-content: end !important;
+    }
+  }
 
-     &>div>div:nth-child(2) {
-          padding: 0 5rem 2.4rem 5rem;
+  & > div > div:nth-child(2) {
+    padding: 0 5rem 2.4rem 5rem;
 
-          @include responsive(xs) {
-               padding: 0 2.4rem 5rem;
-          }
+    @include responsive(xs) {
+      padding: 0 2.4rem 5rem;
+    }
 
-          @include responsive(sm) {
-               padding: 2.4rem 3rem;
-          }
-     }
+    @include responsive(sm) {
+      padding: 2.4rem 3rem;
+    }
+  }
 }
 
 .practiceSubnav {
-     position: fixed;
-     bottom: 0;
-     width: 100%;
-     z-index: 101;
-     left: 0;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  z-index: 101;
+  left: 0;
 
-     @include responsive(lg) {
-          display: none;
-     }
+  @include responsive(lg) {
+    display: none;
+  }
 
-     @include responsive(xl) {
-          display: none;
-     }
+  @include responsive(xl) {
+    display: none;
+  }
 }
 
 .practiceSubnavMain {
-     display: flex;
-     justify-content: space-around;
-     padding: 0.8rem 0;
-     background: #fff;
-     border-radius: 2rem 2rem 0 0;
-     box-shadow: 0 -0.4rem 1rem rgb(0 0 0 / 5%);
+  display: flex;
+  justify-content: space-around;
+  padding: 0.8rem 0;
+  background: #fff;
+  border-radius: 2rem 2rem 0 0;
+  box-shadow: 0 -0.4rem 1rem rgb(0 0 0 / 5%);
 }
 
 .practiceSubnavItem {
-     display: flex;
-     flex-direction: column;
-     justify-content: center;
-     align-items: center;
-     cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
 
-     &:hover,
-     &.active {
-          &>.practiceSubnavItemLabel {
-               color: green;
-               transition: all 0.3s ease-in-out;
-          }
+  &:hover,
+  &.active {
+    & > .practiceSubnavItemLabel {
+      color: green;
+      transition: all 0.3s ease-in-out;
+    }
 
-          &>.practiceSubnavItemIcon {
-               color: green;
-               transition: all 0.3s ease-in-out;
-          }
-     }
+    & > .practiceSubnavItemIcon {
+      color: green;
+      transition: all 0.3s ease-in-out;
+    }
+  }
 }
 
 .practiceSubnavItemIcon {
-     height: 1.5rem;
-     width: 1.5rem;
-     transition: all 0.3s ease-in-out;
-     color: #666;
+  height: 1.5rem;
+  width: 1.5rem;
+  transition: all 0.3s ease-in-out;
+  color: #666;
 }
 
 .practiceSubnavItemLabel {
-     font-size: 1.2rem;
-     font-weight: 500;
-     font-family: var(--font-family);
-     transition: all 0.3s ease-in-out;
-     color: #666;
+  font-size: 1.2rem;
+  font-weight: 500;
+  font-family: var(--font-family);
+  transition: all 0.3s ease-in-out;
+  color: #666;
 }
 
 .practicePaletteProgress {
-     display: flex;
-     align-items: center;
-     margin-top: 2.4rem;
+  display: flex;
+  align-items: center;
+  margin-top: 2.4rem;
 
-     @include responsive(xs) {
-          margin-top: 0;
-     }
+  @include responsive(xs) {
+    margin-top: 0;
+  }
 
-     @include responsive(sm) {
-          margin-top: 0;
-     }
+  @include responsive(sm) {
+    margin-top: 0;
+  }
 
-     @include responsive(md) {
-          margin-top: 0;
-     }
+  @include responsive(md) {
+    margin-top: 0;
+  }
 }
 
 .practicePaletteProgressTitle {
-     margin-bottom: 0.4rem;
+  margin-bottom: 0.4rem;
 }
 
 .practicePaletteQuestionList {
-     margin-top: 1.6rem;
-     width: 100%;
-     height: 30vh;
-     padding: 0 0.5rem;
+  margin-top: 1.6rem;
+  width: 100%;
+  height: 30vh;
+  padding: 0 0.5rem;
 
-     @include responsive(xs) {
-          height: unset !important;
-     }
+  @include responsive(xs) {
+    height: unset !important;
+  }
 
-     @include responsive(sm) {
-          height: unset !important;
-     }
+  @include responsive(sm) {
+    height: unset !important;
+  }
 
-     @include responsive(md) {
-          height: unset !important;
-     }
+  @include responsive(md) {
+    height: unset !important;
+  }
 }
 
 .questionItem {
-     text-align: center;
+  text-align: center;
 }
 
 .examPanelBody {
-     display: flex;
-     font-size: 2.4rem;
-     justify-content: space-around;
+  display: flex;
+  font-size: 2.4rem;
+  justify-content: space-around;
 }
 
 .examPanelBodyItem {
-     display: flex;
-     align-items: center;
-     flex-direction: column;
-     border-radius: 1rem;
-     width: 100%;
-     box-shadow: 0 0 2rem rgb(0 0 0 / 10%);
-     padding: 0.6rem;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  border-radius: 1rem;
+  width: 100%;
+  box-shadow: 0 0 2rem rgb(0 0 0 / 10%);
+  padding: 0.6rem;
 }
 
 .practicePaletteFooter {
-     display: flex;
-     flex-direction: column;
-     align-items: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .questionItemBground {
-     display: flex;
-     align-content: center;
-     justify-content: center;
-     background: #f2f3f7;
-     min-width: 2.8rem;
-     max-width: 2.8rem;
-     border-radius: 1rem;
-     padding: 0.4rem 0;
-     color: var(--textColor);
-     font-size: 1.4rem;
-     font-weight: 600;
-     font-family: var(--font-family);
-     cursor: pointer;
-     border: 0.2rem solid transparent;
-     margin: auto;
+  display: flex;
+  align-content: center;
+  justify-content: center;
+  background: #f2f3f7;
+  min-width: 2.8rem;
+  max-width: 2.8rem;
+  border-radius: 1rem;
+  padding: 0.4rem 0;
+  color: var(--textColor);
+  font-size: 1.4rem;
+  font-weight: 600;
+  font-family: var(--font-family);
+  cursor: pointer;
+  border: 0.2rem solid transparent;
+  margin: auto;
 
-     &.active {
-          border: 0.2rem solid orangered;
-     }
+  &.active {
+    border: 0.2rem solid orangered;
+  }
 
-     &.red {
-          background-color: #ff9696;
-     }
+  &.red {
+    background-color: #ff9696;
+  }
 
-     &.green {
-          background-color: #b5ffe6;
-     }
+  &.green {
+    background-color: #b5ffe6;
+  }
 }
 
 .practicePaletteReview {
-     margin-bottom: 1.2rem;
+  margin-bottom: 1.2rem;
 }
 
 .btnGroup {
-     display: flex;
-     flex-direction: column;
-     align-items: center;
-     margin-top: 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 2rem;
 }
 
 .btnGroup .btn {
-     display: flex;
-     justify-content: center;
-     align-items: center;
-     border: 0.15rem solid #777;
-     border-radius: 2rem;
-     height: 3.5rem;
-     width: 20rem;
-     cursor: pointer;
-     padding: 0.6rem 0.8rem;
-     font-weight: 600;
-     font-family: var(--font-family);
-     color: #777;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 0.15rem solid #777;
+  border-radius: 2rem;
+  height: 3.5rem;
+  width: 20rem;
+  cursor: pointer;
+  padding: 0.6rem 0.8rem;
+  font-weight: 600;
+  font-family: var(--font-family);
+  color: #777;
 }
 
 .btnGroup .btnSubmit {
-     background-color: #009d9d;
-     margin-bottom: 0.8rem;
-     color: #fff;
+  background-color: #009d9d;
+  margin-bottom: 0.8rem;
+  color: #ffffffe6;
 }
 
 .examPanelScore {
-     font-size: 2.5rem;
-     font-weight: 700;
-     text-align: center;
-     color: var(--textColor);
-     position: relative;
-     user-select: none;
+  font-size: 2.5rem;
+  font-weight: 700;
+  text-align: center;
+  color: var(--textColor);
+  position: relative;
+  user-select: none;
 
-     &>span {
-          position: absolute;
-          transform: translateX(-50%);
-          left: 50%;
-          line-height: 3.5;
-     }
+  & > span {
+    position: absolute;
+    transform: translateX(-50%);
+    left: 50%;
+    line-height: 3.5;
+  }
 }

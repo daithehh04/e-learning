@@ -58,7 +58,7 @@
     font-family: var(--font-family);
   }
 
-  li + li {
+  li+li {
     margin-top: 24px;
   }
 
@@ -127,6 +127,7 @@
   }
 
   .footerInfoItem {
+
     .text,
     .addrres {
       cursor: pointer;
@@ -170,13 +171,11 @@
         color: transparent;
         -webkit-background-clip: text;
         background-color: #4158d0;
-        background-image: linear-gradient(
-          43deg,
-          #4158d0 0%,
-          #df2bab 30%,
-          #ff7072 66%,
-          #e10404 100%
-        );
+        background-image: linear-gradient(43deg,
+            #4158d0 0%,
+            #df2bab 30%,
+            #ff7072 66%,
+            #e10404 100%);
       }
     }
   }
@@ -189,7 +188,7 @@
     align-items: center;
 
     .imgWrap {
-      max-width: 250px;
+      max-width: 2000px;
 
       img {
         max-width: 100%;
@@ -206,12 +205,30 @@
         display: flex;
         justify-content: center;
         align-items: center;
-        max-width: 40px;
-        max-height: 40px;
+        width: 40px;
+        height: 40px;
 
         img {
           max-width: 100%;
           // height: 50px;
+        }
+      }
+
+      @include responsive(xs) {
+        gap: 5px;
+
+        .footerSocialItem {
+          width: 30px;
+          height: 30px;
+        }
+      }
+
+      @include responsive(sm) {
+        gap: 10px;
+
+        .footerSocialItem {
+          width: 30px;
+          height: 30px;
         }
       }
     }

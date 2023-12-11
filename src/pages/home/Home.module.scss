@@ -1,3 +1,35 @@
+@mixin responsive($breakpoint) {
+  @if $breakpoint==xs {
+    @media (max-width: 575.98px) {
+      @content;
+    }
+  }
+
+  @if $breakpoint==sm {
+    @media (min-width: 576px) and (max-width: 767.98px) {
+      @content;
+    }
+  }
+
+  @if $breakpoint==md {
+    @media (min-width: 768px) and (max-width: 991.98px) {
+      @content;
+    }
+  }
+
+  @if $breakpoint==lg {
+    @media (min-width: 992px) and (max-width: 1199.98px) {
+      @content;
+    }
+  }
+
+  @if $breakpoint==xl {
+    @media (min-width: 1200px) {
+      @content;
+    }
+  }
+}
+
 html {
   scroll-behavior: smooth;
 }
@@ -97,5 +129,19 @@ html {
 
   .icon {
     font-size: 4.5rem;
+  }
+
+  @include responsive(xs) {
+    display: none;
+
+  }
+
+  @include responsive(sm) {
+    display: none;
+  }
+
+  @include responsive(md) {
+    bottom: 30px;
+    right: 20px;
   }
 }

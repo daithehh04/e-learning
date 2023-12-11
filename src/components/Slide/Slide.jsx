@@ -7,13 +7,13 @@ export default function Slide({ title, desc, img }) {
   return (
     <div className={clsx(styles.slide)}>
       <Row className={styles.slideRow}>
-        <Col className={styles.slideCol} xs={24} sm={14} md={14} lg={12}>
+        <Col className={styles.slideCol} xs={24} sm={24} md={24} lg={12}>
           <div className={styles.slideLeft}>
             <h2 className={styles.title}>{title}</h2>
             <p className={styles.desc}>{desc}</p>
           </div>
         </Col>
-        <Col className={styles.slideCol} xs={24} sm={8} md={8} lg={12}>
+        <Col className={styles.slideCol} xs={24} sm={24} md={24} lg={12}>
           <div className={styles.imgWrap}>
             <img src={img} alt={title} />
           </div>

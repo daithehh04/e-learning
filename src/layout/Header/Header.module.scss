@@ -265,15 +265,12 @@
 
 
     .overlay {
-      display: none;
+      display: none !important;
       position: fixed;
       background-color: #2c2b2b80;
       inset: 0;
       z-index: 2;
 
-      &.isShow {
-        display: block;
-      }
     }
 
     ul {
@@ -309,6 +306,12 @@
       padding: 0 10px;
       padding: 10px 20px;
 
+      .overlay {
+        &.isShow {
+          display: block !important;
+        }
+      }
+
       .navbarBtn {
         display: block;
         outline: none;
@@ -319,6 +322,7 @@
           color: #fff;
           font-size: 2.5rem;
         }
+
 
 
       }
@@ -377,6 +381,12 @@
     @include responsive(sm) {
       padding: 0 20px;
       padding: 10px 20px;
+
+      .overlay {
+        &.isShow {
+          display: block !important;
+        }
+      }
 
       .navbarBtn {
         display: block;
@@ -446,6 +456,12 @@
 
     @include responsive(md) {
       padding: 10px 20px;
+
+      .overlay {
+        &.isShow {
+          display: block !important;
+        }
+      }
 
       .navbarBtn {
         display: block;

@@ -140,12 +140,14 @@ export default function Header() {
   const navigate = useNavigate();
 
   const handleNavbar = () => {
-    if (showNavbar === true) {
-      document.body.style.overflowY = "scroll";
-      setShowNavbar(!showNavbar);
-    } else {
-      document.body.style.overflowY = "hidden";
-      setShowNavbar(!showNavbar);
+    if (document.documentElement.clientWidth <= 991) {
+      if (showNavbar === true) {
+        document.body.style.overflowY = "scroll";
+        setShowNavbar(!showNavbar);
+      } else {
+        document.body.style.overflowY = "hidden";
+        setShowNavbar(!showNavbar);
+      }
     }
   }
   return (
@@ -204,6 +206,7 @@ export default function Header() {
                       className={clsx(styles.navLinkRoom, styles.navLinkClass)}
                     >
                       <NavLink
+                        onClick={handleNavbar}
                         to={`/${slug}`}
 
                       >

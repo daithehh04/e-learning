@@ -488,7 +488,7 @@ function Learning() {
                                     </h4>
                                     <p className={clsx(styles.iconTopic)}>
                                       {topicChild?.topicType ===
-                                      TTCSconfig.TYPE_TOPIC_VIDEO ? (
+                                        TTCSconfig.TYPE_TOPIC_VIDEO ? (
                                         <FaPlayCircle />
                                       ) : topicChild?.topicType ===
                                         TTCSconfig.TYPE_TOPIC_DOCUMENT ? (
@@ -609,18 +609,18 @@ function Learning() {
                                         )
                                           ? item?.isResult
                                             ? clsx(
-                                                styles.quizChoiceRadio,
-                                                styles.correct
-                                              )
+                                              styles.quizChoiceRadio,
+                                              styles.correct
+                                            )
                                             : selectedQuestions.find(
-                                                (o) =>
-                                                  o.idAnswer.toString() ===
-                                                  item?._id?.toString()
-                                              ) &&
-                                              clsx(
-                                                styles.quizChoiceRadio,
-                                                styles.inCorrect
-                                              )
+                                              (o) =>
+                                                o.idAnswer.toString() ===
+                                                item?._id?.toString()
+                                            ) &&
+                                            clsx(
+                                              styles.quizChoiceRadio,
+                                              styles.inCorrect
+                                            )
                                           : clsx(styles.quizChoiceRadio)
                                       }
                                       value={item}
@@ -659,17 +659,17 @@ function Learning() {
                                 {selectedQuestions.find(
                                   (o) => o.idQuestion === question.id
                                 ) && (
-                                  <div className={clsx(styles.quizExplain)}>
-                                    <p className={clsx(styles.text)}>
-                                      Giải thích
-                                    </p>
-                                    <div
-                                      dangerouslySetInnerHTML={{
-                                        __html: question.hint ?? '',
-                                      }}
-                                    ></div>
-                                  </div>
-                                )}
+                                    <div className={clsx(styles.quizExplain)}>
+                                      <p className={clsx(styles.text)}>
+                                        Giải thích
+                                      </p>
+                                      <div
+                                        dangerouslySetInnerHTML={{
+                                          __html: question.hint ?? '',
+                                        }}
+                                      ></div>
+                                    </div>
+                                  )}
                               </Space>
                             </div>
                           </div>

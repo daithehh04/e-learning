@@ -1,3 +1,35 @@
+@mixin responsive($breakpoint) {
+  @if $breakpoint==xs {
+    @media (max-width: 575.98px) {
+      @content;
+    }
+  }
+
+  @if $breakpoint==sm {
+    @media (min-width: 576px) and (max-width: 767.98px) {
+      @content;
+    }
+  }
+
+  @if $breakpoint==md {
+    @media (min-width: 768px) and (max-width: 991.98px) {
+      @content;
+    }
+  }
+
+  @if $breakpoint==lg {
+    @media (min-width: 992px) and (max-width: 1199.98px) {
+      @content;
+    }
+  }
+
+  @if $breakpoint==xl {
+    @media (min-width: 1200px) {
+      @content;
+    }
+  }
+}
+
 .mainCategoryDetail {
   padding: 20px 60px 0;
 
@@ -12,6 +44,7 @@
     max-width: 1135px;
     margin: 0 auto;
   }
+
   .breadcumbLinkActive {
     font-weight: 700;
     text-decoration: underline;
@@ -29,11 +62,37 @@
     margin-top: 24px;
     font-size: 2.5rem;
     text-align: center;
+
+    @include responsive(xs) {
+      font-size: 1.5rem;
+
+
+    }
+
+    @include responsive(sm) {
+      font-size: 1.8rem;
+    }
+
+    @include responsive(md) {
+      font-size: 2.0rem;
+    }
   }
 
   .desc {
     font-size: 1.7rem;
     text-align: center;
     margin-top: 30px;
+
+    @include responsive(xs) {
+      font-size: 1.2rem;
+    }
+
+    @include responsive(sm) {
+      font-size: 1.4rem;
+    }
+
+    @include responsive(md) {
+      font-size: 1.8rem;
+    }
   }
 }

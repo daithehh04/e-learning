@@ -34,7 +34,7 @@
   color: black;
   flex: 0 0 calc(100% / 3 - 30px);
   padding: 24px;
-  background-color: #ffffffe6;
+  background-color: #f3f6fd;
   border-radius: 12px;
   cursor: pointer;
 
@@ -101,6 +101,7 @@
 
   @include responsive(xs) {
     flex: 1 0 calc(100% / 2 - 30px);
+    max-width: 300px;
 
     .content {
       margin-top: 14px;
@@ -117,6 +118,7 @@
 
   @include responsive(sm) {
     flex: 1 0 calc(100% / 2 - 30px);
+    max-width: 300px;
 
     .content {
       margin-top: 14px;
@@ -132,10 +134,12 @@
   }
 
   @include responsive(md) {
+    max-width: 320px;
     flex: 1 0 calc(100% / 3 - 30px);
   }
 
   @include responsive(lg) {
+    max-width: 350px;
     flex: 1 0 calc(100% / 3 - 30px);
   }
 }

@@ -65,10 +65,10 @@ function Learning() {
   const topicTotalLearned = useSelector((state) => state.topic.totalLearned);
   const topicTotal = useSelector((state) => state.topic.total);
   const [isReview, setIsReview] = useState(false);
+  const [isExercise, setIsExercise] = useState(false);
   const [arrAllTopic, setArrAllTopic] = useState([]);
   const dispatch = useDispatch();
   const params = useParams();
-  // console.log('topics', topics);
   useEffect(() => {
     let arrAllTopics = [];
     topics.forEach((topic) => {
@@ -242,7 +242,7 @@ function Learning() {
     try {
       const res = await apiLoadTopicById({ id });
       setDataTopicActive(res.data);
-      // setIsExercise(true);
+      setIsExercise(true);
     } catch (error) {
       notification.error({
         message: 'server error!!',
@@ -363,11 +363,11 @@ function Learning() {
     }, 1695);
   };
 
-  // const handleSeekingVideo = (e) => {
-  //   if (e.target.currentTime > previousTime) {
-  //     e.target.currentTime = previousTime;
-  //   }
-  // };
+  const handleSeekingVideo = (e) => {
+    if (e.target.currentTime > previousTime) {
+      e.target.currentTime = previousTime;
+    }
+  };
 
   return (
     <div className={clsx(styles.learning)}>
@@ -541,7 +541,7 @@ function Learning() {
                     title="video player"
                     ref={videoPlayerRef}
                     onTimeUpdate={handleTimeUpdateVideo}
-                    // onSeeking={handleSeekingVideo}
+                    onSeeking={handleSeekingVideo}
                   >
                     <source
                       src={dataTopicActive?.video || ''}

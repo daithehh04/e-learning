@@ -80,27 +80,20 @@
 }
 
 .practiceBreadcumbLink.active {
-  color: orangered;
   -webkit-text-decoration: underline;
   text-decoration: underline;
-  opacity: 0.9;
-
-  &:hover {
-    color: orangered;
-    opacity: 1;
-  }
+  font-weight: 700;
 }
 
 .practiceBreadcumb {
+  margin-top: 8px;
   margin-bottom: 2rem;
 }
 
 .practiceBreadcumbLink {
-  &:hover {
-    -webkit-text-decoration: underline;
-    text-decoration: underline;
-    background-color: transparent !important;
-  }
+  font-weight: 500;
+  font-family: var(--font-family);
+  font-size: 1.6rem;
 }
 
 .practiceClockIcon {

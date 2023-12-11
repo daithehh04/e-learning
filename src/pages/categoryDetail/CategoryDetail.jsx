@@ -43,7 +43,7 @@ function CategoryDetail() {
     <div className={styles.CategoryDetail}>
       <Header />
       <main className={styles.mainCategoryDetail}>
-        <div className={clsx(styles.categoryBreadcumb)}>
+        <div className={clsx(styles.categoryBreadcumb, 'dark')}>
           <Breadcrumb separator="›">
             <Breadcrumb.Item>
               <NavLink to={'/'} className={clsx(styles.categoryBreadcumbLink)}>
@@ -53,7 +53,10 @@ function CategoryDetail() {
             <Breadcrumb.Item>
               <NavLink
                 to={`/${params.slug}`}
-                className={clsx(styles.categoryBreadcumbLink)}
+                className={clsx(
+                  styles.categoryBreadcumbLink,
+                  styles.breadcumbLinkActive
+                )}
               >
                 {categoryInfo?.name}
               </NavLink>

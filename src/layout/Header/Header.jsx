@@ -130,8 +130,6 @@ export default function Header() {
   const hanldeShowChatGpt = () => {
     dispatch(toggle(true));
   };
-  console.log(isShowChatGPT);
-
   const navLinkClass = ({ isActive }) => {
     return isActive ? 'activated' : ` `;
   };
@@ -168,6 +166,7 @@ export default function Header() {
             </div>
           ) : (
             <div className={clsx(styles.groupUserDarkMode)}>
+              <DarkMode />
               <Dropdown
                 menu={{ items }}
                 trigger={['hover']}
@@ -177,7 +176,6 @@ export default function Header() {
                   <FaUser className={clsx(styles.user)} />
                 </button>
               </Dropdown>
-              <DarkMode />
             </div>
           )}
         </div>

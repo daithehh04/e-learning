@@ -3,14 +3,14 @@ import Footer from '../../layout/Footer/Footer';
 import styles from './Practice.module.scss';
 import clsx from 'clsx';
 import { useDispatch, useSelector } from 'react-redux';
-import { unwrapResult } from "@reduxjs/toolkit";
-import { NavLink, useNavigate, useParams } from "react-router-dom";
-import { useEffect, useRef, useState } from "react";
+import { unwrapResult } from '@reduxjs/toolkit';
+import { NavLink, useNavigate, useParams } from 'react-router-dom';
+import { useEffect, useRef, useState } from 'react';
 import { requestLoadCourseBySlug } from '../../stores/middleware/courseMiddleware';
-import { requestLoadQuestionsByIdTopic } from "../../stores/middleware/questionsMiddeware";
-import { requestLoadTopicById } from "../../stores/middleware/topicMiddleware";
-import TextArea from "antd/es/input/TextArea";
-import { apiCreateFeedback } from "../../api/feeback";
+import { requestLoadQuestionsByIdTopic } from '../../stores/middleware/questionsMiddeware';
+import { requestLoadTopicById } from '../../stores/middleware/topicMiddleware';
+import TextArea from 'antd/es/input/TextArea';
+import { apiCreateFeedback } from '../../api/feeback';
 import {
   FaCheckCircle,
   FaClock,
@@ -22,7 +22,7 @@ import {
   FaStar,
   FaTimesCircle,
   FaUndoAlt,
-} from "react-icons/fa";
+} from 'react-icons/fa';
 import {
   Button,
   Breadcrumb,
@@ -34,17 +34,17 @@ import {
   Radio,
   Row,
   Space,
-  Statistic
-} from "antd";
+  Statistic,
+} from 'antd';
 import { answers, feedbackChild } from '../../utils/contants';
-import moment from "moment";
-import { requestUpdateStudiedForUser } from "../../stores/middleware/userMiddleware";
+import moment from 'moment';
+import { requestUpdateStudiedForUser } from '../../stores/middleware/userMiddleware';
 function Practice() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const params = useParams();
   const { Countdown } = Statistic;
-  const userInfo = useSelector(state => state.user.userInfo);
+  const userInfo = useSelector((state) => state.user.userInfo);
   const course = useSelector((state) => state.course.course);
   const totalQuestion = useSelector((state) => state.questions.total);
   const loading = useSelector((state) => state.course.loading);
@@ -63,7 +63,7 @@ function Practice() {
   const [isOpenModelFeedback, setIsOpenModelFeedback] = useState(false);
   const [isOpenReviewExam, setIsOpenReviewExam] = useState(false);
   const [selectedFeedback, setSelectFeedback] = useState([]);
-  const [textFeedback, setTextFeedback] = useState("");
+  const [textFeedback, setTextFeedback] = useState('');
   const [idQuestion, setIdQuestion] = useState();
   const handlSaveSelected = (idQuestion = string, idAnswer = string) => {
     if (selectedQuestions.find((o) => o.idQuestion === idQuestion)) {
@@ -84,7 +84,7 @@ function Practice() {
       ]);
     }
   };
-  console.log(isOpenModelSubmit)
+  console.log(isOpenModelSubmit);
   const handleClockStick = () => {
     if (window !== undefined) {
       let windowHeight = window.scrollY;
@@ -104,14 +104,14 @@ function Practice() {
       unwrapResult(result);
     } catch (error) {
       notification.error({
-        message: "server error!!",
+        message: 'server error!!',
         duration: 1.5,
       });
     }
   };
   const handleFeedbackOk = async () => {
     try {
-      if (textFeedback.trim() !== "") {
+      if (textFeedback.trim() !== '') {
         const res = await apiCreateFeedback({
           content: textFeedback.trim(),
           idQuestion: idQuestion,
@@ -122,11 +122,11 @@ function Practice() {
       }
     } catch (error) {
       notification.error({
-        message: "cập nhật không được",
+        message: 'cập nhật không được',
         duration: 1.5,
       });
     }
-    setTextFeedback("");
+    setTextFeedback('');
     handleCancel();
   };
 
@@ -135,7 +135,7 @@ function Practice() {
     setIsOpenModelFeedback(false);
     setIsOpenReviewExam(false);
     setSelectFeedback([]);
-    setTextFeedback("");
+    setTextFeedback('');
     setCorrect(0);
     setCorrectQuestions([]);
   };
@@ -167,9 +167,9 @@ function Practice() {
     }
   }, [params.idChild, userInfo, topic?.id]);
   useEffect(() => {
-    window.addEventListener("scroll", handleClockStick);
+    window.addEventListener('scroll', handleClockStick);
     return () => {
-      window.removeEventListener("scroll", handleClockStick);
+      window.removeEventListener('scroll', handleClockStick);
     };
   }, []);
   const loadQuestionByTopic = async (idTopic, status) => {
@@ -180,7 +180,7 @@ function Practice() {
       unwrapResult(result);
     } catch (error) {
       notification.error({
-        message: "lỗi server, không tải được câu hỏi",
+        message: 'lỗi server, không tải được câu hỏi',
         duration: 1.5,
       });
     }
@@ -190,8 +190,8 @@ function Practice() {
     try {
       const result = await dispatch(
         requestUpdateStudiedForUser({
-          idTopic: topic?.id || "",
-          idUser: userInfo?._id || "",
+          idTopic: topic?.id || '',
+          idUser: userInfo?._id || '',
           status: 2,
           timeStudy: timePratice.current,
           score: Math.round((correct / totalQuestion) * 100) / 10,
@@ -202,7 +202,7 @@ function Practice() {
       unwrapResult(result);
     } catch (error) {
       notification.error({
-        message: "server error!!",
+        message: 'server error!!',
         duration: 1.5,
       });
     }
@@ -215,16 +215,16 @@ function Practice() {
       unwrapResult(result);
     } catch (error) {
       notification.error({
-        message: "lỗi server, không tải được câu hỏi",
+        message: 'lỗi server, không tải được câu hỏi',
         duration: 1.5,
       });
     }
   };
 
   useEffect(() => {
-    loadQuestionByTopic(params.idChild || "", 1);
-    loadCourse(params.slugChild || "");
-    loadTopicById(params.idChild || "");
+    loadQuestionByTopic(params.idChild || '', 1);
+    loadCourse(params.slugChild || '');
+    loadTopicById(params.idChild || '');
   }, [params.idChild, params.slugChild]);
   const handleReviewExam = () => {
     if (statusLearn === 2) {
@@ -249,11 +249,11 @@ function Practice() {
       <main>
         <div className="wide">
           <div className={styles.practiceContainer}>
-            <div className={clsx(styles.practiceBreadcumb)}>
+            <div className={clsx(styles.practiceBreadcumb, 'dark')}>
               <Breadcrumb separator="›">
                 <Breadcrumb.Item>
                   <NavLink
-                    to={"/"}
+                    to={'/'}
                     className={clsx(styles.practiceBreadcumbLink)}
                   >
                     Trang chủ
@@ -264,7 +264,7 @@ function Practice() {
                     <Breadcrumb.Item>
                       <NavLink
                         to={`/${course?.category?.slug}`}
-                        className={clsx(styles.detailBreadcumbLink)}
+                        className={clsx(styles.practiceBreadcumbLink)}
                       >
                         {course?.category?.name}
                       </NavLink>
@@ -272,7 +272,7 @@ function Practice() {
                     <Breadcrumb.Item>
                       <NavLink
                         to={`/${course?.category?.slug}/${course?.slug}`}
-                        className={clsx(styles.detailBreadcumbLink)}
+                        className={clsx(styles.practiceBreadcumbLink)}
                       >
                         {course?.courseName}
                       </NavLink>
@@ -280,7 +280,7 @@ function Practice() {
                     <Breadcrumb.Item>
                       <NavLink
                         to={`/${course?.category?.slug}/${course?.slug}/de-kiem-tra/${params.id}`}
-                        className={clsx("exam__breadcumb--link")}
+                        className={clsx(styles.practiceBreadcumbLink)}
                       >
                         Đề kiểm tra
                       </NavLink>
@@ -288,12 +288,16 @@ function Practice() {
                     <Breadcrumb.Item>
                       <NavLink
                         to={`/${course?.category?.slug}/${course?.slug}/de-kiem-tra/${params.id}`}
-                        className={clsx(styles.practiceBreadcumbLink, styles.active)}
+                        className={clsx(
+                          styles.practiceBreadcumbLink,
+                          styles.active
+                        )}
                       >
                         {topic?.name}
                       </NavLink>
                     </Breadcrumb.Item>
-                  </>)}
+                  </>
+                )}
               </Breadcrumb>
             </div>
             <h1 className={clsx(styles.practiceHeading)}>{topic?.name}</h1>
@@ -302,7 +306,7 @@ function Practice() {
                 <Row
                   className={
                     clockStick
-                      ? clsx(styles.practiceClockPanel, "stick")
+                      ? clsx(styles.practiceClockPanel, 'stick')
                       : clsx(styles.practiceClockPanel)
                   }
                   onScroll={handleClockStick}
@@ -350,7 +354,7 @@ function Practice() {
                                   <div
                                     className={clsx(styles.categorySummary)}
                                     dangerouslySetInnerHTML={{
-                                      __html: qs.question ?? "",
+                                      __html: qs.question ?? '',
                                     }}
                                   />
                                 </div>
@@ -359,32 +363,29 @@ function Practice() {
                               <div className={clsx(styles.gameViewQuizChoices)}>
                                 <div className={clsx(styles.quizChoicesItem)}>
                                   <Space direction="vertical">
-
                                     {qs.answer?.map((item, i) => {
                                       return (
                                         <Radio
                                           className={
                                             isReview
-                                              ?
-                                              statusLearn === 2
-                                              &&
-                                              (item?.isResult
-                                                ? clsx(
-                                                  styles.quizChoicesItemRadio,
-                                                  styles.correct
-                                                )
-                                                : selectedQuestions.find(
-                                                  (o) =>
-                                                    o.idAnswer.toString() ===
-                                                    item?._id?.toString()
-                                                ) &&
-                                                clsx(
-                                                  styles.quizChoicesItemRadio,
-                                                  styles.inCorrect
-                                                ))
+                                              ? statusLearn === 2 &&
+                                                (item?.isResult
+                                                  ? clsx(
+                                                      styles.quizChoicesItemRadio,
+                                                      styles.correct
+                                                    )
+                                                  : selectedQuestions.find(
+                                                      (o) =>
+                                                        o.idAnswer.toString() ===
+                                                        item?._id?.toString()
+                                                    ) &&
+                                                    clsx(
+                                                      styles.quizChoicesItemRadio,
+                                                      styles.inCorrect
+                                                    ))
                                               : clsx(
-                                                styles.quizChoicesItemRadio
-                                              )
+                                                  styles.quizChoicesItemRadio
+                                                )
                                           }
                                           value={item}
                                           key={i}
@@ -397,11 +398,11 @@ function Practice() {
                                           }
                                           onClick={(e) => {
                                             handlSaveSelected(
-                                              qs?.id || "",
-                                              item?._id || ""
+                                              qs?.id || '',
+                                              item?._id || ''
                                             );
                                             handleMark(
-                                              qs?.id || "",
+                                              qs?.id || '',
                                               item?.isResult
                                             );
                                           }}
@@ -415,7 +416,7 @@ function Practice() {
                                             {answers[item.index]}.&nbsp;
                                             <span
                                               dangerouslySetInnerHTML={{
-                                                __html: item.text ?? "",
+                                                __html: item.text ?? '',
                                               }}
                                             ></span>
                                           </div>
@@ -423,63 +424,59 @@ function Practice() {
                                       );
                                     })}
 
+                                    {isReview && statusLearn === 2 && (
+                                      <div className={clsx(styles.quizExplain)}>
+                                        {qs.hint && (
+                                          <div
+                                            className={clsx(
+                                              styles.quizExplainItem
+                                            )}
+                                          >
+                                            <p>Giải thích</p>
+                                          </div>
+                                        )}
 
-                                    {isReview &&
-                                      statusLearn ===
-                                      2 &&
-                                      (
-                                        <div className={clsx(styles.quizExplain)}>
-                                          {qs.hint && (
-                                            <div
-                                              className={clsx(
-                                                styles.quizExplainItem
-                                              )}
-                                            >
-                                              <p>Giải thích</p>
-                                            </div>
-                                          )}
-
-                                          {selectedQuestions.find(
-                                            (o) => o.idQuestion === qs.id
+                                        {selectedQuestions.find(
+                                          (o) => o.idQuestion === qs.id
+                                        ) ? (
+                                          qs.answer?.find(
+                                            (item) =>
+                                              item?.isResult &&
+                                              selectedQuestions.find(
+                                                (o) =>
+                                                  o.idAnswer.toString() ===
+                                                  item?._id?.toString()
+                                              )
                                           ) ? (
-                                            qs.answer?.find(
-                                              (item) =>
-                                                item?.isResult &&
-                                                selectedQuestions.find(
-                                                  (o) =>
-                                                    o.idAnswer.toString() ===
-                                                    item?._id?.toString()
-                                                )
-                                            ) ? (
-                                              <p style={{ color: "#33cd99" }}>
-                                                Bạn chọn đáp án đúng
-                                              </p>
-                                            ) : (
-                                              <p style={{ color: "#ff4747" }}>
-                                                Bạn chọn đáp án sai
-                                              </p>
-                                            )
-                                          ) : (
-                                            <p style={{ color: "#ff4747" }}>
-                                              Bạn chưa chọn đáp án
+                                            <p style={{ color: '#33cd99' }}>
+                                              Bạn chọn đáp án đúng
                                             </p>
-                                          )}
+                                          ) : (
+                                            <p style={{ color: '#ff4747' }}>
+                                              Bạn chọn đáp án sai
+                                            </p>
+                                          )
+                                        ) : (
+                                          <p style={{ color: '#ff4747' }}>
+                                            Bạn chưa chọn đáp án
+                                          </p>
+                                        )}
 
-                                          {qs.hint && (
+                                        {qs.hint && (
+                                          <div
+                                            className={clsx(
+                                              'quiz__explain--item'
+                                            )}
+                                          >
                                             <div
-                                              className={clsx(
-                                                "quiz__explain--item"
-                                              )}
-                                            >
-                                              <div
-                                                dangerouslySetInnerHTML={{
-                                                  __html: qs.hint ?? "",
-                                                }}
-                                              ></div>
-                                            </div>
-                                          )}
-                                        </div>
-                                      )}
+                                              dangerouslySetInnerHTML={{
+                                                __html: qs.hint ?? '',
+                                              }}
+                                            ></div>
+                                          </div>
+                                        )}
+                                      </div>
+                                    )}
                                   </Space>
                                 </div>
                               </div>
@@ -489,7 +486,6 @@ function Practice() {
                       );
                     })}
                 </div>
-
               </Col>
 
               <Col xl={8} lg={8} md={0} sm={0} xs={0}>
@@ -508,7 +504,7 @@ function Practice() {
                             (selectedQuestions.length / totalQuestion) * 100
                           }
                           status="active"
-                          strokeColor={"#009d9d"}
+                          strokeColor={'#009d9d'}
                           showInfo={false}
                         />
                         <div
@@ -521,12 +517,12 @@ function Practice() {
                       <div
                         className={clsx(styles.practicePaletteQuestionList)}
                         style={
-                          isReview ? { height: "30vh" } : { height: "60vh" }
+                          isReview ? { height: '30vh' } : { height: '60vh' }
                         }
                       >
                         <Row
                           style={{
-                            marginTop: "0.4rem",
+                            marginTop: '0.4rem',
                           }}
                           gutter={[0, 16]}
                         >
@@ -540,27 +536,26 @@ function Practice() {
                                 <a href={`#${o.id}`}>
                                   <span
                                     className={
-                                      statusLearn ===
-                                        2
+                                      statusLearn === 2
                                         ? o.answer?.find(
-                                          (item) =>
-                                            item?.isResult &&
-                                            selectedQuestions.find(
-                                              (o) =>
-                                                o.idAnswer.toString() ===
-                                                item?._id?.toString()
-                                            )
-                                        )
+                                            (item) =>
+                                              item?.isResult &&
+                                              selectedQuestions.find(
+                                                (o) =>
+                                                  o.idAnswer.toString() ===
+                                                  item?._id?.toString()
+                                              )
+                                          )
                                           ? clsx(
-                                            styles.questionItemBground,
-                                            styles.green,
-                                            styles.active
-                                          )
+                                              styles.questionItemBground,
+                                              styles.green,
+                                              styles.active
+                                            )
                                           : clsx(
-                                            styles.questionItemBground,
-                                            styles.red,
-                                            styles.active
-                                          )
+                                              styles.questionItemBground,
+                                              styles.red,
+                                              styles.active
+                                            )
                                         : clsx(styles.questionItemBground)
                                     }
                                   >
@@ -581,9 +576,9 @@ function Practice() {
                                         (c) => c.idQuestion === o.id
                                       )
                                         ? clsx(
-                                          styles.questionItemBground,
-                                          styles.active
-                                        )
+                                            styles.questionItemBground,
+                                            styles.active
+                                          )
                                         : clsx(styles.questionItemBground)
                                     }
                                   >
@@ -597,97 +592,96 @@ function Practice() {
                       </div>
                     </div>
 
-                    {isReview &&
-                      (statusLearn === 2 &&
-                        <div className={clsx(styles.practicePaletteReview)}>
-                          {userInfo?.progess?.map(
-                            (o, i) =>
-                              o.idTopic === topic?.id && (
-                                <div key={i}>
-                                  <div className={clsx(styles.examPanelScore)}>
-                                    <FaStar
+                    {isReview && statusLearn === 2 && (
+                      <div className={clsx(styles.practicePaletteReview)}>
+                        {userInfo?.progess?.map(
+                          (o, i) =>
+                            o.idTopic === topic?.id && (
+                              <div key={i}>
+                                <div className={clsx(styles.examPanelScore)}>
+                                  <FaStar
+                                    style={{
+                                      color: '#ffe644',
+                                      fontSize: '8rem',
+                                    }}
+                                  />
+                                  <span>{o.score}</span>
+                                </div>
+                                <Row
+                                  className={clsx(styles.examPanelBody)}
+                                  gutter={[16, 16]}
+                                >
+                                  <Col
+                                    span={7}
+                                    className={clsx(
+                                      styles.examPanelBodyItem,
+                                      'exam__panel--correct'
+                                    )}
+                                  >
+                                    <FaCheckCircle
                                       style={{
-                                        color: "#ffe644",
-                                        fontSize: "8rem",
+                                        color: '#33cd99',
+                                        fontSize: '1.8rem',
                                       }}
                                     />
-                                    <span>{o.score}</span>
-                                  </div>
-                                  <Row
-                                    className={clsx(styles.examPanelBody)}
-                                    gutter={[16, 16]}
+                                    <span style={{ fontSize: '1.4rem' }}>
+                                      Câu đúng
+                                    </span>
+                                    <span style={{ fontSize: '2.2rem' }}>
+                                      {o.correctQuestion}
+                                    </span>
+                                  </Col>
+                                  <Col
+                                    span={7}
+                                    className={clsx(
+                                      styles.examPanelBodyItem,
+                                      'exam__panel--inCorrect'
+                                    )}
                                   >
-                                    <Col
-                                      span={7}
-                                      className={clsx(
-                                        styles.examPanelBodyItem,
-                                        "exam__panel--correct"
-                                      )}
-                                    >
-                                      <FaCheckCircle
-                                        style={{
-                                          color: "#33cd99",
-                                          fontSize: "1.8rem",
-                                        }}
-                                      />
-                                      <span style={{ fontSize: "1.4rem" }}>
-                                        Câu đúng
-                                      </span>
-                                      <span style={{ fontSize: "2.2rem" }}>
-                                        {o.correctQuestion}
-                                      </span>
-                                    </Col>
-                                    <Col
-                                      span={7}
-                                      className={clsx(
-                                        styles.examPanelBodyItem,
-                                        "exam__panel--inCorrect"
-                                      )}
-                                    >
-                                      <FaTimesCircle
-                                        style={{
-                                          color: "#ff4747",
-                                          fontSize: "1.8rem",
-                                        }}
-                                      />
-                                      <span style={{ fontSize: "1.4rem" }}>
-                                        Câu sai
-                                      </span>
-                                      <span style={{ fontSize: "2.2rem" }}>
-                                        {totalQuestion - o.correctQuestion}
-                                      </span>
-                                    </Col>
-                                    <Col
-                                      span={7}
-                                      className={clsx(
-                                        styles.examPanelBodyItem,
-                                        "exam__panel--time"
-                                      )}
-                                    >
-                                      <FaClock
-                                        style={{
-                                          color: "#ffba34",
-                                          fontSize: "1.8rem",
-                                        }}
-                                      />
-                                      <span style={{ fontSize: "1.4rem" }}>
-                                        Thời gian
-                                      </span>
-                                      <span style={{ fontSize: "2.2rem" }}>
-                                        {moment(
-                                          Math.abs(
-                                            (topic?.timeExam || 0) * 60000 -
+                                    <FaTimesCircle
+                                      style={{
+                                        color: '#ff4747',
+                                        fontSize: '1.8rem',
+                                      }}
+                                    />
+                                    <span style={{ fontSize: '1.4rem' }}>
+                                      Câu sai
+                                    </span>
+                                    <span style={{ fontSize: '2.2rem' }}>
+                                      {totalQuestion - o.correctQuestion}
+                                    </span>
+                                  </Col>
+                                  <Col
+                                    span={7}
+                                    className={clsx(
+                                      styles.examPanelBodyItem,
+                                      'exam__panel--time'
+                                    )}
+                                  >
+                                    <FaClock
+                                      style={{
+                                        color: '#ffba34',
+                                        fontSize: '1.8rem',
+                                      }}
+                                    />
+                                    <span style={{ fontSize: '1.4rem' }}>
+                                      Thời gian
+                                    </span>
+                                    <span style={{ fontSize: '2.2rem' }}>
+                                      {moment(
+                                        Math.abs(
+                                          (topic?.timeExam || 0) * 60000 -
                                             o.timeStudy
-                                          )
-                                        ).format("mm:ss")}
-                                      </span>
-                                    </Col>
-                                  </Row>
-                                </div>
-                              )
-                          )}
-                        </div>
-                      )}
+                                        )
+                                      ).format('mm:ss')}
+                                    </span>
+                                  </Col>
+                                </Row>
+                              </div>
+                            )
+                        )}
+                      </div>
+                    )}
                     <div className={clsx(styles.practicePaletteFooter)}>
                       {isReview ? (
                         statusLearn === 2 ? (
@@ -735,7 +729,6 @@ function Practice() {
                             className={clsx(styles.btn, styles.btnSubmit)}
                             onClick={() => {
                               setIsOpenModelSubmit(true);
-
                             }}
                           >
                             Nộp bài
@@ -786,7 +779,7 @@ function Practice() {
                     className={clsx(styles.practiceSubnavItem)}
                     onClick={() => {
                       setIsOpenModelSubmit(true);
-                      console.log("dm");
+                      console.log('dm');
                     }}
                   >
                     <FaRegCheckCircle
@@ -816,10 +809,10 @@ function Practice() {
                 </Col>
                 <Drawer
                   className={clsx(styles.practiceDrawer)}
-                  placement={"bottom"}
+                  placement={'bottom'}
                   onClose={handleCloseQuestionList}
                   open={openQuestionList}
-                  height={"80%"}
+                  height={'80%'}
                   zIndex={100}
                 >
                   <div className={clsx(styles.practicePaletteBody)}>
@@ -832,79 +825,70 @@ function Practice() {
                                 <div className={clsx(styles.examPanelScore)}>
                                   <FaStar
                                     style={{
-                                      color: "#ffe644",
-                                      fontSize: "8rem",
+                                      color: '#ffe644',
+                                      fontSize: '8rem',
                                     }}
                                   />
                                   <span>{o.score}</span>
                                 </div>
                                 <Row
-                                  className={clsx("exam__panel--body")}
+                                  className={clsx('exam__panel--body')}
                                   gutter={[16, 16]}
                                 >
                                   <Col
                                     span={7}
-                                    className={clsx(
-                                      styles.examPanelBodyItem,
-
-                                    )}
+                                    className={clsx(styles.examPanelBodyItem)}
                                   >
                                     <FaCheckCircle
                                       style={{
-                                        color: "#33cd99",
-                                        fontSize: "1.8rem",
+                                        color: '#33cd99',
+                                        fontSize: '1.8rem',
                                       }}
                                     />
-                                    <span style={{ fontSize: "1.4rem" }}>
+                                    <span style={{ fontSize: '1.4rem' }}>
                                       Câu đúng
                                     </span>
-                                    <span style={{ fontSize: "2.2rem" }}>
+                                    <span style={{ fontSize: '2.2rem' }}>
                                       {o.correctQuestion}
                                     </span>
                                   </Col>
                                   <Col
                                     span={7}
-                                    className={clsx(
-                                      styles.examPanelBodyItem
-
-                                    )}
+                                    className={clsx(styles.examPanelBodyItem)}
                                   >
                                     <FaTimesCircle
                                       style={{
-                                        color: "#ff4747",
-                                        fontSize: "1.8rem",
+                                        color: '#ff4747',
+                                        fontSize: '1.8rem',
                                       }}
                                     />
-                                    <span style={{ fontSize: "1.4rem" }}>
+                                    <span style={{ fontSize: '1.4rem' }}>
                                       Câu sai
                                     </span>
-                                    <span style={{ fontSize: "2.2rem" }}>
+                                    <span style={{ fontSize: '2.2rem' }}>
                                       {totalQuestion - o.correctQuestion}
                                     </span>
                                   </Col>
                                   <Col
                                     span={7}
-                                    className={clsx(
-                                      styles.examPanelBodyItem
-
-                                    )}
+                                    className={clsx(styles.examPanelBodyItem)}
                                   >
                                     <FaClock
                                       style={{
-                                        color: "#ffba34",
-                                        fontSize: "1.8rem",
+                                        color: '#ffba34',
+                                        fontSize: '1.8rem',
                                       }}
                                     />
-                                    <span style={{ fontSize: "1.4rem" }}>
+                                    <span style={{ fontSize: '1.4rem' }}>
                                       Thời gian
                                     </span>
-                                    <span style={{ fontSize: "2.2rem" }}>
+                                    <span style={{ fontSize: '2.2rem' }}>
                                       {moment(
                                         Math.abs(
                                           (topic?.timeExam || 0) * 60000 -
-                                          o.timeStudy
+                                            o.timeStudy
                                         )
-                                      ).format("mm:ss")}
+                                      ).format('mm:ss')}
                                     </span>
                                   </Col>
                                 </Row>
@@ -919,7 +903,7 @@ function Practice() {
                           (selectedQuestions.length / totalQuestion) * 100
                         }
                         status="active"
-                        strokeColor={"#009d9d"}
+                        strokeColor={'#009d9d'}
                         showInfo={false}
                       />
                       <div
@@ -932,14 +916,14 @@ function Practice() {
                     <div className={clsx(styles.practicePaletteQuestionList)}>
                       <Row
                         style={{
-                          marginTop: "0.4rem",
+                          marginTop: '0.4rem',
                         }}
                         gutter={[0, 16]}
                       >
                         {questions?.map((o, i) => (
                           <Col
                             span={3}
-                            styles={{ textAlign: "center" }}
+                            styles={{ textAlign: 'center' }}
                             key={i}
                           >
                             <a
@@ -958,15 +942,15 @@ function Practice() {
                                       )
                                   )
                                     ? clsx(
-                                      styles.questionItemBground,
-                                      styles.green,
-                                      styles.active
-                                    )
+                                        styles.questionItemBground,
+                                        styles.green,
+                                        styles.active
+                                      )
                                     : clsx(
-                                      styles.questionItemBground,
-                                      styles.red,
-                                      styles.active
-                                    )
+                                        styles.questionItemBground,
+                                        styles.red,
+                                        styles.active
+                                      )
                                 }
                               >
                                 {i + 1}
@@ -976,7 +960,6 @@ function Practice() {
                         ))}
                       </Row>
                     </div>
-
                   </div>
                 </Drawer>
               </Row>
@@ -988,9 +971,8 @@ function Practice() {
                 open={isOpenModelSubmit}
                 onOk={handleSubmitOk}
                 onCancel={handleCancel}
-                okText={"Nộp bài"}
-                cancelText={"Hủy"}
-
+                okText={'Nộp bài'}
+                cancelText={'Hủy'}
               >
                 {selectedQuestions.length === totalQuestion ? (
                   <p>Bạn có chắc chắn muốn nộp bài làm của mình không?</p>
@@ -1007,8 +989,8 @@ function Practice() {
                 open={isOpenReviewExam}
                 onOk={handleReviewExam}
                 onCancel={handleCancel}
-                okText={"Làm lại"}
-                cancelText={"Hủy"}
+                okText={'Làm lại'}
+                cancelText={'Hủy'}
               >
                 <p>Bạn có chắc chắn muốn làm lại không?</p>
               </Modal>
@@ -1020,7 +1002,7 @@ function Practice() {
                 onCancel={handleCancel}
                 okText="Gửi phản hồi"
                 footer={
-                  textFeedback.trim() !== "" || selectedFeedback.length ? (
+                  textFeedback.trim() !== '' || selectedFeedback.length ? (
                     <Button
                       className={clsx(styles.btnFeedback)}
                       onClick={handleFeedbackOk}
@@ -1034,7 +1016,10 @@ function Practice() {
                   )
                 }
               >
-                <Row gutter={[16, 16]} className={clsx(styles.modalFeedbackList)}>
+                <Row
+                  gutter={[16, 16]}
+                  className={clsx(styles.modalFeedbackList)}
+                >
                   {feedbackChild?.map((o, i) => (
                     <Col
                       key={i}
@@ -1058,7 +1043,7 @@ function Practice() {
                         className={
                           selectedFeedback.find((c) => c === o?.type)
                             ? clsx(styles.selected)
-                            : ""
+                            : ''
                         }
                       >
                         {o.text}
@@ -1073,7 +1058,7 @@ function Practice() {
                     maxRows: 10,
                   }}
                   placeholder="Nhập vấn đề bạn đang mắc phải..."
-                  style={{ minWidth: "100%" }}
+                  style={{ minWidth: '100%' }}
                   onChange={(e) => {
                     setTextFeedback(e.target.value);
                   }}
@@ -1086,13 +1071,11 @@ function Practice() {
                 </div>
               </Modal>
             </div>
-
           </div>
-
         </div>
       </main>
       <Footer />
     </>
-  )
+  );
 }
-export default Practice
+export default Practice;

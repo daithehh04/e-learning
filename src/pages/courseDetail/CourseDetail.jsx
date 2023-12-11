@@ -27,7 +27,6 @@ const CourseDetail = () => {
   const course = useSelector((state) => state.course.course);
   const topics = useSelector((state) => state.topic.topics);
   const totalTopic = useSelector((state) => state.topic.total);
-  console.log('courseLearning', course);
   useEffect(() => {
     loadCourse(params.slugChild || '');
   }, [params.slugChild]);
@@ -108,7 +107,7 @@ const CourseDetail = () => {
                   <Breadcrumb.Item>
                     <NavLink
                       to={`/${course?.category?.slug}/${course?.slug}`}
-                      className={clsx(styles.navLink)}
+                      className={clsx(styles.navLink, styles.navActive)}
                     >
                       {course?.courseName}
                     </NavLink>

@@ -9,6 +9,11 @@
     display: inline-block;
     font-size: 1.6rem;
     font-family: var(--font-family);
+    font-weight: 500;
+  }
+  .navActive {
+    font-weight: 700;
+    text-decoration: underline;
   }
   .infoCourse {
     font-family: var(--font-family);

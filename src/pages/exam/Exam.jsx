@@ -80,7 +80,7 @@ function Exam() {
   return (
     <>
       <Header />
-      <main className={clsx(styles.exam)}>
+      <main className={clsx(styles.exam, 'dark')}>
         <div className="wide">
           <div className={clsx(styles.examBreadcrumb)}>
             <Breadcrumb separator="›">
@@ -110,7 +110,10 @@ function Exam() {
                   <Breadcrumb.Item>
                     <NavLink
                       to={'#'}
-                      className={clsx(styles.examBreadcumbLink)}
+                      className={clsx(
+                        styles.examBreadcumbLink,
+                        styles.examBreadcumbLinkActive
+                      )}
                     >
                       Đề kiểm tra
                     </NavLink>

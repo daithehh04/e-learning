@@ -1,35 +1,39 @@
 .mainCategoryDetail {
-     padding: 20px 60px 0;
+  padding: 20px 60px 0;
 
-     .categoryBreadcumbLink {
-          color: rgb(92, 88, 88);
-          font-size: 1.7rem;
-          font-weight: 500;
-     }
+  .categoryBreadcumbLink {
+    //     color: rgb(92, 88, 88);
+    font-size: 1.7rem;
+    font-weight: 500;
+    font-family: var(--font-family);
+  }
 
-     .categoryBreadcumb {
-          max-width: 1135px;
-          margin: 0 auto;
-     }
+  .categoryBreadcumb {
+    max-width: 1135px;
+    margin: 0 auto;
+  }
+  .breadcumbLinkActive {
+    font-weight: 700;
+    text-decoration: underline;
+  }
 
+  .listCategory {
+    max-width: 1170px;
+    margin: 70px auto 40px auto;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 30px;
+  }
 
-     .listCategory {
-          max-width: 1170px;
-          margin: 70px auto 40px auto;
-          display: flex;
-          flex-wrap: wrap;
-          gap: 30px;
-     }
+  .headingLv2 {
+    margin-top: 24px;
+    font-size: 2.5rem;
+    text-align: center;
+  }
 
-     .headingLv2 {
-          margin-top: 24px;
-          font-size: 2.5rem;
-          text-align: center;
-     }
-
-     .desc {
-          font-size: 1.7rem;
-          text-align: center;
-          margin-top: 30px;
-     }
+  .desc {
+    font-size: 1.7rem;
+    text-align: center;
+    margin-top: 30px;
+  }
 }

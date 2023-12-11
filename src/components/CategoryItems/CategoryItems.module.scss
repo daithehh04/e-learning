@@ -33,6 +33,7 @@
 .categorysItems {
   color: black;
   flex: 0 0 calc(100% / 3 - 30px);
+  max-width: 350px;
   padding: 24px;
   background-color: #f3f6fd;
   border-radius: 12px;

@@ -103,6 +103,7 @@
   }
 
   @include responsive(xs) {
+    padding: 24px 10px !important;
     flex: 1 0 calc(100% / 2 - 30px);
 
     .content {
@@ -119,6 +120,7 @@
   }
 
   @include responsive(sm) {
+    padding: 24px 10px !important;
     flex: 1 0 calc(100% / 2 - 30px);
 
     .content {
@@ -135,6 +137,7 @@
   }
 
   @include responsive(md) {
+    padding: 24px 10px !important;
     flex: 1 0 calc(100% / 3 - 30px);
   }
 

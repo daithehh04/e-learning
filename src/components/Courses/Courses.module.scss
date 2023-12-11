@@ -79,6 +79,15 @@
     display: flex;
     flex-wrap: wrap;
     gap: 30px;
+
+    @include responsive(xs) {
+      gap: 10px;
+    }
+
+    @include responsive(sm) {
+      gap: 10px;
+    }
+
   }
 
   .btnAllCources {

@@ -3,6 +3,7 @@ import { apiLoadCategoryBySlug, apiLoadCategorys } from '../../api/category';
 export const requestLoadCategorys = createAsyncThunk(
      "category/loadCategorys",
      async (props) => {
+          console.log(props);
           const res = await apiLoadCategorys(props);
           return res.data;
      }

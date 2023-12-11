@@ -86,6 +86,14 @@
     margin-top: 18px;
 
     .desc {
+      p {
+        text-overflow: ellipsis;
+        display: -webkit-box;
+        -webkit-line-clamp: 3;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+      }
+
       margin-top: 18px;
     }
 
@@ -134,6 +142,7 @@
     flex: 1 0 calc(100% / 3 - 30px);
   }
 }
+
 [data-theme='dark'] {
   .courseItems {
     background-color: hsla(240, 24%, 14%, 0.998);

@@ -14,6 +14,7 @@ import Marquee from '../../components/Marquee/Marquee';
 import Courses from '../../components/Courses/Courses';
 import Feature from '../../components/Feature/Feature';
 import Feedback from '../../components/Feedback/Feedback';
+import { useSelector } from 'react-redux';
 
 const slides = [
   {
@@ -33,6 +34,7 @@ const slides = [
   },
 ];
 function HomePage() {
+  const categorys = useSelector(state => state.categorys.categorys);
   const ref = useRef();
   const [scrollTop, setScrollTop] = useState();
   const handleScrollTop = () => {
@@ -66,12 +68,6 @@ function HomePage() {
             draggable
             ref={ref}
             autoplaySpeed={4500}
-            // style={{
-            //   background: '',
-            //   borderRadius: 12,
-            //   marginLeft: 12,
-            //   marginRight: 12,
-            // }}
           >
             {slides?.length > 0 &&
               slides.map(({ title, desc, img }, index) => (

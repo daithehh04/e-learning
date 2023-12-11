@@ -14,18 +14,21 @@ import {
   FaSignOutAlt,
   FaUser,
 } from 'react-icons/fa';
+import { unwrapResult } from "@reduxjs/toolkit";
 import { apiLogout } from '../../api/auth';
 import { requestGetUserFromToken } from '../../stores/middleware/userMiddleware';
-import { unwrapResult } from '@reduxjs/toolkit';
 import ChatGPT from '../../components/ChatGPT/ChatGPT';
 import imageChat from '../../assets/imgs/chatgpt/chatbot.jpg';
 import useSelection from 'antd/es/table/hooks/useSelection';
 import { chatgptSlice } from '../../stores/slices/chatgptSlice';
 import DarkMode from '../../components/DarkMode/DarkMode';
+import { requestLoadCategorys } from '../../stores/middleware/categoryMiddleware';
+
 // import { useAuth0 } from '@auth0/auth0-react';
 
 export default function Header() {
   const dispatch = useDispatch();
+  const categorys = useSelector(state => state.categorys.categorys);
   const { toggle } = chatgptSlice.actions;
   const [navbarStick, setNavbarStick] = useState(false);
   const isShowChatGPT = useSelector((state) => state.chatGPT.isShow);
@@ -56,6 +59,24 @@ export default function Header() {
     return () => {
       window.removeEventListener('scroll', handleNavbarStick);
     };
+  }, []);
+  const loadCategorys = async () => {
+    try {
+      const actionResult = await dispatch(
+        requestLoadCategorys({
+          status: 1,
+        })
+      );
+      console.log(actionResult);
+      unwrapResult(actionResult);
+    } catch (error) {
+      notification.error({
+        message: "không tải được danh sach danh mục",
+      });
+    }
+  };
+  useEffect(() => {
+    loadCategorys();
   }, []);
 
   const items = [
@@ -115,21 +136,6 @@ export default function Header() {
     return isActive ? 'activated' : ` `;
   };
   const navigate = useNavigate();
-  // const { isLoading, loginWithPopup, isAuthenticated } = useAuth0();
-  const [rooms, setRoom] = useState([
-    { id: 1, name: 'lớp 1', slug: 'lop-1' },
-    { id: 2, name: 'lớp 2', slug: 'lop-2' },
-    { id: 3, name: 'lớp 3', slug: 'lop-3' },
-    { id: 4, name: 'lớp 4', slug: 'lop-4' },
-    { id: 5, name: 'lớp 5', slug: 'lop-5' },
-    { id: 6, name: 'lớp 6', slug: 'lop-6' },
-    { id: 7, name: 'lớp 7', slug: 'lop-7' },
-    { id: 8, name: 'lớp 8', slug: 'lop-8' },
-    { id: 9, name: 'lớp 9', slug: 'lop-9' },
-    { id: 10, name: 'lớp 10', slug: 'lop-10' },
-    { id: 11, name: 'lớp 11', slug: 'lop-11' },
-    { id: 12, name: 'Lớp 12', slug: 'log-12' },
-  ]);
   return (
     <header className={clsx(styles.header)}>
       <nav
@@ -176,10 +182,10 @@ export default function Header() {
           )}
         </div>
         <div className={clsx(styles.headerBottom)}>
-          {rooms.length > 0 && (
+          {categorys.length > 0 && (
             <ul>
-              {rooms.map(({ id, name, slug }) => (
-                <li key={id}>
+              {categorys.map(({ _id, name, slug }) => (
+                <li key={_id}>
                   <NavLink
                     to={`/${slug}`}
                     className={clsx(styles.navLinkRoom, styles.navLinkClass)}

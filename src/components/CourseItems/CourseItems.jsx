@@ -29,8 +29,12 @@ export default function CourseItems({
         </div>
       </div>
       <div className={clsx(styles.content)}>
-        <h3 className={clsx(styles.headingLv3)}>Lớp {room}</h3>
-        <p className={clsx(styles.desc)}>{desc}</p>
+        <h3 className={clsx(styles.headingLv3)}>{room}</h3>
+        <div className={clsx(styles.desc)}
+          dangerouslySetInnerHTML={{
+            __html: desc ?? "Tổng hợp kiến thức trọng tâm, các phương pháp và cách làm bài các môn Toán, Lý, Hóa, Sinh",
+          }}
+        ></div>
       </div>
     </div>
   );

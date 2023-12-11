@@ -49,19 +49,19 @@
       animation: move-inf 10000ms linear infinite;
 
       @include responsive(xs) {
-        font-size: 14px;
+        font-size: 1.4rem;
       }
 
       @include responsive(sm) {
-        font-size: 24px;
+        font-size: 2.0rem;
       }
 
       @include responsive(md) {
-        font-size: 30px;
+        font-size: 2.2rem;
       }
 
       @include responsive(lg) {
-        font-size: 30px;
+        font-size: 2.8rem;
       }
     }
   }

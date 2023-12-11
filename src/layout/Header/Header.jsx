@@ -13,7 +13,9 @@ import {
   FaRegIdCard,
   FaSignOutAlt,
   FaUser,
+  FaTimesCircle
 } from 'react-icons/fa';
+import { GrClose } from "react-icons/gr";
 import { unwrapResult } from "@reduxjs/toolkit";
 import { apiLogout } from '../../api/auth';
 import { requestGetUserFromToken } from '../../stores/middleware/userMiddleware';
@@ -33,6 +35,7 @@ export default function Header() {
   const [navbarStick, setNavbarStick] = useState(false);
   const isShowChatGPT = useSelector((state) => state.chatGPT.isShow);
   const userInfo = useSelector((state) => state.user.userInfo);
+  const [showNavbar, setShowNavbar] = useState(false);
 
   const handleLogout = useCallback(async () => {
     try {
@@ -129,11 +132,22 @@ export default function Header() {
   ];
   const hanldeShowChatGpt = () => {
     dispatch(toggle(true));
+    document.body.style.overflowY = "hidden";
   };
   const navLinkClass = ({ isActive }) => {
     return isActive ? 'activated' : ` `;
   };
   const navigate = useNavigate();
+
+  const handleNavbar = () => {
+    if (showNavbar === true) {
+      document.body.style.overflowY = "scroll";
+      setShowNavbar(!showNavbar);
+    } else {
+      document.body.style.overflowY = "hidden";
+      setShowNavbar(!showNavbar);
+    }
+  }
   return (
     <header className={clsx(styles.header)}>
       <nav
@@ -181,32 +195,54 @@ export default function Header() {
         </div>
         <div className={clsx(styles.headerBottom)}>
           {categorys.length > 0 && (
-            <ul>
-              {categorys.map(({ _id, name, slug }) => (
-                <li key={_id}>
-                  <NavLink
-                    to={`/${slug}`}
-                    className={clsx(styles.navLinkRoom, styles.navLinkClass)}
-                  >
-                    {name}
-                  </NavLink>
-                </li>
-              ))}
-            </ul>
+            <>
+              <div className={clsx(styles.headerBottomInner, showNavbar && styles.isShow)}>
+                <ul className={clsx(styles.listCategory)}>
+                  {categorys.map(({ _id, name, slug }) => (
+                    <li
+                      key={_id}
+                      className={clsx(styles.navLinkRoom, styles.navLinkClass)}
+                    >
+                      <NavLink
+                        to={`/${slug}`}
+
+                      >
+                        {name}
+                      </NavLink>
+                    </li>
+                  ))}
+                </ul>
+                <button onClick={handleNavbar} className={clsx(styles.times)}>
+                  <FaTimesCircle className={clsx(styles.iconTimes)} />
+                </button>
+              </div>
+              <div className={clsx(styles.navBarWrap)}>
+                <button className={clsx(styles.navbarBtn)} onClick={handleNavbar}>
+                  <FaBars className={clsx(styles.navIcon)} />
+                </button>
+                {userInfo?._id && (
+                  <div className={styles.chatGpt}>
+                    <button
+                      onClick={hanldeShowChatGpt}
+                      className={clsx(styles.btnChatGpt)}
+                    >
+                      <img src={imageChat} alt="" />
+                    </button>
+                    {isShowChatGPT && <ChatGPT />}
+                  </div>
+                )}
+              </div>
+              <div
+                onClick={handleNavbar}
+                className={clsx(styles.overlay, showNavbar && styles.isShow)}>
+              </div>
+
+
+            </>
           )}
         </div>
       </nav>
-      {userInfo?._id && (
-        <div className={styles.chatGpt}>
-          <button
-            onClick={hanldeShowChatGpt}
-            className={clsx(styles.btnChatGpt)}
-          >
-            <img src={imageChat} alt="" />
-          </button>
-          {isShowChatGPT && <ChatGPT />}
-        </div>
-      )}
+
     </header>
   );
 }

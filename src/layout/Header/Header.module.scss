@@ -39,6 +39,32 @@
   background-color: #fff;
   padding-top: 14px;
 
+  .chatGpt {
+    position: fixed;
+    bottom: 52px;
+    right: 25px;
+    width: 45px;
+    height: 45px;
+    z-index: 99;
+
+    .btnChatGpt {
+      background-color: transparent;
+      cursor: pointer;
+
+      img {
+        border-radius: 6px;
+      }
+    }
+
+    img {
+      width: 100%;
+    }
+
+    .isShowChatGPT {
+      translate: 0;
+    }
+  }
+
   .navbar {
     background-color: #fff;
 
@@ -71,6 +97,7 @@
   .headerTop {
     padding: 10px 100px;
     display: flex;
+    align-items: center;
     justify-content: space-between;
 
     .btnHeader {
@@ -86,6 +113,7 @@
       cursor: pointer;
       font-family: var(--font-family);
       transition: ease 0.5s;
+
       .user {
         font-size: 2rem;
         fill: var(--secondaryColor) !important;
@@ -93,26 +121,12 @@
     }
 
     .logo {
-      width: 50px;
-      height: 50px;
       display: flex;
       align-items: center;
       gap: 10px;
 
-      @include responsive(xs) {
-        justify-content: center;
-      }
-
-      @include responsive(sm) {
-        justify-content: center;
-      }
-
-      @include responsive(md) {
-        justify-content: center;
-      }
-
       img {
-        max-width: 100%;
+        max-width: 50px;
         height: 50px;
       }
 
@@ -123,13 +137,99 @@
         color: transparent;
         -webkit-background-clip: text;
         background-color: #4158d0;
-        background-image: linear-gradient(
-          43deg,
-          #4158d0 0%,
-          #df2bab 30%,
-          #ff7072 66%,
-          #e10404 100%
-        );
+        background-image: linear-gradient(43deg,
+            #4158d0 0%,
+            #df2bab 30%,
+            #ff7072 66%,
+            #e10404 100%);
+      }
+    }
+
+    @include responsive(xs) {
+      padding: 10px;
+
+      .logo {
+        justify-content: center;
+
+        img {
+          max-width: 3.5rem;
+          height: 3.5rem;
+        }
+
+        span {
+          font-weight: 900;
+          font-size: 1.8rem;
+        }
+      }
+
+      .btnHeader {
+        width: 3.5rem;
+        height: 3.5rem;
+      }
+    }
+
+    @include responsive(sm) {
+      padding: 10px;
+
+      .logo {
+        justify-content: center;
+
+        img {
+          max-width: 4.0rem;
+          height: 4.0rem;
+        }
+
+        span {
+          font-weight: 900;
+          font-size: 2.0rem;
+        }
+      }
+
+      .btnHeader {
+        width: 4.0rem;
+        height: 4.0rem;
+      }
+    }
+
+    @include responsive(md) {
+      padding: 10px;
+
+      .logo {
+        justify-content: center;
+
+        img {
+          max-width: 4.5rem;
+          height: 4.5rem;
+        }
+
+        span {
+          font-weight: 900;
+          font-size: 2.0rem;
+        }
+      }
+
+      .btnHeader {
+        width: 4.5rem;
+        height: 4.5rem;
+      }
+
+    }
+
+    @include responsive(lg) {
+      padding: 20px;
+
+      .logo {
+        justify-content: center;
+
+        img {
+          max-width: 5.0rem;
+          height: 5.0rem;
+        }
+
+        span {
+          font-weight: 900;
+          font-size: 2.2rem;
+        }
       }
     }
   }
@@ -151,8 +251,30 @@
 
   .headerBottom {
     background: var(--secondaryColor);
-    padding: 0 120px;
+    padding: 0 30px;
     margin-top: 10px;
+
+    .navbarBtn {
+      display: none;
+    }
+
+    .times {
+      display: none;
+    }
+
+
+
+    .overlay {
+      display: none;
+      position: fixed;
+      background-color: #2c2b2b80;
+      inset: 0;
+      z-index: 2;
+
+      &.isShow {
+        display: block;
+      }
+    }
 
     ul {
       color: #fff;
@@ -161,50 +283,311 @@
       list-style: none;
 
       .navLinkRoom {
+        text-align: center;
         white-space: nowrap;
         display: block;
         flex: 1 0 auto;
         color: #fff;
+        cursor: pointer;
 
         &:hover {
           background: var(--hoverSecondaryColor);
         }
 
-        cursor: pointer;
-        padding: 14px 20px;
-        font-size: 2rem;
-        text-transform: uppercase;
-        font-weight: 600;
-      }
-    }
-  }
-
-  .chatGpt {
-    position: fixed;
-    bottom: 52px;
-    right: 25px;
-    width: 45px;
-    height: 45px;
-    z-index: 99;
-
-    .btnChatGpt {
-      background-color: transparent;
-      cursor: pointer;
-
-      img {
-        border-radius: 6px;
+        a {
+          display: block;
+          padding: 14px 20px;
+          font-size: 2rem;
+          text-transform: uppercase;
+          font-weight: 600;
+          color: #fff;
+        }
       }
     }
 
-    img {
-      width: 100%;
-      height: 45px;
+    @include responsive(xs) {
+      padding: 0 10px;
+      padding: 10px 20px;
+
+      .navbarBtn {
+        display: block;
+        outline: none;
+        border: none;
+        background-color: transparent;
+
+        .navIcon {
+          color: #fff;
+          font-size: 2.5rem;
+        }
+
+
+      }
+
+      .headerBottomInner {
+        translate: -100%;
+        position: fixed;
+        inset: 0;
+        max-width: 300px;
+        left: 0;
+        top: 0;
+        z-index: 4;
+        background: var(--secondaryColor);
+        overflow: auto;
+        transition: translate 0.25s linear;
+
+        &.isShow {
+          translate: 0;
+        }
+
+        ul {
+          display: flex;
+          flex-direction: column;
+
+          .navLinkRoom {
+            cursor: pointer;
+
+            a {
+              padding: 10px 4px;
+              font-size: 1.8rem;
+              text-transform: uppercase;
+              font-weight: 600;
+            }
+          }
+
+        }
+
+        .times {
+          background-color: transparent;
+          display: block;
+          cursor: pointer;
+          position: absolute;
+          right: 5px;
+          top: 4px;
+
+          .iconTimes {
+            color: red;
+            font-size: 2.5rem;
+          }
+        }
+
+      }
+
     }
 
-    .isShowChatGPT {
-      translate: 0;
+    @include responsive(sm) {
+      padding: 0 20px;
+      padding: 10px 20px;
+
+      .navbarBtn {
+        display: block;
+        outline: none;
+        border: none;
+        background-color: transparent;
+
+        .navIcon {
+          color: #fff;
+          font-size: 2.5rem;
+        }
+
+
+      }
+
+      .headerBottomInner {
+        translate: -100%;
+        position: fixed;
+        inset: 0;
+        max-width: 60vw;
+        left: 0;
+        top: 0;
+        z-index: 4;
+        background: var(--secondaryColor);
+        overflow: auto;
+        transition: translate 0.25s linear;
+
+        &.isShow {
+          translate: 0;
+        }
+
+        ul {
+          display: flex;
+          flex-direction: column;
+
+          .navLinkRoom {
+            cursor: pointer;
+
+            a {
+              padding: 10px 4px;
+              font-size: 1.8rem;
+              text-transform: uppercase;
+              font-weight: 600;
+            }
+          }
+
+        }
+
+        .times {
+          background-color: transparent;
+          display: block;
+          cursor: pointer;
+          position: absolute;
+          right: 5px;
+          top: 4px;
+
+          .iconTimes {
+            color: red;
+            font-size: 2.5rem;
+          }
+        }
+
+      }
+
+
+    }
+
+    @include responsive(md) {
+      padding: 10px 20px;
+
+      .navbarBtn {
+        display: block;
+        outline: none;
+        border: none;
+        background-color: transparent;
+
+        .navIcon {
+          color: #fff;
+          font-size: 2.5rem;
+        }
+
+
+      }
+
+      .headerBottomInner {
+        translate: -100%;
+        position: fixed;
+        inset: 0;
+        max-width: 300px;
+        left: 0;
+        top: 0;
+        z-index: 4;
+        background: var(--secondaryColor);
+        overflow: auto;
+        transition: translate 0.25s linear;
+
+        &.isShow {
+          translate: 0;
+        }
+
+        ul {
+          display: flex;
+          flex-direction: column;
+
+          .navLinkRoom {
+            cursor: pointer;
+
+            a {
+              padding: 10px 4px;
+              font-size: 1.8rem;
+              text-transform: uppercase;
+              font-weight: 600;
+            }
+          }
+
+        }
+
+        .times {
+          background-color: transparent;
+          display: block;
+          cursor: pointer;
+          position: absolute;
+          right: 5px;
+          top: 4px;
+
+          .iconTimes {
+            color: red;
+            font-size: 2.5rem;
+          }
+        }
+
+      }
+
+
+
+
+    }
+
+    @include responsive(lg) {
+      padding: 0 10px;
+
+      ul {
+        .navLinkRoom {
+          flex: 1;
+          cursor: pointer;
+
+          a {
+            padding: 10px 4px;
+            font-size: 1.8rem;
+            text-transform: uppercase;
+            font-weight: 600;
+          }
+        }
+
+      }
+
+      .overlay {
+        display: none !important;
+      }
+
     }
   }
+
+  @include responsive(xs) {
+    .navBarWrap {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+
+      .chatGpt {
+        position: static;
+        width: 35px;
+        height: 35px;
+      }
+    }
+
+
+  }
+
+  @include responsive(sm) {
+    .navBarWrap {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+
+      .chatGpt {
+        position: static;
+        width: 35px;
+        height: 35px;
+      }
+    }
+
+  }
+
+  @include responsive(md) {
+    .navBarWrap {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+
+      .chatGpt {
+        position: static;
+        width: 40px;
+        height: 40px;
+      }
+    }
+
+  }
+
+
+
 }
 
 [data-theme='dark'] {

@@ -79,6 +79,7 @@ export default function ChatGPT() {
 
      }, [arrayUser]);
      const handleHidden = () => {
+          document.body.style.overflowY = "scroll";
           dispatch(toggle(false));
 
      }

@@ -81,6 +81,8 @@
     gap: 30px;
 
     @include responsive(xs) {
+      flex-wrap: nowrap;
+      overflow: auto;
       gap: 10px;
     }
 

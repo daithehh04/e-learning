@@ -91,6 +91,11 @@
 
   @include responsive(xs) {
     justify-content: center;
+    margin-bottom: 2rem;
+    .profileButton {
+      font-size: 1.4rem;
+      padding: 1.4rem 1.6rem;
+    }
   }
 }
 
@@ -109,7 +114,10 @@
 }
 
 .profileFormitem {
-  margin-bottom: 4rem !important;
+  margin-bottom: 2rem !important;
+  .profileSelect {
+    margin: 1rem 0;
+  }
 }
 
 .profileContainer {
@@ -122,8 +130,8 @@
   fill: rgb(50, 50, 241) !important;
 
   @include responsive(xs) {
-    width: 15rem;
-    height: 15rem;
+    width: 12rem;
+    height: 12rem;
   }
 
   @include responsive(sm) {
@@ -142,7 +150,7 @@
   font-family: var(--font-family);
 
   @include responsive(xs) {
-    padding: 5rem 1.6rem;
+    padding: 3rem 0 1.6rem 1.6rem;
   }
 }
 
@@ -192,7 +200,8 @@
   margin-bottom: 5rem;
 
   @include responsive(xs) {
-    padding: 5rem 2rem;
+    padding: 3rem 2rem;
+    margin-bottom: 0;
   }
 }
 
@@ -219,4 +228,7 @@
   font-weight: 700;
   text-align: center;
   padding-bottom: 3rem;
+  @include responsive(xs) {
+    font-size: 2.6rem;
+  }
 }

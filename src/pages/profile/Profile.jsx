@@ -11,18 +11,19 @@ import {
   notification,
   Row,
   Select,
-} from "antd";
+} from 'antd';
 import styles from './profile.module.scss';
 import clsx from 'clsx';
 import { useDispatch, useSelector } from 'react-redux';
-import { classes, genders } from "../../utils/contants";
-import { LockOutlined } from "@ant-design/icons";
-import { AvatarIcon } from "../../components/Icons/Icons";
-import Cookies from "js-cookie";
-import { unwrapResult } from "@reduxjs/toolkit";
+import { classes, genders } from '../../utils/contants';
+import { LockOutlined } from '@ant-design/icons';
+import { AvatarIcon } from '../../components/Icons/Icons';
+import Cookies from 'js-cookie';
+import { unwrapResult } from '@reduxjs/toolkit';
 import {
-  requestChangePassword, requestUpdateUserInfo
-} from "../../stores/middleware/userMiddleware";
+  requestChangePassword,
+  requestUpdateUserInfo,
+} from '../../stores/middleware/userMiddleware';
 import {
   FaRegUser,
   FaRegEnvelope,
@@ -30,17 +31,18 @@ import {
   FaRegCalendarAlt,
   FaTransgender,
   FaRegAddressCard,
-} from "react-icons/fa";
-import dayjs from "dayjs";
-import TTCSconfig from "../../helper/config";
-import { encrypt } from "../../utils/crypto";
+} from 'react-icons/fa';
+import dayjs from 'dayjs';
+import TTCSconfig from '../../helper/config';
+import { encrypt } from '../../utils/crypto';
 import { useState, useEffect } from 'react';
-const EmailRegExp = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+const EmailRegExp =
+  /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 const PhoneRegExp = /^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s\./0-9]*$/;
 function Profile() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const dispatch = useDispatch();
-  const userInfo = useSelector(state => state.user.userInfo);
+  const userInfo = useSelector((state) => state.user.userInfo);
   const [infoForm] = Form.useForm();
   const [modalForm] = Form.useForm();
   useEffect(() => {
@@ -58,7 +60,7 @@ function Profile() {
   };
   const handleChangePassword = () => {
     modalForm.validateFields().then(async (value) => {
-      const cookie = Cookies.get("token");
+      const cookie = Cookies.get('token');
       const { password, newPassword, ...rest } = value;
 
       const passEncode = encrypt(password);
@@ -78,38 +80,38 @@ function Profile() {
           case TTCSconfig.LOGIN_SUCCESS:
             handleCancelModal();
             return notification.success({
-              message: "Đổi mật khẩu thành công",
+              message: 'Đổi mật khẩu thành công',
               duration: 1.5,
             });
 
           case TTCSconfig.LOGIN_WRONG_PASSWORD:
             modalForm.setFieldsValue({
-              password: "",
-              newPassword: "",
-              confirmNewPassword: "",
+              password: '',
+              newPassword: '',
+              confirmNewPassword: '',
             });
             return notification.warning({
-              message: "Mật khẩu hiện tại không chính xác!",
+              message: 'Mật khẩu hiện tại không chính xác!',
               duration: 1.5,
             });
 
           case TTCSconfig.LOGIN_FAILED:
             return notification.warning({
-              message: "Lỗi server!",
+              message: 'Lỗi server!',
               duration: 1.5,
             });
 
           case TTCSconfig.LOGIN_TOKEN_INVALID:
             notification.warning({
-              message: "Không thể tìm thấy token!",
+              message: 'Không thể tìm thấy token!',
               duration: 1.5,
             });
-            window.location.href = "/dang-nhap";
+            window.location.href = '/dang-nhap';
             break;
         }
       } catch (error) {
         return notification.warning({
-          message: "Cập nhật thất bại, lỗi server!",
+          message: 'Cập nhật thất bại, lỗi server!',
           duration: 1.5,
         });
       }
@@ -117,7 +119,7 @@ function Profile() {
   };
   const handleUpdate = async () => {
     infoForm.validateFields().then(async (value) => {
-      const cookie = Cookies.get("token");
+      const cookie = Cookies.get('token');
       value.birth = value.birth?.valueOf();
 
       try {
@@ -128,19 +130,19 @@ function Profile() {
         switch (res.status) {
           case TTCSconfig.STATUS_SUCCESS:
             return notification.success({
-              message: "Cập nhật thành công!",
+              message: 'Cập nhật thành công!',
               duration: 1.5,
             });
 
           case TTCSconfig.STATUS_FAIL:
             return notification.warning({
-              message: "Cập nhật thất bại!",
+              message: 'Cập nhật thất bại!',
               duration: 1.5,
             });
         }
       } catch (error) {
         return notification.warning({
-          message: "Cập nhật thất bại, lỗi server!",
+          message: 'Cập nhật thất bại, lỗi server!',
           duration: 1.5,
         });
       }
@@ -149,9 +151,9 @@ function Profile() {
 
   const handleCancelModal = () => {
     modalForm.setFieldsValue({
-      password: "",
-      newPassword: "",
-      confirmNewPassword: "",
+      password: '',
+      newPassword: '',
+      confirmNewPassword: '',
     });
     setIsModalOpen(false);
   };
@@ -160,15 +162,12 @@ function Profile() {
       <Header />
 
       <div className={clsx(styles.profileContainer)}>
-        <div className={clsx("wide")}>
+        <div className={clsx('wide')}>
           <div className={clsx(styles.profileWrapper)}>
             <div className={clsx(styles.profileTitle)}>Thông tin cá nhân</div>
             <div className={clsx(styles.profileBox)}>
-              <Form
-                name="profile"
-                form={infoForm}
-              >
-                <Row gutter={60} align="middle" >
+              <Form name="profile" form={infoForm}>
+                <Row gutter={60} align="middle">
                   <Col xl={10} lg={10} md={10} sm={24} xs={24}>
                     <div className={styles.profileAvatarWrap}>
                       <div>
@@ -178,9 +177,7 @@ function Profile() {
                         {userInfo?.account}
                       </div>
                     </div>
-                    <div
-                      className={clsx(styles.profileGroupBtn)}
-                    >
+                    <div className={clsx(styles.profileGroupBtn)}>
                       <button
                         className={clsx(styles.btnChange, styles.profileButton)}
                         onClick={handleShowModal}
@@ -195,7 +192,10 @@ function Profile() {
                         footer={[
                           <Button
                             key="changePassword"
-                            className={clsx(styles.profileButton, styles.btnModal)}
+                            className={clsx(
+                              styles.profileButton,
+                              styles.btnModal
+                            )}
                             onClick={handleChangePassword}
                           >
                             Xác nhận
@@ -218,32 +218,32 @@ function Profile() {
                               prefix={
                                 <LockOutlined
                                   style={{
-                                    fontSize: "1.8rem",
-                                    marginRight: "0.8rem",
+                                    fontSize: '1.8rem',
+                                    marginRight: '0.8rem',
                                   }}
                                 />
                               }
                               type="password"
                               placeholder="Mật khẩu hiện tại"
-                              style={{ padding: "1.6rem" }}
+                              style={{ padding: '1.6rem' }}
                             />
                           </Form.Item>
                           <Form.Item
                             name="newPassword"
                             className={clsx(styles.profileFormitem)}
-                            dependencies={["password"]}
+                            dependencies={['password']}
                             rules={[
                               ({ getFieldValue }) => ({
                                 validator(_, value) {
                                   if (
                                     !value ||
-                                    getFieldValue("password") !== value
+                                    getFieldValue('password') !== value
                                   ) {
                                     return Promise.resolve();
                                   }
                                   return Promise.reject(
                                     new Error(
-                                      "Mật khẩu mới phải khác mật khẩu hiện tại!"
+                                      'Mật khẩu mới phải khác mật khẩu hiện tại!'
                                     )
                                   );
                                 },
@@ -254,31 +254,31 @@ function Profile() {
                               prefix={
                                 <LockOutlined
                                   style={{
-                                    fontSize: "1.8rem",
-                                    marginRight: "0.8rem",
+                                    fontSize: '1.8rem',
+                                    marginRight: '0.8rem',
                                   }}
                                 />
                               }
                               type="password"
                               placeholder="Mật khẩu mới"
-                              style={{ padding: "1.6rem" }}
+                              style={{ padding: '1.6rem' }}
                             />
                           </Form.Item>
                           <Form.Item
                             name="confirmNewPassword"
                             className={clsx(styles.profileFormitem)}
-                            dependencies={["newPassword"]}
+                            dependencies={['newPassword']}
                             rules={[
                               ({ getFieldValue }) => ({
                                 validator(_, value) {
                                   if (
                                     !value ||
-                                    getFieldValue("newPassword") === value
+                                    getFieldValue('newPassword') === value
                                   ) {
                                     return Promise.resolve();
                                   }
                                   return Promise.reject(
-                                    new Error("Mật khẩu không trùng khớp!")
+                                    new Error('Mật khẩu không trùng khớp!')
                                   );
                                 },
                               }),
@@ -288,14 +288,14 @@ function Profile() {
                               prefix={
                                 <LockOutlined
                                   style={{
-                                    fontSize: "1.8rem",
-                                    marginRight: "0.8rem",
+                                    fontSize: '1.8rem',
+                                    marginRight: '0.8rem',
                                   }}
                                 />
                               }
                               type="password"
                               placeholder="Xác nhận mật khẩu"
-                              style={{ padding: "1.6rem" }}
+                              style={{ padding: '1.6rem' }}
                             />
                           </Form.Item>
                         </Form>
@@ -319,7 +319,7 @@ function Profile() {
                           rules={[
                             {
                               required: true,
-                              message: "Vui lòng nhập trường này!",
+                              message: 'Vui lòng nhập trường này!',
                             },
                           ]}
                         >
@@ -327,13 +327,13 @@ function Profile() {
                             prefix={
                               <FaRegUser
                                 style={{
-                                  fontSize: "1.8rem",
-                                  marginRight: "0.8rem",
+                                  fontSize: '1.8rem',
+                                  marginRight: '0.8rem',
                                 }}
                               />
                             }
                             placeholder="Nhập tên"
-                            style={{ padding: "16px" }}
+                            style={{ padding: '16px' }}
                             value={userInfo?.name}
                           />
                         </Form.Item>
@@ -346,11 +346,11 @@ function Profile() {
                           rules={[
                             {
                               pattern: EmailRegExp,
-                              message: "Email không đúng định dạng!",
+                              message: 'Email không đúng định dạng!',
                             },
                             {
                               required: true,
-                              message: "Vui lòng nhập trường này!",
+                              message: 'Vui lòng nhập trường này!',
                             },
                           ]}
                         >
@@ -358,13 +358,13 @@ function Profile() {
                             prefix={
                               <FaRegEnvelope
                                 style={{
-                                  fontSize: "1.8rem",
-                                  marginRight: "0.8rem",
+                                  fontSize: '1.8rem',
+                                  marginRight: '0.8rem',
                                 }}
                               />
                             }
                             placeholder="Nhập email"
-                            style={{ padding: "16px" }}
+                            style={{ padding: '16px' }}
                             value={userInfo?.email}
                           />
                         </Form.Item>
@@ -377,11 +377,11 @@ function Profile() {
                           rules={[
                             {
                               pattern: PhoneRegExp,
-                              message: "vui lòng nhập số điện thoại",
+                              message: 'vui lòng nhập số điện thoại',
                             },
                             {
                               required: true,
-                              message: "Vui lòng nhập trường này!",
+                              message: 'Vui lòng nhập trường này!',
                             },
                           ]}
                         >
@@ -389,13 +389,13 @@ function Profile() {
                             prefix={
                               <FaPhone
                                 style={{
-                                  fontSize: "1.8rem",
-                                  marginRight: "0.8rem",
+                                  fontSize: '1.8rem',
+                                  marginRight: '0.8rem',
                                 }}
                               />
                             }
                             placeholder="Nhập số điện thoại"
-                            style={{ padding: "16px" }}
+                            style={{ padding: '16px' }}
                             value={userInfo?.phoneNumber}
                           />
                         </Form.Item>
@@ -409,7 +409,7 @@ function Profile() {
                           <DatePicker
                             suffixIcon={<FaRegCalendarAlt />}
                             placeholder="Chọn ngày sinh"
-                            format={"DD/MM/YYYY"}
+                            format={'DD/MM/YYYY'}
                             allowClear={false}
                             showToday={false}
                             className={clsx(styles.profileDatepicker)}
@@ -429,16 +429,16 @@ function Profile() {
                               <React.Fragment>
                                 <FaRegAddressCard
                                   style={{
-                                    fontSize: "1.8rem",
-                                    marginRight: "0.8rem",
-                                    marginTop: "0.8rem",
-                                    color: "#000",
+                                    fontSize: '1.8rem',
+                                    marginRight: '0.8rem',
+                                    // marginTop: '0.8rem',
+                                    color: '#000',
                                   }}
                                 />
                                 &nbsp; Chọn lớp
                               </React.Fragment>
                             }
-                            size={"large"}
+                            size={'large'}
                             listHeight={128}
                             value={userInfo?.classNumber}
                           >
@@ -450,9 +450,9 @@ function Profile() {
                                   <React.Fragment>
                                     <FaRegAddressCard
                                       style={{
-                                        fontSize: "1.8rem",
-                                        marginRight: "0.8rem",
-                                        marginTop: "0.8rem",
+                                        fontSize: '1.8rem',
+                                        marginRight: '0.8rem',
+                                        // marginTop: '0.8rem',
                                       }}
                                     />
                                     &nbsp;
@@ -479,16 +479,16 @@ function Profile() {
                               <React.Fragment>
                                 <FaTransgender
                                   style={{
-                                    fontSize: "1.8rem",
-                                    marginRight: "0.8rem",
-                                    marginTop: "0.8rem",
-                                    color: "#000",
+                                    fontSize: '1.8rem',
+                                    marginRight: '0.8rem',
+                                    // marginTop: '0.8rem',
+                                    color: '#000',
                                   }}
                                 />
                                 &nbsp; Chọn giới tính
                               </React.Fragment>
                             }
-                            size={"large"}
+                            size={'large'}
                             listHeight={128}
                             value={userInfo?.gender}
                           >
@@ -500,9 +500,9 @@ function Profile() {
                                   <React.Fragment>
                                     <FaTransgender
                                       style={{
-                                        fontSize: "1.8rem",
-                                        marginRight: "0.8rem",
-                                        marginTop: "0.8rem",
+                                        fontSize: '1.8rem',
+                                        marginRight: '0.8rem',
+                                        marginTop: '0.8rem',
                                       }}
                                     />
                                     &nbsp;
@@ -516,8 +516,6 @@ function Profile() {
                           </Select>
                         </Form.Item>
                       </Col>
-
-
                     </Row>
                   </Col>
                 </Row>
@@ -527,9 +525,8 @@ function Profile() {
         </div>
       </div>
       <Footer />
-
     </>
-  )
+  );
 }
 
-export default Profile
+export default Profile;

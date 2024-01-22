@@ -21,7 +21,6 @@ const Login = () => {
   const userInfo = useSelector((state) => state.user.userInfo);
   const loading = useSelector((state) => state.user.loading);
   const dispatch = useDispatch();
-  const { loginWithRedirect } = useAuth0();
   // lay token tu cookie
   useEffect(() => {
     console.log('back');
@@ -34,7 +33,6 @@ const Login = () => {
     sessionStorage.setItem('returnUrl', window.location.pathname);
     // Sử dụng loginWithRedirect để đăng nhập
     loginWithRedirect();
-
   };
   useEffect(() => {
     // Kiểm tra xem có returnUrl được lưu trong sessionStorage không
@@ -42,7 +40,7 @@ const Login = () => {
 
     if (returnUrl) {
       // Chuyển hướng về returnUrl và xóa returnUrl từ sessionStorage
-      navigate(returnUrl)
+      navigate(returnUrl);
       sessionStorage.removeItem('returnUrl');
     }
   }, [history]);
@@ -179,12 +177,13 @@ const Login = () => {
               <div>
                 {!isAuthenticated && (
                   <button
-                    type='button'
+                    type="button"
                     onClick={handleLoginOther}
                     className={clsx(styles.btnLoginOther)}
-                  >Chọn Hình Thức Đăng nhập khác</button>
-                )
-                }
+                  >
+                    Chọn Hình Thức Đăng nhập khác
+                  </button>
+                )}
               </div>
               <div className={clsx(styles.register)}>
                 Bạn chưa có tài khoản?{' '}

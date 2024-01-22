@@ -108,14 +108,17 @@
       color: black;
 
       @include responsive(xs) {
+        align-items: flex-start;
         justify-content: center;
       }
 
       @include responsive(sm) {
+        align-items: flex-start;
         justify-content: center;
       }
 
       @include responsive(md) {
+        align-items: flex-start;
         justify-content: center;
       }
     }
@@ -143,14 +146,17 @@
       gap: 10px;
 
       @include responsive(xs) {
+        align-items: center;
         justify-content: center;
       }
 
       @include responsive(sm) {
+        align-items: center;
         justify-content: center;
       }
 
       @include responsive(md) {
+        align-items: center;
         justify-content: center;
       }
 

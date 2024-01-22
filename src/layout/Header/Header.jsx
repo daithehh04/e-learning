@@ -6,6 +6,7 @@ import logo from '../../assets/imgs/logo/logokma.png';
 import { useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { Dropdown, notification } from 'antd';
+import { useAuth0 } from '@auth0/auth0-react';
 import Cookies from 'js-cookie';
 import {
   FaBars,
@@ -27,6 +28,7 @@ import { requestLoadCategorys } from '../../stores/middleware/categoryMiddleware
 import { useAuth0 } from '@auth0/auth0-react';
 
 export default function Header() {
+  const { user, isAuthenticated } = useAuth0();
   const dispatch = useDispatch();
   const { logout } = useAuth0();
   const { isAuthenticated } = useAuth0();
@@ -65,6 +67,13 @@ export default function Header() {
       window.removeEventListener('scroll', handleNavbarStick);
     };
   }, []);
+
+  useEffect(() => {
+    if (isAuthenticated) {
+      console.log(user);
+
+    }
+  })
   const loadCategorys = async () => {
     try {
       const actionResult = await dispatch(

@@ -13,8 +13,10 @@ import { useDispatch, useSelector } from 'react-redux';
 import './Login.module.scss';
 import { encrypt } from '../../utils/crypto';
 import { requestLogin } from '../../stores/middleware/userMiddleware';
+import { useAuth0 } from '@auth0/auth0-react';
 
 const Login = () => {
+  const { loginWithRedirect, isAuthenticated } = useAuth0();
   const navigate = useNavigate();
   const userInfo = useSelector((state) => state.user.userInfo);
   const loading = useSelector((state) => state.user.loading);
@@ -28,6 +30,22 @@ const Login = () => {
       navigate(-1);
     }
   }, [userInfo]);
+  const handleLoginOther = () => {
+    sessionStorage.setItem('returnUrl', window.location.pathname);
+    // Sử dụng loginWithRedirect để đăng nhập
+    loginWithRedirect();
+
+  };
+  useEffect(() => {
+    // Kiểm tra xem có returnUrl được lưu trong sessionStorage không
+    const returnUrl = sessionStorage.getItem('returnUrl');
+
+    if (returnUrl) {
+      // Chuyển hướng về returnUrl và xóa returnUrl từ sessionStorage
+      navigate(returnUrl)
+      sessionStorage.removeItem('returnUrl');
+    }
+  }, [history]);
 
   const handleLogin = async (data) => {
     try {
@@ -157,6 +175,16 @@ const Login = () => {
               </Button>
               <div className={clsx(styles.loginOr)}>
                 <span className={clsx(styles.textOr)}>HOẶC</span>
+              </div>
+              <div>
+                {!isAuthenticated && (
+                  <button
+                    type='button'
+                    onClick={handleLoginOther}
+                    className={clsx(styles.btnLoginOther)}
+                  >Chọn Hình Thức Đăng nhập khác</button>
+                )
+                }
               </div>
               <div className={clsx(styles.register)}>
                 Bạn chưa có tài khoản?{' '}

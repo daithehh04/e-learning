@@ -95,4 +95,16 @@
       font-size: 1.8rem;
     }
   }
+
+  @include responsive(xs) {
+    padding: 10px;
+  }
+
+  @include responsive(sm) {
+    padding: 10px;
+  }
+
+  @include responsive(md) {
+    padding: 10px;
+  }
 }

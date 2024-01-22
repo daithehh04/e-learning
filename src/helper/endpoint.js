@@ -9,6 +9,7 @@ export default class ENDPOINT_API {
   static UPDATE_STUDYED_FOR_USER = '/user/updateStudyedForUser';
   static GET_TOTAL_LEARNED_TOPIC = '/user/getTotalLearnedTopic';
   static GET_USER_FROM_TOKEN = '/get-user-from-token';
+  static GET_USER_FROM_EMAIL_GOOGLE = '/get-user-from-email-google';
 
   // upload
   static UPLOAD = '/upload';

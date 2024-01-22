@@ -8,6 +8,14 @@ export const apiGetUserFromToken = (token) => {
     },
   });
 };
+
+export const apiGetUserFromEmailGoogle = (email) => {
+  return ApiConfig(EndPoint.GET_USER_FROM_EMAIL_GOOGLE, {
+    payload: {
+      email,
+    },
+  });
+};
 export const apiUpdateUser = async (payload) => {
   return ApiConfig(EndPoint.UPDATE_USER, { payload });
 };

@@ -7,7 +7,6 @@ import Cookies from 'js-cookie';
 import { Link, useNavigate } from 'react-router-dom';
 import TTCSconfig from '../../helper/config';
 import styles from './Login.module.scss';
-import { useAuth0 } from '@auth0/auth0-react';
 import clsx from 'clsx';
 import { useDispatch, useSelector } from 'react-redux';
 import './Login.module.scss';
@@ -150,18 +149,6 @@ const Login = () => {
                 className={clsx(styles.inputForm)}
               />
             </Form.Item>
-            {/* <Form.Item>
-              <Form.Item name="remember" valuePropName="checked" noStyle>
-                <Checkbox className={clsx(styles.maintainLogin)}>
-                  Duy trì đăng nhập
-                </Checkbox>
-              </Form.Item>
-
-              <Link className={clsx(styles.loginForgot)} href="/">
-                Quên mật khẩu
-              </Link>
-            </Form.Item> */}
-
             <Form.Item>
               <Button
                 type="primary"

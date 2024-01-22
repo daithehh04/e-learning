@@ -4,23 +4,76 @@ import Loading from './components/loading/Loading';
 import Cookies from 'js-cookie';
 import ScrollToTop from './components/ScrollToTop/ScrollToTop';
 import { useDispatch, useSelector } from 'react-redux';
-import { requestGetUserFromToken } from './stores/middleware/userMiddleware';
-import { useLayoutEffect } from 'react';
+import {
+  requestGetUserFromEmailGoogle,
+  requestGetUserFromToken,
+  requestRegister,
+} from './stores/middleware/userMiddleware';
+import { useEffect, useLayoutEffect, useState } from 'react';
 import { notification } from 'antd';
 import { unwrapResult } from '@reduxjs/toolkit';
+import { useAuth0 } from '@auth0/auth0-react';
 
 function App() {
   const dispatch = useDispatch();
-  const userInfo = useSelector((state) => state.user.userInfo);
+  let userInfo = useSelector((state) => state.user.userInfo);
+  let userInfoEmailGg = useSelector((state) => state.user.userInfoEmailGg);
   const isLoading = useSelector((state) => state.user.loadingCheckLogin);
+  const isLoadingGmail = useSelector(
+    (state) => state.user.loadingCheckLoginGmail
+  );
+  const { user, isAuthenticated, isLoading: loading } = useAuth0();
+  if (isAuthenticated) {
+    if (!userInfo) {
+      userInfo = userInfoEmailGg;
+    }
+  }
   useLayoutEffect(() => {
     checkLogin();
   }, []);
+  console.log('userInfo', userInfo);
+  console.log('loading', loading);
+  console.log('isLoading', isLoading);
+  console.log('isAuthenticated', isAuthenticated);
+  console.log('isLoadingGmail', isLoadingGmail);
+  console.log('userInfo', userInfo?._id);
+  console.log('userInfoGmail', user?.email);
+  useEffect(() => {
+    getUserFromEmailGoogle(user?.email);
+  }, [isAuthenticated]);
+  const getUserFromEmailGoogle = async (email) => {
+    try {
+      const result = await dispatch(requestGetUserFromEmailGoogle({ email }));
+      unwrapResult(result);
+      if (!result.payload.userInfo) {
+        handleRegisterGoogle();
+      }
+    } catch (error) {
+      notification.error({
+        message: 'server error!!',
+        duration: 1.5,
+      });
+    }
+  };
 
+  const handleRegisterGoogle = async () => {
+    const actionResult = await dispatch(
+      requestRegister({
+        name: user?.given_name,
+        account: user?.email,
+        password: '1',
+        provider: 'google',
+        email: user?.email,
+      })
+    );
+    const res = unwrapResult(actionResult);
+  };
   const checkLogin = async () => {
     const cookie = Cookies.get('token');
     try {
-      const result = dispatch(requestGetUserFromToken({ token: cookie || '' }));
+      const result = await dispatch(
+        requestGetUserFromToken({ token: cookie || '' })
+      );
       unwrapResult(result);
     } catch (error) {
       if (cookie)
@@ -37,7 +90,7 @@ function App() {
         <Routes>
           {publicRoutes.map((route, index) => {
             const Page = route.component;
-            return isLoading ? (
+            return isLoading || loading ? (
               <Route key={index} path={route.path} element={<Loading />} />
             ) : (
               <Route key={index} path={route.path} element={<Page />} />
@@ -45,14 +98,18 @@ function App() {
           })}
           {privateRoutes.map((route, index) => {
             const Page = route.component;
-            return isLoading ? (
+            return isLoading || loading || isLoadingGmail ? (
               <Route key={index} path={route.path} element={<Loading />} />
             ) : (
               <Route
                 key={index}
                 path={route.path}
                 element={
-                  userInfo?._id ? <Page /> : <Navigate to={'/dang-nhap'} />
+                  userInfo?._id || user?.email ? (
+                    <Page />
+                  ) : (
+                    <Navigate to={'/dang-nhap'} />
+                  )
                 }
               />
             );

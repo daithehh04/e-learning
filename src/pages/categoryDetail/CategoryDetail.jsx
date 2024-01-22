@@ -10,6 +10,7 @@ import { NavLink } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { unwrapResult } from '@reduxjs/toolkit';
 import { requestLoadCategoryBySlug } from '../../stores/middleware/categoryMiddleware';
+import { Helmet } from 'react-helmet';
 function CategoryDetail() {
   const dispatch = useDispatch();
   const categoryInfo = useSelector((state) => state.categorys.categoryInfo);
@@ -41,6 +42,9 @@ function CategoryDetail() {
 
   return (
     <div className={styles.CategoryDetail}>
+      <Helmet>
+        <title>{categoryInfo?.name}</title>
+      </Helmet>
       <Header />
       <main className={styles.mainCategoryDetail}>
         <div className={clsx(styles.categoryBreadcumb, 'dark')}>

@@ -22,6 +22,7 @@ import { classes, genders } from '../../utils/contants';
 import { useDispatch, useSelector } from 'react-redux';
 import { requestRegister } from '../../stores/middleware/userMiddleware';
 import clsx from 'clsx';
+import { Helmet } from 'react-helmet';
 
 const Register = () => {
   const userInfo = useSelector((state) => state.user.userInfo);
@@ -78,6 +79,9 @@ const Register = () => {
 
   return (
     <>
+      <Helmet>
+        <title>Register</title>
+      </Helmet>
       <div className={clsx(styles.register)}>
         <div className={clsx(styles.registerWrapper)}>
           <h2 className={clsx(styles.registerTitle)}>Tạo tài khoản</h2>

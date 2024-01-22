@@ -13,31 +13,33 @@ import {
   FaRegIdCard,
   FaSignOutAlt,
   FaUser,
-  FaTimesCircle
+  FaTimesCircle,
 } from 'react-icons/fa';
-import { GrClose } from "react-icons/gr";
-import { unwrapResult } from "@reduxjs/toolkit";
+import { GrClose } from 'react-icons/gr';
+import { unwrapResult } from '@reduxjs/toolkit';
 import { apiLogout } from '../../api/auth';
 import { requestGetUserFromToken } from '../../stores/middleware/userMiddleware';
 import ChatGPT from '../../components/ChatGPT/ChatGPT';
 import imageChat from '../../assets/imgs/chatgpt/chatbot.jpg';
-import useSelection from 'antd/es/table/hooks/useSelection';
 import { chatgptSlice } from '../../stores/slices/chatgptSlice';
 import DarkMode from '../../components/DarkMode/DarkMode';
 import { requestLoadCategorys } from '../../stores/middleware/categoryMiddleware';
-
-// import { useAuth0 } from '@auth0/auth0-react';
+import { useAuth0 } from '@auth0/auth0-react';
 
 export default function Header() {
   const dispatch = useDispatch();
-  const categorys = useSelector(state => state.categorys.categorys);
+  const { logout } = useAuth0();
+  const { isAuthenticated } = useAuth0();
+  const categorys = useSelector((state) => state.categorys.categorys);
   const { toggle } = chatgptSlice.actions;
   const [navbarStick, setNavbarStick] = useState(false);
   const isShowChatGPT = useSelector((state) => state.chatGPT.isShow);
-  const userInfo = useSelector((state) => state.user.userInfo);
+  let userInfo = useSelector((state) => state.user.userInfo);
+  let userInfoEmailGg = useSelector((state) => state.user.userInfoEmailGg);
   const [showNavbar, setShowNavbar] = useState(false);
 
   const handleLogout = useCallback(async () => {
+    logout({ logoutParams: { returnTo: window.location.origin } });
     try {
       if (userInfo?._id) {
         const res = apiLogout({ idUser: userInfo?._id });
@@ -74,7 +76,7 @@ export default function Header() {
       unwrapResult(actionResult);
     } catch (error) {
       notification.error({
-        message: "không tải được danh sach danh mục",
+        message: 'không tải được danh sach danh mục',
       });
     }
   };
@@ -82,9 +84,17 @@ export default function Header() {
     loadCategorys();
   }, []);
 
+  if (isAuthenticated && !userInfo) {
+    userInfo = userInfoEmailGg;
+  }
+
   const items = [
     {
-      label: <Link to={'/thong-tin-ca-nhan'}>{userInfo?.name}</Link>,
+      label: (
+        <Link to={'/thong-tin-ca-nhan'}>
+          {userInfo?.name || userInfo?.email}
+        </Link>
+      ),
       key: '0',
       icon: <FaRegIdCard />,
       style: {
@@ -93,18 +103,20 @@ export default function Header() {
         padding: '0.8rem',
       },
       onClick: async () => {
-        const cookie = Cookies.get('token');
-        try {
-          const result = await dispatch(
-            requestGetUserFromToken({ token: cookie || '' })
-          );
+        if (!isAuthenticated) {
+          const cookie = Cookies.get('token');
+          try {
+            const result = await dispatch(
+              requestGetUserFromToken({ token: cookie || '' })
+            );
 
-          unwrapResult(result);
-        } catch (error) {
-          if (cookie)
-            notification.error({
-              message: 'Server đang bị lỗi',
-            });
+            unwrapResult(result);
+          } catch (error) {
+            if (cookie)
+              notification.error({
+                message: 'Server đang bị lỗi',
+              });
+          }
         }
       },
     },
@@ -132,7 +144,7 @@ export default function Header() {
   ];
   const hanldeShowChatGpt = () => {
     dispatch(toggle(true));
-    document.body.style.overflowY = "hidden";
+    document.body.style.overflowY = 'hidden';
   };
   const navLinkClass = ({ isActive }) => {
     return isActive ? 'activated' : ` `;
@@ -142,14 +154,14 @@ export default function Header() {
   const handleNavbar = () => {
     if (document.documentElement.clientWidth <= 991) {
       if (showNavbar === true) {
-        document.body.style.overflowY = "scroll";
+        document.body.style.overflowY = 'scroll';
         setShowNavbar(!showNavbar);
       } else {
-        document.body.style.overflowY = "hidden";
+        document.body.style.overflowY = 'hidden';
         setShowNavbar(!showNavbar);
       }
     }
-  }
+  };
   return (
     <header className={clsx(styles.header)}>
       <nav
@@ -198,18 +210,19 @@ export default function Header() {
         <div className={clsx(styles.headerBottom)}>
           {categorys.length > 0 && (
             <>
-              <div className={clsx(styles.headerBottomInner, showNavbar && styles.isShow)}>
+              <div
+                className={clsx(
+                  styles.headerBottomInner,
+                  showNavbar && styles.isShow
+                )}
+              >
                 <ul className={clsx(styles.listCategory)}>
                   {categorys.map(({ _id, name, slug }) => (
                     <li
                       key={_id}
                       className={clsx(styles.navLinkRoom, styles.navLinkClass)}
                     >
-                      <NavLink
-                        onClick={handleNavbar}
-                        to={`/${slug}`}
-
-                      >
+                      <NavLink onClick={handleNavbar} to={`/${slug}`}>
                         {name}
                       </NavLink>
                     </li>
@@ -220,7 +233,10 @@ export default function Header() {
                 </button>
               </div>
               <div className={clsx(styles.navBarWrap)}>
-                <button className={clsx(styles.navbarBtn)} onClick={handleNavbar}>
+                <button
+                  className={clsx(styles.navbarBtn)}
+                  onClick={handleNavbar}
+                >
                   <FaBars className={clsx(styles.navIcon)} />
                 </button>
                 {userInfo?._id && (
@@ -237,15 +253,12 @@ export default function Header() {
               </div>
               <div
                 onClick={handleNavbar}
-                className={clsx(styles.overlay, showNavbar && styles.isShow)}>
-              </div>
-
-
+                className={clsx(styles.overlay, showNavbar && styles.isShow)}
+              ></div>
             </>
           )}
         </div>
       </nav>
-
     </header>
   );
 }

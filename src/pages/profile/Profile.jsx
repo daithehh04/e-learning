@@ -20,6 +20,7 @@ import { LockOutlined } from '@ant-design/icons';
 import { AvatarIcon } from '../../components/Icons/Icons';
 import Cookies from 'js-cookie';
 import { unwrapResult } from '@reduxjs/toolkit';
+import { useAuth0 } from '@auth0/auth0-react';
 import {
   requestChangePassword,
   requestUpdateUserInfo,
@@ -42,9 +43,14 @@ const PhoneRegExp = /^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s\./0-9]*$/;
 function Profile() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const dispatch = useDispatch();
-  const userInfo = useSelector((state) => state.user.userInfo);
+  let userInfo = useSelector((state) => state.user.userInfo);
+  let userInfoEmailGg = useSelector((state) => state.user.userInfoEmailGg);
   const [infoForm] = Form.useForm();
   const [modalForm] = Form.useForm();
+  const { isAuthenticated } = useAuth0();
+  if (isAuthenticated && !userInfo) {
+    userInfo = userInfoEmailGg;
+  }
   useEffect(() => {
     infoForm.setFieldsValue({
       name: userInfo?.name,

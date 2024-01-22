@@ -19,6 +19,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { requestLoadCourseBySlug } from '../../stores/middleware/courseMiddleware';
 import { requestLoadTopicByCourse } from '../../stores/middleware/topicMiddleware';
 import { apiLoadTopicByCourse } from '../../api/topic';
+import { Helmet } from 'react-helmet';
 
 const CourseDetail = () => {
   const [totalExam, setTotalExam] = useState(0);
@@ -84,6 +85,9 @@ const CourseDetail = () => {
 
   return (
     <>
+      <Helmet>
+        <title>{course?.courseName}</title>
+      </Helmet>
       <Header />
       <div className="wide">
         <div className={clsx(styles.detailCourse, 'dark')}>

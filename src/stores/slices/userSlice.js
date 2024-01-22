@@ -2,6 +2,7 @@ import { createSlice } from '@reduxjs/toolkit';
 import TTCSconfig from '../../helper/config';
 import {
   requestChangePassword,
+  requestGetUserFromEmailGoogle,
   requestGetUserFromToken,
   requestLogin,
   requestRegister,
@@ -12,8 +13,10 @@ import {
 
 const initialState = {
   userInfo: null,
+  userInfoEmailGg: null,
   loading: false,
   loadingCheckLogin: true,
+  loadingCheckLoginGmail: true,
 };
 
 export const authSlice = createSlice({
@@ -45,6 +48,21 @@ export const authSlice = createSlice({
     });
     builder.addCase(requestGetUserFromToken.rejected, (state) => {
       state.loadingCheckLogin = false;
+    });
+
+    // requestGetUserFromEmailGoogle
+    builder.addCase(requestGetUserFromEmailGoogle.pending, (state) => {
+      state.loadingCheckLoginGmail = true;
+    });
+    builder.addCase(
+      requestGetUserFromEmailGoogle.fulfilled,
+      (state, action) => {
+        state.userInfoEmailGg = action.payload.userInfo;
+        state.loadingCheckLoginGmail = false;
+      }
+    );
+    builder.addCase(requestGetUserFromEmailGoogle.rejected, (state) => {
+      state.loadingCheckLoginGmail = false;
     });
 
     /**

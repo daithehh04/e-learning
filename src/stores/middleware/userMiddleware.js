@@ -2,6 +2,7 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 import { apiLogin, apiRegister } from '../../api/auth';
 import {
   apiChangePassword,
+  apiGetUserFromEmailGoogle,
   apiGetUserFromToken,
   apiUpdateStudiedForUser,
   apiUpdateUser,
@@ -9,7 +10,6 @@ import {
 
 export const requestLogin = createAsyncThunk('auth/login', async (props) => {
   const res = await apiLogin(props);
-  console.log(props);
   return res.data;
 });
 
@@ -25,6 +25,14 @@ export const requestGetUserFromToken = createAsyncThunk(
   'user/requestGetUserFromToken',
   async (props) => {
     const res = await apiGetUserFromToken(props.token);
+    return res.data;
+  }
+);
+
+export const requestGetUserFromEmailGoogle = createAsyncThunk(
+  'user/requestGetUserFromEmailGoogle',
+  async (props) => {
+    const res = await apiGetUserFromEmailGoogle(props.email);
     return res.data;
   }
 );

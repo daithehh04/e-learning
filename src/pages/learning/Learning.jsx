@@ -46,6 +46,7 @@ import { requestUpdateStudiedForUser } from '../../stores/middleware/userMiddlew
 import { answers } from '../../utils/constants';
 import { requestLoadCourseBySlug } from '../../stores/middleware/courseMiddleware';
 import DarkMode from '../../components/DarkMode/DarkMode';
+import { useAuth0 } from '@auth0/auth0-react';
 const loading = false;
 function Learning() {
   const navigate = useNavigate();
@@ -60,7 +61,8 @@ function Learning() {
   const videoPlayerRef = useRef(null);
   const topics = useSelector((state) => state.topic.topics);
   const course = useSelector((state) => state.course.course);
-  const userInfo = useSelector((state) => state.user.userInfo);
+  let userInfo = useSelector((state) => state.user.userInfo);
+  let userInfoEmailGg = useSelector((state) => state.user.userInfoEmailGg);
   const questions = useSelector((state) => state.questions.questions);
   const topicTotalLearned = useSelector((state) => state.topic.totalLearned);
   const topicTotal = useSelector((state) => state.topic.total);
@@ -69,6 +71,10 @@ function Learning() {
   const [arrAllTopic, setArrAllTopic] = useState([]);
   const dispatch = useDispatch();
   const params = useParams();
+  const { isAuthenticated } = useAuth0();
+  if (isAuthenticated && !userInfo) {
+    userInfo = userInfoEmailGg;
+  }
   useEffect(() => {
     let arrAllTopics = [];
     topics.forEach((topic) => {
@@ -488,7 +494,7 @@ function Learning() {
                                     </h4>
                                     <p className={clsx(styles.iconTopic)}>
                                       {topicChild?.topicType ===
-                                        TTCSconfig.TYPE_TOPIC_VIDEO ? (
+                                      TTCSconfig.TYPE_TOPIC_VIDEO ? (
                                         <FaPlayCircle />
                                       ) : topicChild?.topicType ===
                                         TTCSconfig.TYPE_TOPIC_DOCUMENT ? (
@@ -609,18 +615,18 @@ function Learning() {
                                         )
                                           ? item?.isResult
                                             ? clsx(
-                                              styles.quizChoiceRadio,
-                                              styles.correct
-                                            )
+                                                styles.quizChoiceRadio,
+                                                styles.correct
+                                              )
                                             : selectedQuestions.find(
-                                              (o) =>
-                                                o.idAnswer.toString() ===
-                                                item?._id?.toString()
-                                            ) &&
-                                            clsx(
-                                              styles.quizChoiceRadio,
-                                              styles.inCorrect
-                                            )
+                                                (o) =>
+                                                  o.idAnswer.toString() ===
+                                                  item?._id?.toString()
+                                              ) &&
+                                              clsx(
+                                                styles.quizChoiceRadio,
+                                                styles.inCorrect
+                                              )
                                           : clsx(styles.quizChoiceRadio)
                                       }
                                       value={item}
@@ -659,17 +665,17 @@ function Learning() {
                                 {selectedQuestions.find(
                                   (o) => o.idQuestion === question.id
                                 ) && (
-                                    <div className={clsx(styles.quizExplain)}>
-                                      <p className={clsx(styles.text)}>
-                                        Giải thích
-                                      </p>
-                                      <div
-                                        dangerouslySetInnerHTML={{
-                                          __html: question.hint ?? '',
-                                        }}
-                                      ></div>
-                                    </div>
-                                  )}
+                                  <div className={clsx(styles.quizExplain)}>
+                                    <p className={clsx(styles.text)}>
+                                      Giải thích
+                                    </p>
+                                    <div
+                                      dangerouslySetInnerHTML={{
+                                        __html: question.hint ?? '',
+                                      }}
+                                    ></div>
+                                  </div>
+                                )}
                               </Space>
                             </div>
                           </div>

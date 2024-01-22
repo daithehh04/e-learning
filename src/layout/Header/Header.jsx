@@ -6,7 +6,6 @@ import logo from '../../assets/imgs/logo/logokma.png';
 import { useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { Dropdown, notification } from 'antd';
-import { useAuth0 } from '@auth0/auth0-react';
 import Cookies from 'js-cookie';
 import {
   FaBars,
@@ -31,7 +30,6 @@ export default function Header() {
   const { user, isAuthenticated } = useAuth0();
   const dispatch = useDispatch();
   const { logout } = useAuth0();
-  const { isAuthenticated } = useAuth0();
   const categorys = useSelector((state) => state.categorys.categorys);
   const { toggle } = chatgptSlice.actions;
   const [navbarStick, setNavbarStick] = useState(false);
@@ -71,9 +69,8 @@ export default function Header() {
   useEffect(() => {
     if (isAuthenticated) {
       console.log(user);
-
     }
-  })
+  });
   const loadCategorys = async () => {
     try {
       const actionResult = await dispatch(

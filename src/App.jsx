@@ -31,13 +31,7 @@ function App() {
   useLayoutEffect(() => {
     checkLogin();
   }, []);
-  console.log('userInfo', userInfo);
-  console.log('loading', loading);
-  console.log('isLoading', isLoading);
-  console.log('isAuthenticated', isAuthenticated);
-  console.log('isLoadingGmail', isLoadingGmail);
-  console.log('userInfo', userInfo?._id);
-  console.log('userInfoGmail', user?.email);
+
   useEffect(() => {
     getUserFromEmailGoogle(user?.email);
   }, [isAuthenticated]);

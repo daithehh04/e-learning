@@ -1,0 +1,33 @@
+.achContainer table {
+  font-size: 1.8rem;
+  font-family: var(--font-family) !important;
+}
+.achTitle {
+  color: #29313a;
+  margin-top: 5rem;
+  font-weight: 700;
+  text-align: center;
+  padding-bottom: 3rem;
+  font-size: 3rem;
+}
+.achInfo {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  .achName {
+    color: #29313a;
+    font-size: 2rem;
+  }
+  .achScore {
+    color: #29313a;
+    font-weight: 700;
+    font-size: 2rem;
+  }
+}
+.noExam {
+  text-align: center;
+  color: #5f7691;
+  font-weight: 700;
+  font-size: 2rem;
+  margin-bottom: 3rem;
+}

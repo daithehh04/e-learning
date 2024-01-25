@@ -66,11 +66,6 @@ export default function Header() {
     };
   }, []);
 
-  useEffect(() => {
-    if (isAuthenticated) {
-      console.log(user);
-    }
-  });
   const loadCategorys = async () => {
     try {
       const actionResult = await dispatch(
@@ -78,7 +73,6 @@ export default function Header() {
           status: 1,
         })
       );
-      console.log(actionResult);
       unwrapResult(actionResult);
     } catch (error) {
       notification.error({
@@ -127,7 +121,7 @@ export default function Header() {
       },
     },
     {
-      label: <Link to={'/achievement'}>Kết Quả Học Tập</Link>,
+      label: <Link to={'/ket-qua-hoc-tap'}>Kết Quả Học Tập</Link>,
       key: '1',
       icon: <FaChartBar />,
       style: {

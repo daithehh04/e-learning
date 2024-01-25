@@ -28,11 +28,11 @@ const Login = () => {
       navigate(-1);
     }
   }, [userInfo]);
-  const handleLoginOther = () => {
-    sessionStorage.setItem('returnUrl', window.location.pathname);
-    // Sử dụng loginWithRedirect để đăng nhập
-    loginWithRedirect();
-  };
+  // const handleLoginOther = () => {
+  //   sessionStorage.setItem('returnUrl', window.location.pathname);
+  //   // Sử dụng loginWithRedirect để đăng nhập
+  //   loginWithRedirect();
+  // };
   useEffect(() => {
     // Kiểm tra xem có returnUrl được lưu trong sessionStorage không
     const returnUrl = sessionStorage.getItem('returnUrl');
@@ -162,7 +162,7 @@ const Login = () => {
                 <span className={clsx(styles.textOr)}>HOẶC</span>
               </div>
               <div>
-                {!isAuthenticated && (
+                {/* {!isAuthenticated && (
                   <button
                     type="button"
                     onClick={handleLoginOther}
@@ -170,7 +170,7 @@ const Login = () => {
                   >
                     Chọn Hình Thức Đăng nhập khác
                   </button>
-                )}
+                )} */}
               </div>
               <div className={clsx(styles.register)}>
                 Bạn chưa có tài khoản?{' '}

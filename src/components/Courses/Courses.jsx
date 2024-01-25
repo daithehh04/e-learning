@@ -5,8 +5,7 @@ import styles from './Courses.module.scss';
 import { useSelector } from 'react-redux';
 
 export default function Courses() {
-  const categorys = useSelector(state => state.categorys.categorys);
-  console.log(categorys);
+  const categorys = useSelector((state) => state.categorys.categorys);
 
   const [isShowAllCourse, setisShowAllCourse] = useState(false);
   const handleShowAllCourses = () => {

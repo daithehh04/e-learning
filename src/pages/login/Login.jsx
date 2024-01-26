@@ -22,12 +22,14 @@ const Login = () => {
   const dispatch = useDispatch();
   // lay token tu cookie
   useEffect(() => {
-    console.log('back');
+    if (isAuthenticated) {
+      navigate('/');
+    }
     if (userInfo?._id) {
       console.log('back2');
       navigate(-1);
     }
-  }, [userInfo]);
+  }, [userInfo, isAuthenticated]);
   // const handleLoginOther = () => {
   //   sessionStorage.setItem('returnUrl', window.location.pathname);
   //   // Sử dụng loginWithRedirect để đăng nhập

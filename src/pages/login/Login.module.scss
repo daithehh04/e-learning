@@ -147,17 +147,24 @@
         }
       }
 
-      .btnLoginOther {
-        cursor: pointer;
-        min-width: 120px;
-        padding: 14px 10px;
-        border-radius: 12px;
-        margin-bottom: 18px;
-        color: #fff;
-        background-color: orangered;
-      }
+
+
     }
   }
+
+  // <<<<<<< HEAD
+
+  //   .btnLoginOther {
+  //     cursor: pointer;
+  //     min-width: 120px;
+  //     padding: 14px 10px;
+  //     border-radius: 12px;
+  //     margin-bottom: 18px;
+  //     color: #fff;
+  //     background-color: orangered;
+  //   }
+  // }
+  // =======
   .otherLogin {
     background: orangered;
     cursor: pointer;
@@ -167,3 +174,5 @@
     margin-bottom: 10px;
   }
 }
+
+// >>>>>>>b5196d42fc520e5a7030c01129e41b2bb5f6111f

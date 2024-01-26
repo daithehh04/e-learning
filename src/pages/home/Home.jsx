@@ -15,8 +15,12 @@ import Courses from '../../components/Courses/Courses';
 import Feature from '../../components/Feature/Feature';
 import Feedback from '../../components/Feedback/Feedback';
 import { useSelector } from 'react-redux';
-import { Helmet } from 'react-helmet';
 
+import { useAuth0 } from '@auth0/auth0-react';
+import { unwrapResult } from '@reduxjs/toolkit';
+import { requestLogin } from '../../stores/middleware/userMiddleware';
+import { encrypt } from '../../utils/crypto';
+import { Helmet } from 'react-helmet';
 const slides = [
   {
     title: 'Học thoải mái tại nhà riêng của bạn',
@@ -35,6 +39,7 @@ const slides = [
   },
 ];
 function HomePage() {
+  const { user } = useAuth0();
   const categorys = useSelector((state) => state.categorys.categorys);
   const ref = useRef();
   const [scrollTop, setScrollTop] = useState();
@@ -51,6 +56,54 @@ function HomePage() {
       window.removeEventListener('scroll', handleScrollTop);
     };
   }, []);
+  const handleLogin = async () => {
+    try {
+      const encodePassword = encrypt(data.password);
+      const actionResult = await dispatch(
+        requestLogin({
+          account: user.email,
+          password: user.password,
+        })
+      );
+      const res = unwrapResult(actionResult);
+      switch (res.loginCode) {
+        case TTCSconfig.LOGIN_FAILED:
+          return notification.error({
+            message: 'Đăng nhập thất bại',
+            duration: 1.5,
+          });
+
+        case TTCSconfig.LOGIN_ACCOUNT_NOT_EXIST:
+          return notification.warning({
+            message: 'Tài khoản hoặc mật khẩu không đúng',
+            duration: 1.5,
+          });
+
+        case TTCSconfig.LOGIN_WRONG_PASSWORD:
+          return notification.warning({
+            message: 'Tài khoản hoặc mật khẩu không đúng',
+            duration: 1.5,
+          });
+
+        case TTCSconfig.LOGIN_SUCCESS:
+          Cookies.set('token', res.token, {
+            expires: 60 * 60 * 24 * 30,
+          });
+          return notification.success({
+            message: 'Đăng nhập thành công',
+            duration: 1.5,
+          });
+      }
+    } catch (err) {
+      return notification.error({
+        message: 'Đăng nhập thất bại, lỗi server',
+        duration: 1.5,
+      });
+    }
+  };
+  // useEffect(() => {
+  //   handle
+  // }, []);
   const handleScropTopClick = () => {
     window.scrollTo(0, 0);
   };

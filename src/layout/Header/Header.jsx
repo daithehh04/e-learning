@@ -66,6 +66,11 @@ export default function Header() {
     };
   }, []);
 
+  useEffect(() => {
+    if (isAuthenticated) {
+      console.log(user);
+    }
+  });
   const loadCategorys = async () => {
     try {
       const actionResult = await dispatch(

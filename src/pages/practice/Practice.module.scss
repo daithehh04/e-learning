@@ -220,13 +220,13 @@
   .quizChoicesItem {
     padding: 1rem;
 
-    & > div {
+    &>div {
       width: 100%;
 
-      & > div {
+      &>div {
         width: 100%;
 
-        & > label {
+        &>label {
           width: 100%;
           padding: 1rem;
 
@@ -241,6 +241,7 @@
 }
 
 .quizChoicesItemAnswer {
+  display: flex;
   text-align: justify;
   color: #1d1d1d;
   font-weight: 500;
@@ -250,7 +251,7 @@
 }
 
 .quizExplain {
-  & > p {
+  &>p {
     font-size: 1.4rem;
     font-style: italic;
     font-weight: 500;
@@ -260,14 +261,14 @@
 }
 
 .quizExplainItem {
-  & > p {
+  &>p {
     color: #009d9d;
     font-size: 1.6rem;
     font-weight: 500;
     padding: 1rem 0;
   }
 
-  & > div > p {
+  &>div>p {
     font-size: 1.4rem;
     color: #777;
     font-style: italic;
@@ -310,7 +311,7 @@
   position: relative;
   user-select: none;
 
-  & > span {
+  &>span {
     position: absolute;
     transform: translateX(-50%);
     left: 50%;
@@ -383,7 +384,7 @@
 .modalFeedbackItem {
   text-align: center;
 
-  & > span {
+  &>span {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -453,7 +454,7 @@
 .modalFeedback {
   width: 700px !important;
 
-  & > div:nth-child(2) > div:last-child {
+  &>div:nth-child(2)>div:last-child {
     text-align: center !important;
   }
 }
@@ -461,7 +462,7 @@
 .modal {
   top: 30%;
 
-  & > div:nth-child(2) > div:nth-child(2) {
+  &>div:nth-child(2)>div:nth-child(2) {
     text-align: center;
     font-family: var(--font-family);
   }
@@ -512,15 +513,15 @@
 .practiceDrawer {
   border-radius: 2.4rem 2.4rem 0 0;
 
-  & > div > div {
+  &>div>div {
     border: none !important;
 
-    & > div {
+    &>div {
       justify-content: end !important;
     }
   }
 
-  & > div > div:nth-child(2) {
+  &>div>div:nth-child(2) {
     padding: 0 5rem 2.4rem 5rem;
 
     @include responsive(xs) {
@@ -567,12 +568,12 @@
 
   &:hover,
   &.active {
-    & > .practiceSubnavItemLabel {
+    &>.practiceSubnavItemLabel {
       color: green;
       transition: all 0.3s ease-in-out;
     }
 
-    & > .practiceSubnavItemIcon {
+    &>.practiceSubnavItemIcon {
       color: green;
       transition: all 0.3s ease-in-out;
     }
@@ -731,7 +732,7 @@
   position: relative;
   user-select: none;
 
-  & > span {
+  &>span {
     position: absolute;
     transform: translateX(-50%);
     left: 50%;

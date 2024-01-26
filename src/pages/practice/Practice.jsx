@@ -125,6 +125,10 @@ function Practice() {
           idUser: userInfo?._id,
         });
       }
+      notification.success({
+        message: 'Phản hồi thành công',
+        duration: 1.5,
+      });
     } catch (error) {
       notification.error({
         message: 'cập nhật không được',

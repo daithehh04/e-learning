@@ -44,7 +44,6 @@ function Practice() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const params = useParams();
-  //console.log(params);
   const { Countdown } = Statistic;
   let userInfo = useSelector((state) => state.user.userInfo);
   let userInfoEmailGg = useSelector((state) => state.user.userInfoEmailGg);
@@ -116,7 +115,6 @@ function Practice() {
     }
   };
   const handleFeedbackOk = async () => {
-    console.log(textFeedback);
     try {
       if (textFeedback.trim() !== '') {
         const res = await apiCreateFeedback({
@@ -330,6 +328,7 @@ function Practice() {
                       : clsx(styles.practiceClockPanel)
                   }
                   onScroll={handleClockStick}
+
                 >
                   <FaRegClock className={clsx(styles.practiceClockIcon)} />
                   <span className={clsx(styles.practiceClockTime)}>
@@ -799,7 +798,6 @@ function Practice() {
                     className={clsx(styles.practiceSubnavItem)}
                     onClick={() => {
                       setIsOpenModelSubmit(true);
-                      console.log('dm');
                     }}
                   >
                     <FaRegCheckCircle

@@ -17,7 +17,6 @@ export const requestLoadTopicById = createAsyncThunk(
   'topic/requestLoadTopicById',
   async (props) => {
     const res = await apiLoadTopicById(props);
-    console.log(res.data);
     return res.data;
   }
 );

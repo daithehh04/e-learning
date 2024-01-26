@@ -15,24 +15,26 @@ import { requestLogin } from '../../stores/middleware/userMiddleware';
 import { useAuth0 } from '@auth0/auth0-react';
 
 const Login = () => {
-  const { loginWithRedirect, isAuthenticated } = useAuth0();
+  const { loginWithRedirect, loginWithPopup, isAuthenticated } = useAuth0();
   const navigate = useNavigate();
   const userInfo = useSelector((state) => state.user.userInfo);
   const loading = useSelector((state) => state.user.loading);
   const dispatch = useDispatch();
   // lay token tu cookie
   useEffect(() => {
-    console.log('back');
+    if (isAuthenticated) {
+      navigate('/');
+    }
     if (userInfo?._id) {
       console.log('back2');
       navigate(-1);
     }
-  }, [userInfo]);
-  const handleLoginOther = () => {
-    sessionStorage.setItem('returnUrl', window.location.pathname);
-    // Sử dụng loginWithRedirect để đăng nhập
-    loginWithRedirect();
-  };
+  }, [userInfo, isAuthenticated]);
+  // const handleLoginOther = () => {
+  //   sessionStorage.setItem('returnUrl', window.location.pathname);
+  //   // Sử dụng loginWithRedirect để đăng nhập
+  //   loginWithRedirect();
+  // };
   useEffect(() => {
     // Kiểm tra xem có returnUrl được lưu trong sessionStorage không
     const returnUrl = sessionStorage.getItem('returnUrl');
@@ -162,7 +164,7 @@ const Login = () => {
                 <span className={clsx(styles.textOr)}>HOẶC</span>
               </div>
               <div>
-                {!isAuthenticated && (
+                {/* {!isAuthenticated && (
                   <button
                     type="button"
                     onClick={handleLoginOther}
@@ -170,7 +172,7 @@ const Login = () => {
                   >
                     Chọn Hình Thức Đăng nhập khác
                   </button>
-                )}
+                )} */}
               </div>
               <div className={clsx(styles.register)}>
                 Bạn chưa có tài khoản?{' '}
@@ -182,7 +184,7 @@ const Login = () => {
           </Form>
           <button
             className={clsx(styles.otherLogin)}
-            onClick={() => loginWithRedirect()}
+            onClick={() => loginWithPopup()}
           >
             Đăng nhập với hình thức khác
           </button>

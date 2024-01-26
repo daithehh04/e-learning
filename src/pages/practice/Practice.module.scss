@@ -407,14 +407,14 @@
     }
 
     &.selected {
-      background-color: var(--primaryColor);
+      background: var(--primaryColor);
       color: #ffffffe6;
     }
   }
 }
 
 .btnFeedback {
-  background-color: #009d9d;
+  background: var(--primaryColor);
   color: #ffffffe6;
   border-radius: 2rem;
   padding: 2rem;
@@ -706,7 +706,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  border: 0.15rem solid #777;
+  border: 0.15rem solid rgb(87, 156, 235);
   border-radius: 2rem;
   height: 3.5rem;
   width: 20rem;
@@ -718,7 +718,7 @@
 }
 
 .btnGroup .btnSubmit {
-  background-color: #009d9d;
+  background: var(--primaryColor);
   margin-bottom: 0.8rem;
   color: #ffffffe6;
 }

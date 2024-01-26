@@ -55,7 +55,7 @@ function App() {
       requestRegister({
         name: user?.given_name,
         account: user?.email,
-        password: '1',
+        password: '',
         provider: 'google',
         email: user?.email,
       })

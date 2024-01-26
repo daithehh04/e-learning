@@ -17,6 +17,7 @@ import {
 import { BiChevronRight } from 'react-icons/bi';
 import { unwrapResult } from '@reduxjs/toolkit';
 import React from 'react';
+import { useAuth0 } from '@auth0/auth0-react';
 function Exam() {
   const navigate = useNavigate();
   const loading = useSelector((state) => state.course.loading);
@@ -25,11 +26,16 @@ function Exam() {
   const topics = useSelector((state) => {
     return state.topic.topics;
   });
-  const userInfo = useSelector((state) => state.user.userInfo);
+  let userInfo = useSelector((state) => state.user.userInfo);
+  let userInfoEmailGg = useSelector((state) => state.user.userInfoEmailGg);
   const [indexOpenTopic, setIndexOpenTopic] = useState([1]);
   const course = useSelector((state) => {
     return state.course.course;
   });
+  const { isAuthenticated } = useAuth0();
+  if (isAuthenticated && !userInfo) {
+    userInfo = userInfoEmailGg;
+  }
 
   const loadTopicByCourse = async (idCourse, type, parentId) => {
     try {

@@ -130,7 +130,12 @@ function Profile() {
 
       try {
         const actionResult = await dispatch(
-          requestUpdateUserInfo({ token: cookie, userInfo: value })
+          requestUpdateUserInfo({
+            token: cookie,
+            userInfo: value,
+            isAuth: isAuthenticated,
+            id: userInfo._id,
+          })
         );
         const res = unwrapResult(actionResult);
         switch (res.status) {
@@ -154,7 +159,6 @@ function Profile() {
       }
     });
   };
-
   const handleCancelModal = () => {
     modalForm.setFieldsValue({
       password: '',
@@ -184,12 +188,27 @@ function Profile() {
                       </div>
                     </div>
                     <div className={clsx(styles.profileGroupBtn)}>
-                      <button
-                        className={clsx(styles.btnChange, styles.profileButton)}
-                        onClick={handleShowModal}
-                      >
-                        Đổi mật khẩu
-                      </button>
+                      {isAuthenticated ? (
+                        <div
+                          style={{ opacity: 0.5, cursor: 'not-allowed' }}
+                          className={clsx(
+                            styles.btnChange,
+                            styles.profileButton
+                          )}
+                        >
+                          Đổi mật khẩu
+                        </div>
+                      ) : (
+                        <button
+                          className={clsx(
+                            styles.btnChange,
+                            styles.profileButton
+                          )}
+                          onClick={handleShowModal}
+                        >
+                          Đổi mật khẩu
+                        </button>
+                      )}
 
                       <Modal
                         className={clsx(styles.profileModal)}

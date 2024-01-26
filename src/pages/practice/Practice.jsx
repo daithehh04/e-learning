@@ -39,13 +39,15 @@ import {
 import { answers, feedbackChild } from '../../utils/contants';
 import moment from 'moment';
 import { requestUpdateStudiedForUser } from '../../stores/middleware/userMiddleware';
+import { useAuth0 } from '@auth0/auth0-react';
 function Practice() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const params = useParams();
   //console.log(params);
   const { Countdown } = Statistic;
-  const userInfo = useSelector((state) => state.user.userInfo);
+  let userInfo = useSelector((state) => state.user.userInfo);
+  let userInfoEmailGg = useSelector((state) => state.user.userInfoEmailGg);
   const course = useSelector((state) => state.course.course);
   const totalQuestion = useSelector((state) => state.questions.total);
   const loading = useSelector((state) => state.course.loading);
@@ -66,6 +68,10 @@ function Practice() {
   const [selectedFeedback, setSelectFeedback] = useState([]);
   const [textFeedback, setTextFeedback] = useState('');
   const [idQuestion, setIdQuestion] = useState();
+  const { isAuthenticated } = useAuth0();
+  if (isAuthenticated && !userInfo) {
+    userInfo = userInfoEmailGg;
+  }
   const handlSaveSelected = (idQuestion = string, idAnswer = string) => {
     if (selectedQuestions.find((o) => o.idQuestion === idQuestion)) {
       setSelectedQuestions([
@@ -85,7 +91,6 @@ function Practice() {
       ]);
     }
   };
-  console.log(isOpenModelSubmit);
   const handleClockStick = () => {
     if (window !== undefined) {
       let windowHeight = window.scrollY;
@@ -131,6 +136,10 @@ function Practice() {
           duration: 1.5,
         });
       }
+      notification.success({
+        message: 'Phản hồi thành công',
+        duration: 1.5,
+      });
     } catch (error) {
       notification.error({
         message: 'cập nhật không được',
@@ -204,6 +213,8 @@ function Practice() {
           idUser: userInfo?._id || '',
           status: 2,
           timeStudy: timePratice.current,
+          date: new Date(),
+          nameExam: topic?.name,
           score: Math.round((correct / totalQuestion) * 100) / 10,
           correctQuestion: correct,
           answers: selectedQuestions,
@@ -221,7 +232,6 @@ function Practice() {
   const loadTopicById = async (id) => {
     try {
       const result = await dispatch(requestLoadTopicById({ id }));
-      console.log(result);
       unwrapResult(result);
     } catch (error) {
       notification.error({

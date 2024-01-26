@@ -15,10 +15,12 @@ import Courses from '../../components/Courses/Courses';
 import Feature from '../../components/Feature/Feature';
 import Feedback from '../../components/Feedback/Feedback';
 import { useSelector } from 'react-redux';
+
 import { useAuth0 } from '@auth0/auth0-react';
 import { unwrapResult } from '@reduxjs/toolkit';
 import { requestLogin } from '../../stores/middleware/userMiddleware';
 import { encrypt } from '../../utils/crypto';
+import { Helmet } from 'react-helmet';
 const slides = [
   {
     title: 'Học thoải mái tại nhà riêng của bạn',
@@ -38,7 +40,7 @@ const slides = [
 ];
 function HomePage() {
   const { user } = useAuth0();
-  const categorys = useSelector(state => state.categorys.categorys);
+  const categorys = useSelector((state) => state.categorys.categorys);
   const ref = useRef();
   const [scrollTop, setScrollTop] = useState();
   const handleScrollTop = () => {
@@ -107,6 +109,9 @@ function HomePage() {
   };
   return (
     <div className="home">
+      <Helmet>
+        <title>Trang chủ</title>
+      </Helmet>
       <Header />
       <main>
         <Marquee />

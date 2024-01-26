@@ -1,4 +1,5 @@
 import { LockOutlined, UserOutlined } from '@ant-design/icons';
+import { Helmet } from 'react-helmet';
 import { Button, Checkbox, Form, Input, notification } from 'antd';
 import { useEffect } from 'react';
 import { unwrapResult } from '@reduxjs/toolkit';
@@ -19,7 +20,6 @@ const Login = () => {
   const userInfo = useSelector((state) => state.user.userInfo);
   const loading = useSelector((state) => state.user.loading);
   const dispatch = useDispatch();
-  console.log('userInfo', userInfo);
   // lay token tu cookie
   useEffect(() => {
     console.log('back');
@@ -32,7 +32,6 @@ const Login = () => {
     sessionStorage.setItem('returnUrl', window.location.pathname);
     // Sử dụng loginWithRedirect để đăng nhập
     loginWithRedirect();
-
   };
   useEffect(() => {
     // Kiểm tra xem có returnUrl được lưu trong sessionStorage không
@@ -40,7 +39,7 @@ const Login = () => {
 
     if (returnUrl) {
       // Chuyển hướng về returnUrl và xóa returnUrl từ sessionStorage
-      navigate(returnUrl)
+      navigate(returnUrl);
       sessionStorage.removeItem('returnUrl');
     }
   }, [history]);
@@ -93,6 +92,9 @@ const Login = () => {
 
   return (
     <>
+      <Helmet>
+        <title>Login</title>
+      </Helmet>
       <div className={clsx(styles.login)}>
         <div className={clsx(styles.loginWrapper)}>
           <h2 className={clsx(styles.title)}>Đăng Nhập</h2>
@@ -148,18 +150,6 @@ const Login = () => {
               />
             </Form.Item>
             <Form.Item>
-              <Form.Item name="remember" valuePropName="checked" noStyle>
-                <Checkbox className={clsx(styles.maintainLogin)}>
-                  Duy trì đăng nhập
-                </Checkbox>
-              </Form.Item>
-
-              <Link className={clsx(styles.loginForgot)} href="/">
-                Quên mật khẩu
-              </Link>
-            </Form.Item>
-
-            <Form.Item>
               <Button
                 type="primary"
                 htmlType="submit"
@@ -174,12 +164,13 @@ const Login = () => {
               <div>
                 {!isAuthenticated && (
                   <button
-                    type='button'
+                    type="button"
                     onClick={handleLoginOther}
                     className={clsx(styles.btnLoginOther)}
-                  >Chọn Hình Thức Đăng nhập khác</button>
-                )
-                }
+                  >
+                    Chọn Hình Thức Đăng nhập khác
+                  </button>
+                )}
               </div>
               <div className={clsx(styles.register)}>
                 Bạn chưa có tài khoản?{' '}
@@ -189,6 +180,12 @@ const Login = () => {
               </div>
             </Form.Item>
           </Form>
+          <button
+            className={clsx(styles.otherLogin)}
+            onClick={() => loginWithRedirect()}
+          >
+            Đăng nhập với hình thức khác
+          </button>
         </div>
       </div>
     </>

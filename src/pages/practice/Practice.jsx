@@ -43,7 +43,7 @@ function Practice() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const params = useParams();
-  console.log(params);
+  //console.log(params);
   const { Countdown } = Statistic;
   const userInfo = useSelector((state) => state.user.userInfo);
   const course = useSelector((state) => state.course.course);
@@ -111,6 +111,7 @@ function Practice() {
     }
   };
   const handleFeedbackOk = async () => {
+    console.log(textFeedback);
     try {
       if (textFeedback.trim() !== '') {
         const res = await apiCreateFeedback({
@@ -119,6 +120,15 @@ function Practice() {
           idCourse: course?.id,
           type: selectedFeedback,
           idUser: userInfo?._id,
+        });
+        notification.success({
+          message: 'đã gửi feedback',
+          duration: 1.5,
+        });
+      } else {
+        notification.success({
+          message: 'vui lòng nhập content',
+          duration: 1.5,
         });
       }
     } catch (error) {

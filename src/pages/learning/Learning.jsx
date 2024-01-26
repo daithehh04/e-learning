@@ -709,7 +709,7 @@ function Learning() {
         </Content>
       </Layout>
 
-      <Modal
+      {/* <Modal
         title="Nghỉ tay chút nào!"
         open={isModalOpen}
         closable={false}
@@ -827,7 +827,7 @@ function Learning() {
             Tiếp Tục
           </Button>
         )}
-      </Modal>
+      </Modal> */}
       {/* Footer */}
       <footer className={clsx(styles.footerLearning)}>
         <button

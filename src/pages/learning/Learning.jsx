@@ -5,6 +5,7 @@ import { Link, useNavigate, useParams } from 'react-router-dom';
 import {
   Button,
   Layout,
+  Modal,
   Popconfirm,
   Progress,
   Radio,
@@ -375,6 +376,10 @@ function Learning() {
     }
   };
 
+  const handleCancelModal = () => {
+    setIsModalOpen(false);
+    videoPlayerRef.current.play();
+  };
   return (
     <div className={clsx(styles.learning)}>
       {/* Header */}
@@ -703,6 +708,126 @@ function Learning() {
           </div>
         </Content>
       </Layout>
+
+      <Modal
+        title="Nghỉ tay chút nào!"
+        open={isModalOpen}
+        closable={false}
+        maskClosable={false}
+        footer={null}
+      >
+        {dataTopicActive?.topicType === TTCSconfig.TYPE_TOPIC_VIDEO &&
+          dataTopicActive?.timePracticeInVideo?.map((list, i) => {
+            return (
+              <div key={i}>
+                {list.questionData?.map((qs, index) => {
+                  return (
+                    <div className={clsx(styles.gameView)} key={index}>
+                      <div className={clsx(styles.question)}>
+                        <div className={clsx(styles.questionIndex)}>
+                          <span>{qs.index}.&nbsp;</span>
+                        </div>
+                        <div className={clsx(styles.questionText)}>
+                          <div
+                            dangerouslySetInnerHTML={{
+                              __html: qs.question ?? '',
+                            }}
+                          ></div>
+                        </div>
+                      </div>
+
+                      <div className={clsx(styles.quizChoice)}>
+                        <div className={clsx(styles.quizChoiceItem)}>
+                          <Space direction="vertical" style={{ width: '100%' }}>
+                            {qs.answer?.map((item, i) => {
+                              return (
+                                <Radio
+                                  className={
+                                    selectedQuestions.find(
+                                      (o) => o.idQuestion === qs.id
+                                    )
+                                      ? item?.isResult
+                                        ? clsx(
+                                            styles.quizChoiceItemRadio,
+                                            styles.correct
+                                          )
+                                        : selectedQuestions.find(
+                                            (o) =>
+                                              o.idAnswer.toString() ===
+                                              item?._id?.toString()
+                                          ) &&
+                                          clsx(
+                                            styles.quizChoiceItemRadio,
+                                            styles.inCorrect
+                                          )
+                                      : clsx(styles.quizChoiceItemRadio)
+                                  }
+                                  value={item}
+                                  key={i}
+                                  onClick={(e) => {
+                                    handleSaveSelected(
+                                      qs?.id || '',
+                                      item?._id || ''
+                                    );
+                                  }}
+                                  disabled={
+                                    selectedQuestions.find(
+                                      (o) => o.idQuestion === qs.id
+                                    )
+                                      ? true
+                                      : false
+                                  }
+                                  checked={
+                                    !!selectedQuestions.find(
+                                      (o) =>
+                                        o.idAnswer.toString() ===
+                                        item?._id?.toString()
+                                    )
+                                  }
+                                >
+                                  <span
+                                    className={clsx(
+                                      styles.quizChoiceItemAnswer
+                                    )}
+                                  >
+                                    {answers[item.index]}.&nbsp;
+                                    <span
+                                      dangerouslySetInnerHTML={{
+                                        __html: item.text ?? '',
+                                      }}
+                                    ></span>
+                                  </span>
+                                </Radio>
+                              );
+                            })}
+
+                            {selectedQuestions.find(
+                              (o) => o.idQuestion === qs.id
+                            ) && (
+                              <div className={clsx(styles.quizExplain)}>
+                                <p>Giải thích</p>
+                                <div
+                                  dangerouslySetInnerHTML={{
+                                    __html: qs.hint ?? '',
+                                  }}
+                                ></div>
+                              </div>
+                            )}
+                          </Space>
+                        </div>
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+            );
+          })}
+        {selectedQuestions.length === totalQs && (
+          <Button onClick={handleCancelModal} type="primary">
+            Tiếp Tục
+          </Button>
+        )}
+      </Modal>
       {/* Footer */}
       <footer className={clsx(styles.footerLearning)}>
         <button

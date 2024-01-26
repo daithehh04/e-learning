@@ -5,9 +5,8 @@ import { Auth0Provider } from '@auth0/auth0-react';
 import GlobalStyles from './styles/GlobalStyles.js';
 import { Provider } from 'react-redux';
 import { store } from './stores/store.js';
-const domain = `dev-cm7027b2xmgp6eor.us.auth0.com`;
-const clientId = `Dj6ebneCRz6H9tESrrZRQ6GZak0Q27u0`;
-console.log(domain, clientId);
+const domain = `dev-i4i8ob2vcx8ivro5.us.auth0.com`;
+const clientId = `rQPbcBGkvHjYiJLk15mJnM4LBNKJuGow`;
 ReactDOM.createRoot(document.getElementById('root')).render(
   // <React.StrictMode>
   <Auth0Provider

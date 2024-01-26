@@ -15,7 +15,7 @@ import { requestLogin } from '../../stores/middleware/userMiddleware';
 import { useAuth0 } from '@auth0/auth0-react';
 
 const Login = () => {
-  const { loginWithRedirect, isAuthenticated } = useAuth0();
+  const { loginWithRedirect, loginWithPopup, isAuthenticated } = useAuth0();
   const navigate = useNavigate();
   const userInfo = useSelector((state) => state.user.userInfo);
   const loading = useSelector((state) => state.user.loading);
@@ -182,7 +182,7 @@ const Login = () => {
           </Form>
           <button
             className={clsx(styles.otherLogin)}
-            onClick={() => loginWithRedirect()}
+            onClick={() => loginWithPopup()}
           >
             Đăng nhập với hình thức khác
           </button>

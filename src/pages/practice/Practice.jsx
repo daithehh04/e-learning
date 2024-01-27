@@ -124,10 +124,6 @@ function Practice() {
           type: selectedFeedback,
           idUser: userInfo?._id,
         });
-        notification.success({
-          message: 'đã gửi feedback',
-          duration: 1.5,
-        });
       } else {
         notification.success({
           message: 'vui lòng nhập content',
@@ -328,7 +324,6 @@ function Practice() {
                       : clsx(styles.practiceClockPanel)
                   }
                   onScroll={handleClockStick}
-
                 >
                   <FaRegClock className={clsx(styles.practiceClockIcon)} />
                   <span className={clsx(styles.practiceClockTime)}>
@@ -388,23 +383,23 @@ function Practice() {
                                           className={
                                             isReview
                                               ? statusLearn === 2 &&
-                                              (item?.isResult
-                                                ? clsx(
-                                                  styles.quizChoicesItemRadio,
-                                                  styles.correct
-                                                )
-                                                : selectedQuestions.find(
-                                                  (o) =>
-                                                    o.idAnswer.toString() ===
-                                                    item?._id?.toString()
-                                                ) &&
-                                                clsx(
-                                                  styles.quizChoicesItemRadio,
-                                                  styles.inCorrect
-                                                ))
+                                                (item?.isResult
+                                                  ? clsx(
+                                                      styles.quizChoicesItemRadio,
+                                                      styles.correct
+                                                    )
+                                                  : selectedQuestions.find(
+                                                      (o) =>
+                                                        o.idAnswer.toString() ===
+                                                        item?._id?.toString()
+                                                    ) &&
+                                                    clsx(
+                                                      styles.quizChoicesItemRadio,
+                                                      styles.inCorrect
+                                                    ))
                                               : clsx(
-                                                styles.quizChoicesItemRadio
-                                              )
+                                                  styles.quizChoicesItemRadio
+                                                )
                                           }
                                           value={item}
                                           key={i}
@@ -557,24 +552,24 @@ function Practice() {
                                     className={
                                       statusLearn === 2
                                         ? o.answer?.find(
-                                          (item) =>
-                                            item?.isResult &&
-                                            selectedQuestions.find(
-                                              (o) =>
-                                                o.idAnswer.toString() ===
-                                                item?._id?.toString()
-                                            )
-                                        )
+                                            (item) =>
+                                              item?.isResult &&
+                                              selectedQuestions.find(
+                                                (o) =>
+                                                  o.idAnswer.toString() ===
+                                                  item?._id?.toString()
+                                              )
+                                          )
                                           ? clsx(
-                                            styles.questionItemBground,
-                                            styles.green,
-                                            styles.active
-                                          )
+                                              styles.questionItemBground,
+                                              styles.green,
+                                              styles.active
+                                            )
                                           : clsx(
-                                            styles.questionItemBground,
-                                            styles.red,
-                                            styles.active
-                                          )
+                                              styles.questionItemBground,
+                                              styles.red,
+                                              styles.active
+                                            )
                                         : clsx(styles.questionItemBground)
                                     }
                                   >
@@ -595,9 +590,9 @@ function Practice() {
                                         (c) => c.idQuestion === o.id
                                       )
                                         ? clsx(
-                                          styles.questionItemBground,
-                                          styles.active
-                                        )
+                                            styles.questionItemBground,
+                                            styles.active
+                                          )
                                         : clsx(styles.questionItemBground)
                                     }
                                   >
@@ -690,7 +685,7 @@ function Practice() {
                                       {moment(
                                         Math.abs(
                                           (topic?.timeExam || 0) * 60000 -
-                                          o.timeStudy
+                                            o.timeStudy
                                         )
                                       ).format('mm:ss')}
                                     </span>
@@ -904,7 +899,7 @@ function Practice() {
                                       {moment(
                                         Math.abs(
                                           (topic?.timeExam || 0) * 60000 -
-                                          o.timeStudy
+                                            o.timeStudy
                                         )
                                       ).format('mm:ss')}
                                     </span>
@@ -960,15 +955,15 @@ function Practice() {
                                       )
                                   )
                                     ? clsx(
-                                      styles.questionItemBground,
-                                      styles.green,
-                                      styles.active
-                                    )
+                                        styles.questionItemBground,
+                                        styles.green,
+                                        styles.active
+                                      )
                                     : clsx(
-                                      styles.questionItemBground,
-                                      styles.red,
-                                      styles.active
-                                    )
+                                        styles.questionItemBground,
+                                        styles.red,
+                                        styles.active
+                                      )
                                 }
                               >
                                 {i + 1}
